@@ -1,7 +1,7 @@
 import {day, sunday, monday, year} from "d3-time";
 import UtcDate from "./UtcDate";
 
-var FormatDate = Date;
+var LocalDate = Date;
 
 export default function(locale) {
   var locale_dateTime = locale.dateTime,
@@ -46,17 +46,20 @@ export default function(locale) {
 
       // If a time zone is specified, it is always relative to UTC;
       // we need to use UtcDate if we aren’t already.
-      var localZ = d.Z != null && FormatDate !== UtcDate,
-          date = new (localZ ? UtcDate : FormatDate);
+      var localZ = d.Z != null && Date !== UtcDate,
+          date = new (localZ ? UtcDate : Date);
 
       // Set year, month, date.
-      if ("j" in d) date.setFullYear(d.y, 0, d.j);
-      else if ("w" in d && ("W" in d || "U" in d)) {
+      if ("j" in d) {
+        date.setFullYear(d.y, 0, d.j);
+      } else if ("w" in d && ("W" in d || "U" in d)) {
         date.setFullYear(d.y, 0, 1);
         date.setFullYear(d.y, 0, "W" in d
             ? (d.w + 6) % 7 + d.W * 7 - (date.getDay() + 5) % 7
             :  d.w          + d.U * 7 - (date.getDay() + 6) % 7);
-      } else date.setFullYear(d.y, d.m, d.d);
+      } else {
+        date.setFullYear(d.y, d.m, d.d);
+      }
 
       // Set hours, minutes, seconds and milliseconds.
       date.setHours(d.H + (d.Z / 100 | 0), d.M + d.Z % 100, d.S, d.L);
@@ -97,22 +100,22 @@ export default function(locale) {
 
     function format(date) {
       try {
-        FormatDate = UtcDate;
-        var utc = new FormatDate;
+        Date = UtcDate;
+        var utc = new Date;
         utc._ = date;
         return local(utc);
       } finally {
-        FormatDate = Date;
+        Date = LocalDate;
       }
     }
 
     format.parse = function(string) {
       try {
-        FormatDate = UtcDate;
+        Date = UtcDate;
         var date = local.parse(string);
         return date && date._;
       } finally {
-        FormatDate = Date;
+        Date = LocalDate;
       }
     };
 
