@@ -35,8 +35,6 @@ function multiFormat(date) {
 }
 ```
 
-TODO Implement the `iso` format.
-
 ## Installing
 
 If you use NPM, `npm install d3-time-format`. Otherwise, download the [latest release](https://github.com/d3/d3-time-format/releases/latest).
@@ -50,6 +48,16 @@ An alias for [*locale*.format](#locale_format) on the default locale. While this
 <a name="utcFormat" href="#utcFormat">#</a> <b>utcFormat</b>(<i>specifier</i>)
 
 An alias for [*locale*.utcFormat](#locale_utcFormat) on the default locale. While this method generates output for [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)-speaking humans by default, humans in other locales may be served using [localeFormat](#localeFormat) or by editing [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and rebuilding.
+
+<a name="isoFormat" href="#isoFormat">#</a> <b>isoFormat</b>
+
+The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time [*format* function](#_format).
+
+Where available, this method will use [Date.toISOString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString) to format and the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a time format explicitly instead:
+
+```js
+var isoFormat = utcFormat("%Y-%m-%dT%H:%M:%S.%LZ");
+```
 
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>)
 
