@@ -1,6 +1,6 @@
 # d3-time-format
 
-This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library, and can be used to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of locale-specific representations. To format a date, first create a [*format* function](#_format) given a [format specifier](#locale_format) (a string with the desired format *directives*, indicated by `%`). Then pass a date to the format function, which returns a string. For example, to convert the current date to a nicely-formatted string:
+This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library, and can be used to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of locale-specific representations. To format a date, create a [*format* function](#_format) from a [format specifier](#locale_format) (a string with the desired format *directives*, indicated by `%`); then pass a date to the format function, which returns a string. For example, to convert the current date to a human-readable string:
 
 ```js
 var f = format("%B %d, %Y");
