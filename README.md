@@ -76,7 +76,7 @@ Returns a new [*format* function](#_format) for the given string *specifier*. Th
 * `%Z` - time zone offset, such as `-0700`.
 * `%%` - a literal percent sign (`%`).
 
-For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. (In some implementations of strftime and strptime (as in Python), a directive may include an optional field width or precision; this feature is not yet implemented.)
+For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. (In some implementations of strftime and strptime, a directive may include an optional field width or precision; this feature is not yet implemented.)
 
 The `%` sign indicating a directive may be immediately followed by a padding modifier:
 
