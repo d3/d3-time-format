@@ -136,7 +136,7 @@ The following locale definitions are available in the source:
 
 * [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
 
-To change the default locale, edit [index.js](https://github.com/d3/d3-format/tree/master/index.js) and run `npm run prepublish`.
+To change the default locale, edit [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and run `npm run prepublish`.
 
 ## Changes from D3 3.x:
 
