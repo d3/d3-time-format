@@ -129,10 +129,10 @@ Returns this format’s specifier.
 
 Returns a *locale* object for the specified *definition*, with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. The locale *definition* must include the following properties:
 
-* `dateTime` - the date and time (`%c`) format specifiers (e.g., `"%a %b %e %X %Y"`).
-* `date` - the date (`%x`) format specifiers (e.g., `"%m/%d/%Y"`).
-* `time` - the time (`%X`) format specifiers (e.g., `"%H:%M:%S"`).
-* `periods` - the A.M. and P.M. equivalents (e.g., `["AM", "PM"]`).
+* `dateTime` - the date and time (`%c`) format specifiers (<i>e.g.</i>, `"%a %b %e %X %Y"`).
+* `date` - the date (`%x`) format specifiers (<i>e.g.</i>, `"%m/%d/%Y"`).
+* `time` - the time (`%X`) format specifiers (<i>e.g.</i>, `"%H:%M:%S"`).
+* `periods` - the A.M. and P.M. equivalents (<i>e.g.</i>, `["AM", "PM"]`).
 * `days` - the full names of the weekdays, starting with Sunday.
 * `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
 * `months` - the full names of the months (starting with January).
