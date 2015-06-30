@@ -84,7 +84,7 @@ The `%` sign indicating a directive may be immediately followed by a padding mod
 * `_` - space-padding
 * `-` - disable padding
 
-If no padding modifier is specified, the default is `0` for all directives, except for `%e` which defaults to `_`).
+If no padding modifier is specified, the default is `0` for all directives except for `%e`, which defaults to `_`.
 
 <a name="_format" href="#_format">#</a> <i>format</i>(<i>date</i>)
 
