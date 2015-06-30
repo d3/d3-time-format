@@ -107,7 +107,7 @@ Parsing is strict: if the specified <i>string</i> does not exactly match the ass
 
 The `%d` and `%e` format specifiers are considered equivalent for parsing.
 
-<a name="format_toString" href="#format_toString">#</a> <i>format</i>.toString()
+<a name="format_toString" href="#format_toString">#</a> <i>format</i>.<b>toString</b>()
 
 Returns this format’s specifier.
 
