@@ -142,4 +142,4 @@ To change the default locale, edit [index.js](https://github.com/d3/d3-format/tr
 
 * Removed format.multi.
 
-* Removed format.utc; use utcFormat instead.
+* Renamed format.utc to utcFormat.
