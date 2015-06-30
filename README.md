@@ -47,6 +47,10 @@ If you use NPM, `npm install d3-time-format`. Otherwise, download the [latest re
 
 An alias for [*locale*.format](#locale_format) on the default locale. While this method generates output for [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)-speaking humans by default, humans in other locales may be served using [localeFormat](#localeFormat) or by editing [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and rebuilding.
 
+<a name="utcFormat" href="#utcFormat">#</a> <b>utcFormat</b>(<i>specifier</i>)
+
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the default locale. While this method generates output for [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)-speaking humans by default, humans in other locales may be served using [localeFormat](#localeFormat) or by editing [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and rebuilding.
+
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>)
 
 Returns a new [*format* function](#_format) for the given string *specifier*. The specifier string may contain the following directives:
@@ -86,6 +90,10 @@ The `%` sign indicating a directive may be immediately followed by a padding mod
 
 If no padding modifier is specified, the default is `0` for all directives except `%e`, which defaults to `_`.
 
+<a name="locale_utcFormat" href="#locale_utcFormat">#</a> <i>locale</i>.<b>utcFormat</b>(<i>specifier</i>)
+
+Equivalent to [*locale*.format](#locale_format), except all directives are interpreted as [Coordinated Universal Time (UTC)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) rather than local time.
+
 <a name="_format" href="#_format">#</a> <i>format</i>(<i>date</i>)
 
 Formats the specified *[date](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)*, returning the corresponding string.
@@ -110,6 +118,25 @@ The `%d` and `%e` format specifiers are considered equivalent for parsing.
 <a name="format_toString" href="#format_toString">#</a> <i>format</i>.<b>toString</b>()
 
 Returns this format’s specifier.
+
+<a name="localeFormat" href="#localeFormat">#</a> <b>localeFormat</b>(<i>definition</i>)
+
+Returns a *locale* object for the specified *definition*, with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. The locale *definition* must include the following properties:
+
+* `dateTime` - the date and time (`%c`) format specifiers (e.g., `"%a %b %e %X %Y"`).
+* `date` - the date (`%x`) format specifiers (e.g., `"%m/%d/%Y"`).
+* `time` - the time (`%X`) format specifiers (e.g., `"%H:%M:%S"`).
+* `periods` - the A.M. and P.M. equivalents (e.g., `["AM", "PM"]`).
+* `days` - the full names of the weekdays, starting with Sunday.
+* `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
+* `months` - the full names of the months (starting with January).
+* `shortMonths` - the abbreviated names of the months (starting with January).
+
+The following locale definitions are available in the source:
+
+* [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
+
+To change the default locale, edit [index.js](https://github.com/d3/d3-format/tree/master/index.js) and run `npm run prepublish`.
 
 ## Changes from D3 3.x:
 
