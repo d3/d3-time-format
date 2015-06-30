@@ -13,15 +13,15 @@ export default function(locale) {
       locale_months = locale.months,
       locale_shortMonths = locale.shortMonths;
 
-  var _periodLookup = formatLookup(locale_periods),
-      _dayRe = formatRe(locale_days),
-      _dayLookup = formatLookup(locale_days),
-      _dayAbbrevRe = formatRe(locale_shortDays),
-      _dayAbbrevLookup = formatLookup(locale_shortDays),
-      _monthRe = formatRe(locale_months),
-      _monthLookup = formatLookup(locale_months),
-      _monthAbbrevRe = formatRe(locale_shortMonths),
-      _monthAbbrevLookup = formatLookup(locale_shortMonths);
+  var periodLookup = formatLookup(locale_periods),
+      dayRe = formatRe(locale_days),
+      dayLookup = formatLookup(locale_days),
+      dayAbbrevRe = formatRe(locale_shortDays),
+      dayAbbrevLookup = formatLookup(locale_shortDays),
+      monthRe = formatRe(locale_months),
+      monthLookup = formatLookup(locale_months),
+      monthAbbrevRe = formatRe(locale_shortMonths),
+      monthAbbrevLookup = formatLookup(locale_shortMonths);
 
   var formats = {
     "a": function(d) { return locale_shortDays[d.getDay()]; },
@@ -46,35 +46,35 @@ export default function(locale) {
     "X": newFormat(locale_time),
     "y": function(d, p) { return formatPad(d.getFullYear() % 100, p, 2); },
     "Y": function(d, p) { return formatPad(d.getFullYear() % 10000, p, 4); },
-    "Z": _formatZone,
+    "Z": formatZone,
     "%": function() { return "%"; }
   };
 
-  var _parsers = {
-    "a": _parseWeekdayAbbrev,
-    "A": _parseWeekday,
-    "b": _parseMonthAbbrev,
-    "B": _parseMonth,
-    "c": _parseLocaleFull,
-    "d": _parseDay,
-    "e": _parseDay,
-    "H": _parseHour24,
-    "I": _parseHour24,
-    "j": _parseDayOfYear,
-    "L": _parseMilliseconds,
-    "m": _parseMonthNumber,
-    "M": _parseMinutes,
-    "p": _parseAmPm,
-    "S": _parseSeconds,
-    "U": _parseWeekNumberSunday,
-    "w": _parseWeekdayNumber,
-    "W": _parseWeekNumberMonday,
-    "x": _parseLocaleDate,
-    "X": _parseLocaleTime,
-    "y": _parseYear,
-    "Y": _parseFullYear,
-    "Z": _parseZone,
-    "%": _parseLiteralPercent
+  var parses = {
+    "a": parseWeekdayAbbrev,
+    "A": parseWeekday,
+    "b": parseMonthAbbrev,
+    "B": parseMonth,
+    "c": parseLocaleDateTime,
+    "d": parseDay,
+    "e": parseDay,
+    "H": parseHour24,
+    "I": parseHour24,
+    "j": parseDayOfYear,
+    "L": parseMilliseconds,
+    "m": parseMonthNumber,
+    "M": parseMinutes,
+    "p": parseAmPm,
+    "S": parseSeconds,
+    "U": parseWeekNumberSunday,
+    "w": parseWeekdayNumber,
+    "W": parseWeekNumberMonday,
+    "x": parseLocaleDate,
+    "X": parseLocaleTime,
+    "y": parseYear,
+    "Y": parseFullYear,
+    "Z": parseZone,
+    "%": parseLiteralPercent
   };
 
   function newFormat(template) {
@@ -105,7 +105,7 @@ export default function(locale) {
 
     format.parse = function(string) {
       var d = {y: 1900, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0, Z: null},
-          i = _parse(d, template, string, 0);
+          i = parseTemplate(d, template, string, 0);
       if (i != string.length) return null;
 
       // The am-pm flag is 0 for AM, and 1 for PM.
@@ -170,7 +170,7 @@ export default function(locale) {
     return format;
   }
 
-  function _parse(date, template, string, j) {
+  function parseTemplate(date, template, string, j) {
     var i = 0,
         n = template.length,
         m = string.length,
@@ -182,7 +182,7 @@ export default function(locale) {
       c = template.charCodeAt(i++);
       if (c === 37) {
         c = template.charAt(i++);
-        parse = _parsers[c in formatPads ? template.charAt(i++) : c];
+        parse = parses[c in formatPads ? template.charAt(i++) : c];
         if (!parse || ((j = parse(date, string, j)) < 0)) return -1;
       } else if (c != string.charCodeAt(j++)) {
         return -1;
@@ -192,44 +192,44 @@ export default function(locale) {
     return j;
   }
 
-  function _parseWeekdayAbbrev(date, string, i) {
-    _dayAbbrevRe.lastIndex = 0;
-    var n = _dayAbbrevRe.exec(string.slice(i));
-    return n ? (date.w = _dayAbbrevLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+  function parseWeekdayAbbrev(date, string, i) {
+    dayAbbrevRe.lastIndex = 0;
+    var n = dayAbbrevRe.exec(string.slice(i));
+    return n ? (date.w = dayAbbrevLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
-  function _parseWeekday(date, string, i) {
-    _dayRe.lastIndex = 0;
-    var n = _dayRe.exec(string.slice(i));
-    return n ? (date.w = _dayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+  function parseWeekday(date, string, i) {
+    dayRe.lastIndex = 0;
+    var n = dayRe.exec(string.slice(i));
+    return n ? (date.w = dayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
-  function _parseMonthAbbrev(date, string, i) {
-    _monthAbbrevRe.lastIndex = 0;
-    var n = _monthAbbrevRe.exec(string.slice(i));
-    return n ? (date.m = _monthAbbrevLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+  function parseMonthAbbrev(date, string, i) {
+    monthAbbrevRe.lastIndex = 0;
+    var n = monthAbbrevRe.exec(string.slice(i));
+    return n ? (date.m = monthAbbrevLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
-  function _parseMonth(date, string, i) {
-    _monthRe.lastIndex = 0;
-    var n = _monthRe.exec(string.slice(i));
-    return n ? (date.m = _monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+  function parseMonth(date, string, i) {
+    monthRe.lastIndex = 0;
+    var n = monthRe.exec(string.slice(i));
+    return n ? (date.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
   }
 
-  function _parseLocaleFull(date, string, i) {
-    return _parse(date, formats.c.toString(), string, i);
+  function parseLocaleDateTime(date, string, i) {
+    return parseTemplate(date, locale_dateTime, string, i);
   }
 
-  function _parseLocaleDate(date, string, i) {
-    return _parse(date, formats.x.toString(), string, i);
+  function parseLocaleDate(date, string, i) {
+    return parseTemplate(date, locale_date, string, i);
   }
 
-  function _parseLocaleTime(date, string, i) {
-    return _parse(date, formats.X.toString(), string, i);
+  function parseLocaleTime(date, string, i) {
+    return parseTemplate(date, locale_time, string, i);
   }
 
-  function _parseAmPm(date, string, i) {
-    var n = _periodLookup.get(string.slice(i, i += 2).toLowerCase());
+  function parseAmPm(date, string, i) {
+    var n = periodLookup.get(string.slice(i, i += 2).toLowerCase());
     return n == null ? -1 : (date.p = n, i);
   }
 
@@ -267,98 +267,96 @@ function formatLookup(names) {
   return map;
 }
 
-function _parseWeekdayNumber(date, string, i) {
+function parseWeekdayNumber(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 1));
   return n ? (date.w = +n[0], i + n[0].length) : -1;
 }
 
-function _parseWeekNumberSunday(date, string, i) {
+function parseWeekNumberSunday(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i));
   return n ? (date.U = +n[0], i + n[0].length) : -1;
 }
 
-function _parseWeekNumberMonday(date, string, i) {
+function parseWeekNumberMonday(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i));
   return n ? (date.W = +n[0], i + n[0].length) : -1;
 }
 
-function _parseFullYear(date, string, i) {
+function parseFullYear(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 4));
   return n ? (date.y = +n[0], i + n[0].length) : -1;
 }
 
-function _parseYear(date, string, i) {
+function parseYear(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.y = +n[0], date.y += date.y > 68 ? 1900 : 2000, i + n[0].length) : -1;
 }
 
-function _parseZone(date, string, i) {
+function parseZone(date, string, i) {
   return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5))
       ? (date.Z = -string, i + 5) // sign differs from getTimezoneOffset!
       : -1;
 }
 
-function _parseMonthNumber(date, string, i) {
+function parseMonthNumber(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.m = n[0] - 1, i + n[0].length) : -1;
 }
 
-function _parseDay(date, string, i) {
+function parseDay(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.d = +n[0], i + n[0].length) : -1;
 }
 
-function _parseDayOfYear(date, string, i) {
+function parseDayOfYear(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 3));
   return n ? (date.j = +n[0], i + n[0].length) : -1;
 }
 
 // Note: we don't validate that the hour is in the range [0,23] or [1,12].
-function _parseHour24(date, string, i) {
+function parseHour24(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.H = +n[0], i + n[0].length) : -1;
 }
 
-function _parseMinutes(date, string, i) {
+function parseMinutes(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.M = +n[0], i + n[0].length) : -1;
 }
 
-function _parseSeconds(date, string, i) {
+function parseSeconds(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (date.S = +n[0], i + n[0].length) : -1;
 }
 
-function _parseMilliseconds(date, string, i) {
+function parseMilliseconds(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 3));
   return n ? (date.L = +n[0], i + n[0].length) : -1;
 }
 
-// TODO table of time zone offset names?
-function _formatZone(d) {
-  var z = d.getTimezoneOffset(),
-      zs = z > 0 ? "-" : "+",
-      zh = Math.abs(z) / 60 | 0,
-      zm = Math.abs(z) % 60;
-  return zs + formatPad(zh, "0", 2) + formatPad(zm, "0", 2);
-}
-
-function _parseLiteralPercent(date, string, i) {
+function parseLiteralPercent(date, string, i) {
   percentRe.lastIndex = 0;
   var n = percentRe.exec(string.slice(i, i + 1));
   return n ? i + n[0].length : -1;
+}
+
+function formatZone(d) {
+  var z = d.getTimezoneOffset();
+  return (z > 0 ? "-" : (z *= -1, "+"))
+      + formatPad(z / 60 | 0, "0", 2)
+      + formatPad(z % 60, "0", 2);
 }
 
 function newMultiFormat(newFormat) {
