@@ -74,10 +74,12 @@ tape("format(\"%w %W %Y\").parse(date) parses numeric weekday, week number (Mond
   test.end();
 });
 
-tape("format(\"%m/%d/%y\").parse(date) parses date", function(test) {
+tape("format(\"%m/%d/%y\").parse(date) parses month, date and two-digit year", function(test) {
   var p = timeFormat.format("%m/%d/%y").parse;
+  test.dateEqual(p("02/03/69"), date.local(1969, 1, 3));
   test.dateEqual(p("01/01/90"), date.local(1990, 0, 1));
   test.dateEqual(p("02/03/91"), date.local(1991, 1, 3));
+  test.dateEqual(p("02/03/68"), date.local(2068, 1, 3));
   test.equal(p("03/10/2010"), null);
   test.end();
 });

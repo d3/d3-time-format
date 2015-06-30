@@ -294,17 +294,13 @@ function _parseFullYear(date, string, i) {
 function _parseYear(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (date.y = _expandYear(+n[0]), i + n[0].length) : -1;
+  return n ? (date.y = +n[0], date.y += date.y > 68 ? 1900 : 2000, i + n[0].length) : -1;
 }
 
 function _parseZone(date, string, i) {
   return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5))
       ? (date.Z = -string, i + 5) // sign differs from getTimezoneOffset!
       : -1;
-}
-
-function _expandYear(d) {
-  return d + (d > 68 ? 1900 : 2000);
 }
 
 function _parseMonthNumber(date, string, i) {
