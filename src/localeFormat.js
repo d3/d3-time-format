@@ -292,7 +292,7 @@ function parseFullYear(date, string, i) {
 function parseYear(date, string, i) {
   numberRe.lastIndex = 0;
   var n = numberRe.exec(string.slice(i, i + 2));
-  return n ? (date.y = +n[0], date.y += date.y > 68 ? 1900 : 2000, i + n[0].length) : -1;
+  return n ? (date.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
 }
 
 function parseZone(date, string, i) {
