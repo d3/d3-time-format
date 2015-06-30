@@ -1,18 +1,22 @@
 # d3-time-format
 
-This module is a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library. (These functions are also available in Python’s [time](http://docs.python.org/library/time.html) module.)
+This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library. Use it to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of different locale-specific representations.
 
-…
+To format a date, create a [*format* function](#_format) given a string [format specifier](#locale_format), where the specifier contains any number of format *directives* (indicated by `%`). For example, to display the current date:
 
-For example:
-
-```javascript
-var f = format("%Y-%m-%d");
-f(new Date(2011, 0, 1)); // "2011-01-01"
-f.parse("2011-01-01"); // Sat Jan 01 2011 00:00:00 GMT-0800 (PST)
+```js
+var f = format("%B %d, %Y");
+f(new Date); // "June 30, 2015"
 ```
 
-Implementing a conditional format using [time intervals](https://github.com/d3/d3-time):
+Format functions also support parsing as [*format*.parse](#format_parse), so to convert a string back to a date:
+
+```js
+var f = format("%B %d, %Y");
+f.parse("June 30, 2015"); // Tue Jun 30 2015 00:00:00 GMT-0700 (PDT)
+```
+
+You can implement more elaborate conditional time formats, too. For example, here’s a [multi-scale time format](http://bl.ocks.org/mbostock/4149176) using [time intervals](https://github.com/d3/d3-time):
 
 ```js
 var formatMillisecond = format(".%L"),
@@ -34,6 +38,8 @@ function multiFormat(date) {
       : formatYear)(date);
 }
 ```
+
+This format is used by D3’s time scale to generate human-readable ticks.
 
 ## Installing
 
