@@ -1,8 +1,9 @@
-function utcDate() {
-  this._ = new Date(arguments.length > 1 ? Date.UTC.apply(this, arguments) : arguments[0]);
-}
+var date = Date,
+    proto = date.prototype;
 
-var datePrototype = Date.prototype;
+function utcDate() {
+  this._ = new date(arguments.length > 1 ? date.UTC.apply(this, arguments) : arguments[0]);
+}
 
 utcDate.prototype = {
   getDate: function() { return this._.getUTCDate(); },
@@ -16,15 +17,15 @@ utcDate.prototype = {
   getTime: function() { return this._.getTime(); },
   getTimezoneOffset: function() { return 0; },
   valueOf: function() { return this._.valueOf(); },
-  setDate: function() { return datePrototype.setUTCDate.apply(this._, arguments); },
-  setDay: function() { return datePrototype.setUTCDay.apply(this._, arguments); },
-  setFullYear: function() { return datePrototype.setUTCFullYear.apply(this._, arguments); },
-  setHours: function() { return datePrototype.setUTCHours.apply(this._, arguments); },
-  setMilliseconds: function() { return datePrototype.setUTCMilliseconds.apply(this._, arguments); },
-  setMinutes: function() { return datePrototype.setUTCMinutes.apply(this._, arguments); },
-  setMonth: function() { return datePrototype.setUTCMonth.apply(this._, arguments); },
-  setSeconds: function() { return datePrototype.setUTCSeconds.apply(this._, arguments); },
-  setTime: function() { return datePrototype.setTime.apply(this._, arguments); }
+  setDate: function() { return proto.setUTCDate.apply(this._, arguments); },
+  setDay: function() { return proto.setUTCDay.apply(this._, arguments); },
+  setFullYear: function() { return proto.setUTCFullYear.apply(this._, arguments); },
+  setHours: function() { return proto.setUTCHours.apply(this._, arguments); },
+  setMilliseconds: function() { return proto.setUTCMilliseconds.apply(this._, arguments); },
+  setMinutes: function() { return proto.setUTCMinutes.apply(this._, arguments); },
+  setMonth: function() { return proto.setUTCMonth.apply(this._, arguments); },
+  setSeconds: function() { return proto.setUTCSeconds.apply(this._, arguments); },
+  setTime: function() { return proto.setTime.apply(this._, arguments); }
 };
 
 export default utcDate;

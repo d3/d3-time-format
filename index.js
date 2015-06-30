@@ -1,7 +1,9 @@
-import format from "./src/locale/en-US";
+import locale from "./src/locale/en-US";
 import localeFormat from "./src/localeFormat";
 
+export var format = locale.format;
+export var utcFormat = locale.utcFormat;
+
 export {
-  format,
   localeFormat
 };

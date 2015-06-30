@@ -13,119 +13,6 @@ export default function(locale) {
       locale_months = locale.months,
       locale_shortMonths = locale.shortMonths;
 
-  function newFormat(template) {
-    var n = template.length;
-
-    function format(date) {
-      var string = [],
-          i = -1,
-          j = 0,
-          c,
-          p,
-          f;
-      while (++i < n) {
-        if (template.charCodeAt(i) === 37) {
-          string.push(template.slice(j, i));
-          if ((p = formatPads[c = template.charAt(++i)]) != null) c = template.charAt(++i);
-          if (f = _formats[c]) c = f(date, p == null ? (c === "e" ? " " : "0") : p);
-          string.push(c);
-          j = i + 1;
-        }
-      }
-      string.push(template.slice(j, i));
-      return string.join("");
-    }
-
-    format.parse = function(string) {
-      var d = {y: 1900, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0, Z: null},
-          i = _parse(d, template, string, 0);
-      if (i != string.length) return null;
-
-      // The am-pm flag is 0 for AM, and 1 for PM.
-      if ("p" in d) d.H = d.H % 12 + d.p * 12;
-
-      // If a time zone is specified, it is always relative to UTC;
-      // we need to use UtcDate if we aren’t already.
-      var localZ = d.Z != null && Date !== UtcDate,
-          date = new (localZ ? UtcDate : Date);
-
-      // Set year, month, date.
-      if ("j" in d) {
-        date.setFullYear(d.y, 0, d.j);
-      } else if ("w" in d && ("W" in d || "U" in d)) {
-        date.setFullYear(d.y, 0, 1);
-        date.setFullYear(d.y, 0, "W" in d
-            ? (d.w + 6) % 7 + d.W * 7 - (date.getDay() + 5) % 7
-            :  d.w          + d.U * 7 - (date.getDay() + 6) % 7);
-      } else {
-        date.setFullYear(d.y, d.m, d.d);
-      }
-
-      // Set hours, minutes, seconds and milliseconds.
-      date.setHours(d.H + (d.Z / 100 | 0), d.M + d.Z % 100, d.S, d.L);
-
-      return localZ ? date._ : date;
-    };
-
-    format.toString = function() {
-      return template;
-    };
-
-    return format;
-  }
-
-  function _parse(date, template, string, j) {
-    var c,
-        p,
-        t,
-        i = 0,
-        n = template.length,
-        m = string.length;
-    while (i < n) {
-      if (j >= m) return -1;
-      c = template.charCodeAt(i++);
-      if (c === 37) {
-        t = template.charAt(i++);
-        p = _parsers[t in formatPads ? template.charAt(i++) : t];
-        if (!p || ((j = p(date, string, j)) < 0)) return -1;
-      } else if (c != string.charCodeAt(j++)) {
-        return -1;
-      }
-    }
-    return j;
-  }
-
-  newFormat.utc = function(template) {
-    var local = newFormat(template);
-
-    function format(date) {
-      try {
-        Date = UtcDate;
-        var utc = new Date;
-        utc._ = date;
-        return local(utc);
-      } finally {
-        Date = LocalDate;
-      }
-    }
-
-    format.parse = function(string) {
-      try {
-        Date = UtcDate;
-        var date = local.parse(string);
-        return date && date._;
-      } finally {
-        Date = LocalDate;
-      }
-    };
-
-    format.toString = local.toString;
-
-    return format;
-  };
-
-  newFormat.multi = newFormat.utc.multi = _formatMulti;
-
   var _periodLookup = formatLookup(locale_periods),
       _dayRe = formatRe(locale_days),
       _dayLookup = formatLookup(locale_days),
@@ -136,7 +23,7 @@ export default function(locale) {
       _monthAbbrevRe = formatRe(locale_shortMonths),
       _monthAbbrevLookup = formatLookup(locale_shortMonths);
 
-  var _formats = {
+  var formats = {
     "a": function(d) { return locale_shortDays[d.getDay()]; },
     "A": function(d) { return locale_days[d.getDay()]; },
     "b": function(d) { return locale_shortMonths[d.getMonth()]; },
@@ -190,6 +77,121 @@ export default function(locale) {
     "%": _parseLiteralPercent
   };
 
+  function newFormat(template) {
+    template += "";
+
+    function format(date) {
+      var string = [],
+          i = -1,
+          j = 0,
+          n = template.length,
+          c,
+          pad,
+          format;
+
+      while (++i < n) {
+        if (template.charCodeAt(i) === 37) {
+          string.push(template.slice(j, i));
+          if ((pad = formatPads[c = template.charAt(++i)]) != null) c = template.charAt(++i);
+          if (format = formats[c]) c = format(date, pad == null ? (c === "e" ? " " : "0") : pad);
+          string.push(c);
+          j = i + 1;
+        }
+      }
+
+      string.push(template.slice(j, i));
+      return string.join("");
+    }
+
+    format.parse = function(string) {
+      var d = {y: 1900, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0, Z: null},
+          i = _parse(d, template, string, 0);
+      if (i != string.length) return null;
+
+      // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+      // If a time zone is specified, it is always relative to UTC;
+      // we need to use UtcDate if we aren’t already.
+      var localZ = d.Z != null && Date !== UtcDate,
+          date = new (localZ ? UtcDate : Date);
+
+      // Set year, month, date.
+      if ("j" in d) {
+        date.setFullYear(d.y, 0, d.j);
+      } else if ("w" in d && ("W" in d || "U" in d)) {
+        date.setFullYear(d.y, 0, 1);
+        date.setFullYear(d.y, 0, "W" in d
+            ? (d.w + 6) % 7 + d.W * 7 - (date.getDay() + 5) % 7
+            :  d.w          + d.U * 7 - (date.getDay() + 6) % 7);
+      } else {
+        date.setFullYear(d.y, d.m, d.d);
+      }
+
+      // Set hours, minutes, seconds and milliseconds.
+      date.setHours(d.H + (d.Z / 100 | 0), d.M + d.Z % 100, d.S, d.L);
+
+      return localZ ? date._ : date;
+    };
+
+    format.toString = function() {
+      return template;
+    };
+
+    return format;
+  }
+
+  function newUtcFormat(template) {
+    var local = newFormat(template);
+
+    function format(date) {
+      try {
+        Date = UtcDate;
+        var utc = new Date;
+        utc._ = date;
+        return local(utc);
+      } finally {
+        Date = LocalDate;
+      }
+    }
+
+    format.parse = function(string) {
+      try {
+        Date = UtcDate;
+        var date = local.parse(string);
+        return date && date._;
+      } finally {
+        Date = LocalDate;
+      }
+    };
+
+    format.toString = local.toString;
+
+    return format;
+  }
+
+  function _parse(date, template, string, j) {
+    var i = 0,
+        n = template.length,
+        m = string.length,
+        c,
+        parse;
+
+    while (i < n) {
+      if (j >= m) return -1;
+      c = template.charCodeAt(i++);
+      if (c === 37) {
+        c = template.charAt(i++);
+        parse = _parsers[c in formatPads ? template.charAt(i++) : c];
+        if (!parse || ((j = parse(date, string, j)) < 0)) return -1;
+      } else if (c != string.charCodeAt(j++)) {
+        return -1;
+      }
+    }
+
+    return j;
+  }
+
   function _parseWeekdayAbbrev(date, string, i) {
     _dayAbbrevRe.lastIndex = 0;
     var n = _dayAbbrevRe.exec(string.slice(i));
@@ -215,15 +217,15 @@ export default function(locale) {
   }
 
   function _parseLocaleFull(date, string, i) {
-    return _parse(date, _formats.c.toString(), string, i);
+    return _parse(date, formats.c.toString(), string, i);
   }
 
   function _parseLocaleDate(date, string, i) {
-    return _parse(date, _formats.x.toString(), string, i);
+    return _parse(date, formats.x.toString(), string, i);
   }
 
   function _parseLocaleTime(date, string, i) {
-    return _parse(date, _formats.X.toString(), string, i);
+    return _parse(date, formats.X.toString(), string, i);
   }
 
   function _parseAmPm(date, string, i) {
@@ -231,7 +233,12 @@ export default function(locale) {
     return n == null ? -1 : (date.p = n, i);
   }
 
-  return newFormat;
+  return {
+    format: newFormat,
+    multiFormat: newMultiFormat(newFormat),
+    utcFormat: newUtcFormat,
+    utcMultiFormat: newMultiFormat(newUtcFormat)
+  };
 };
 
 var formatPads = {"-": "", "_": " ", "0": "0"},
@@ -347,8 +354,8 @@ function _parseMilliseconds(date, string, i) {
 function _formatZone(d) {
   var z = d.getTimezoneOffset(),
       zs = z > 0 ? "-" : "+",
-      zh = abs(z) / 60 | 0,
-      zm = abs(z) % 60;
+      zh = Math.abs(z) / 60 | 0,
+      zm = Math.abs(z) % 60;
   return zs + formatPad(zh, "0", 2) + formatPad(zm, "0", 2);
 }
 
@@ -358,12 +365,14 @@ function _parseLiteralPercent(date, string, i) {
   return n ? i + n[0].length : -1;
 }
 
-function _formatMulti(formats) {
-  var n = formats.length, i = -1;
-  while (++i < n) formats[i][0] = this(formats[i][0]);
-  return function(date) {
-    var i = 0, f = formats[i];
-    while (!f[1](date)) f = formats[++i];
-    return f[0](date);
+function newMultiFormat(newFormat) {
+  return function(formats) {
+    var n = formats.length, i = -1;
+    while (++i < n) formats[i][0] = newFormat(formats[i][0]);
+    return function(date) {
+      var i = 0, f = formats[i];
+      while (!f[1](date)) f = formats[++i];
+      return f[0](date);
+    };
   };
 }
