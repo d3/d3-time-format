@@ -9,7 +9,7 @@ For example:
 ```javascript
 var f = format("%Y-%m-%d");
 f.parse("2011-01-01"); // Sat Jan 01 2011 00:00:00 GMT-0800 (PST)
-f(new Date(2011, 0, 1)); // returns a string
+f(new Date(2011, 0, 1)); // "2011-01-01"
 ```
 
 Implementing a conditional format using [time intervals](https://github.com/d3/d3-time):
