@@ -140,7 +140,23 @@ Returns a *locale* object for the specified *definition*, with [*locale*.format]
 
 The following locale definitions are available in the source:
 
+* [Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
+* [German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
+* [English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
+* [English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
 * [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
+* [Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
+* [Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
+* [French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
+* [French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
+* [Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
+* [Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
+* [Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
+* [Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
+* [Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
+* [Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
+* [Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
+* [Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
 
 To change the default locale, edit [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and run `npm run prepublish`.
 
