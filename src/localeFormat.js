@@ -29,23 +29,23 @@ export default function(locale) {
     "b": function(d) { return locale_shortMonths[d.getMonth()]; },
     "B": function(d) { return locale_months[d.getMonth()]; },
     "c": newFormat(locale_dateTime),
-    "d": function(d, p) { return formatPad(d.getDate(), p, 2); },
-    "e": function(d, p) { return formatPad(d.getDate(), p, 2); },
-    "H": function(d, p) { return formatPad(d.getHours(), p, 2); },
-    "I": function(d, p) { return formatPad(d.getHours() % 12 || 12, p, 2); },
-    "j": function(d, p) { return formatPad(1 + day.count(year(d), d), p, 3); },
-    "L": function(d, p) { return formatPad(d.getMilliseconds(), p, 3); },
-    "m": function(d, p) { return formatPad(d.getMonth() + 1, p, 2); },
-    "M": function(d, p) { return formatPad(d.getMinutes(), p, 2); },
+    "d": function(d, p) { return pad(d.getDate(), p, 2); },
+    "e": function(d, p) { return pad(d.getDate(), p, 2); },
+    "H": function(d, p) { return pad(d.getHours(), p, 2); },
+    "I": function(d, p) { return pad(d.getHours() % 12 || 12, p, 2); },
+    "j": function(d, p) { return pad(1 + day.count(year(d), d), p, 3); },
+    "L": function(d, p) { return pad(d.getMilliseconds(), p, 3); },
+    "m": function(d, p) { return pad(d.getMonth() + 1, p, 2); },
+    "M": function(d, p) { return pad(d.getMinutes(), p, 2); },
     "p": function(d) { return locale_periods[+(d.getHours() >= 12)]; },
-    "S": function(d, p) { return formatPad(d.getSeconds(), p, 2); },
-    "U": function(d, p) { return formatPad(sunday.count(year(d), d), p, 2); },
+    "S": function(d, p) { return pad(d.getSeconds(), p, 2); },
+    "U": function(d, p) { return pad(sunday.count(year(d), d), p, 2); },
     "w": function(d) { return d.getDay(); },
-    "W": function(d, p) { return formatPad(monday.count(year(d), d), p, 2); },
+    "W": function(d, p) { return pad(monday.count(year(d), d), p, 2); },
     "x": newFormat(locale_date),
     "X": newFormat(locale_time),
-    "y": function(d, p) { return formatPad(d.getFullYear() % 100, p, 2); },
-    "Y": function(d, p) { return formatPad(d.getFullYear() % 10000, p, 4); },
+    "y": function(d, p) { return pad(d.getFullYear() % 100, p, 2); },
+    "Y": function(d, p) { return pad(d.getFullYear() % 10000, p, 4); },
     "Z": formatZone,
     "%": function() { return "%"; }
   };
@@ -92,7 +92,7 @@ export default function(locale) {
       while (++i < n) {
         if (template.charCodeAt(i) === 37) {
           string.push(template.slice(j, i));
-          if ((pad = formatPads[c = template.charAt(++i)]) != null) c = template.charAt(++i);
+          if ((pad = pads[c = template.charAt(++i)]) != null) c = template.charAt(++i);
           if (format = formats[c]) c = format(date, pad == null ? (c === "e" ? " " : "0") : pad);
           string.push(c);
           j = i + 1;
@@ -182,7 +182,7 @@ export default function(locale) {
       c = template.charCodeAt(i++);
       if (c === 37) {
         c = template.charAt(i++);
-        parse = parses[c in formatPads ? template.charAt(i++) : c];
+        parse = parses[c in pads ? template.charAt(i++) : c];
         if (!parse || ((j = parse(date, string, j)) < 0)) return -1;
       } else if (c != string.charCodeAt(j++)) {
         return -1;
@@ -241,12 +241,12 @@ export default function(locale) {
   };
 };
 
-var formatPads = {"-": "", "_": " ", "0": "0"},
+var pads = {"-": "", "_": " ", "0": "0"},
     numberRe = /^\s*\d+/, // note: ignores next directive
     percentRe = /^%/,
     requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
 
-function formatPad(value, fill, width) {
+function pad(value, fill, width) {
   var sign = value < 0 ? "-" : "",
       string = (sign ? -value : value) + "",
       length = string.length;
@@ -355,8 +355,8 @@ function parseLiteralPercent(date, string, i) {
 function formatZone(d) {
   var z = d.getTimezoneOffset();
   return (z > 0 ? "-" : (z *= -1, "+"))
-      + formatPad(z / 60 | 0, "0", 2)
-      + formatPad(z % 60, "0", 2);
+      + pad(z / 60 | 0, "0", 2)
+      + pad(z % 60, "0", 2);
 }
 
 function newMultiFormat(newFormat) {
