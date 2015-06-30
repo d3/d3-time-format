@@ -77,35 +77,35 @@ export default function(locale) {
     "%": parseLiteralPercent
   };
 
-  function newFormat(template) {
-    template += "";
+  function newFormat(specifier) {
+    specifier += "";
 
     function format(date) {
       var string = [],
           i = -1,
           j = 0,
-          n = template.length,
+          n = specifier.length,
           c,
           pad,
           format;
 
       while (++i < n) {
-        if (template.charCodeAt(i) === 37) {
-          string.push(template.slice(j, i));
-          if ((pad = pads[c = template.charAt(++i)]) != null) c = template.charAt(++i);
+        if (specifier.charCodeAt(i) === 37) {
+          string.push(specifier.slice(j, i));
+          if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
           if (format = formats[c]) c = format(date, pad == null ? (c === "e" ? " " : "0") : pad);
           string.push(c);
           j = i + 1;
         }
       }
 
-      string.push(template.slice(j, i));
+      string.push(specifier.slice(j, i));
       return string.join("");
     }
 
     format.parse = function(string) {
       var d = {y: 1900, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0, Z: null},
-          i = parseTemplate(d, template, string, 0);
+          i = parseSpecifier(d, specifier, string, 0);
       if (i != string.length) return null;
 
       // The am-pm flag is 0 for AM, and 1 for PM.
@@ -135,14 +135,14 @@ export default function(locale) {
     };
 
     format.toString = function() {
-      return template;
+      return specifier;
     };
 
     return format;
   }
 
-  function newUtcFormat(template) {
-    var local = newFormat(template);
+  function newUtcFormat(specifier) {
+    var local = newFormat(specifier);
 
     function format(date) {
       try {
@@ -170,19 +170,19 @@ export default function(locale) {
     return format;
   }
 
-  function parseTemplate(d, template, string, j) {
+  function parseSpecifier(d, specifier, string, j) {
     var i = 0,
-        n = template.length,
+        n = specifier.length,
         m = string.length,
         c,
         parse;
 
     while (i < n) {
       if (j >= m) return -1;
-      c = template.charCodeAt(i++);
+      c = specifier.charCodeAt(i++);
       if (c === 37) {
-        c = template.charAt(i++);
-        parse = parses[c in pads ? template.charAt(i++) : c];
+        c = specifier.charAt(i++);
+        parse = parses[c in pads ? specifier.charAt(i++) : c];
         if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
       } else if (c != string.charCodeAt(j++)) {
         return -1;
@@ -213,15 +213,15 @@ export default function(locale) {
   }
 
   function parseLocaleDateTime(d, string, i) {
-    return parseTemplate(d, locale_dateTime, string, i);
+    return parseSpecifier(d, locale_dateTime, string, i);
   }
 
   function parseLocaleDate(d, string, i) {
-    return parseTemplate(d, locale_date, string, i);
+    return parseSpecifier(d, locale_date, string, i);
   }
 
   function parseLocaleTime(d, string, i) {
-    return parseTemplate(d, locale_time, string, i);
+    return parseSpecifier(d, locale_time, string, i);
   }
 
   function parseAmPm(d, string, i) {

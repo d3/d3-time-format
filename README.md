@@ -119,7 +119,7 @@ Parses the specified *string*, returning the corresponding [date](https://develo
 
 Parsing is strict: if the specified <i>string</i> does not exactly match the associated specifier, this method returns null. For example, if the associated specifier is `%Y-%m-%dT%H:%M:%SZ`, then the string `"2011-07-01T19:15:28Z"` will be parsed as expected, but `"2011-07-01T19:15:28"`, `"2011-07-01 19:15:28"` and `"2011-07-01"` will return null. (Note that the literal `Z` here is different from the time zone offset directive `%Z`.) If a more flexible parser is desired, try multiple formats sequentially until one returns non-null.
 
-The `%d` and `%e` format specifiers are considered equivalent for parsing.
+The `%d` and `%e` directives are considered equivalent for parsing.
 
 <a name="format_toString" href="#format_toString">#</a> <i>format</i>.<b>toString</b>()
 
@@ -129,9 +129,9 @@ Returns this format’s specifier.
 
 Returns a *locale* object for the specified *definition*, with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. The locale *definition* must include the following properties:
 
-* `dateTime` - the date and time (`%c`) format specifiers (<i>e.g.</i>, `"%a %b %e %X %Y"`).
-* `date` - the date (`%x`) format specifiers (<i>e.g.</i>, `"%m/%d/%Y"`).
-* `time` - the time (`%X`) format specifiers (<i>e.g.</i>, `"%H:%M:%S"`).
+* `dateTime` - the date and time (`%c`) format specifier (<i>e.g.</i>, `"%a %b %e %X %Y"`).
+* `date` - the date (`%x`) format specifier (<i>e.g.</i>, `"%m/%d/%Y"`).
+* `time` - the time (`%X`) format specifier (<i>e.g.</i>, `"%H:%M:%S"`).
 * `periods` - the A.M. and P.M. equivalents (<i>e.g.</i>, `["AM", "PM"]`).
 * `days` - the full names of the weekdays, starting with Sunday.
 * `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
