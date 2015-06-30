@@ -1,11 +1,11 @@
 var date = Date,
     proto = date.prototype;
 
-function utcDate() {
+function UtcDate() {
   this._ = new date(arguments.length > 1 ? date.UTC.apply(this, arguments) : arguments[0]);
 }
 
-utcDate.prototype = {
+UtcDate.prototype = {
   getDate: function() { return this._.getUTCDate(); },
   getDay: function() { return this._.getUTCDay(); },
   getFullYear: function() { return this._.getUTCFullYear(); },
@@ -28,4 +28,4 @@ utcDate.prototype = {
   setTime: function() { return proto.setTime.apply(this._, arguments); }
 };
 
-export default utcDate;
+export default UtcDate;
