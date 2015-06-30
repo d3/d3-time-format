@@ -49,7 +49,7 @@ An alias for [*locale*.format](#locale_format) on the default locale. While this
 
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>)
 
-Returns a new [*format*](#_format) function for the given string *specifier*. The specifier string may contain the following directives:
+Returns a new [*format* function](#_format) for the given string *specifier*. The specifier string may contain the following directives:
 
 * `%a` - abbreviated weekday name.
 * `%A` - full weekday name.
@@ -66,9 +66,9 @@ Returns a new [*format*](#_format) function for the given string *specifier*. Th
 * `%L` - milliseconds as a decimal number [000, 999].
 * `%p` - either AM or PM.
 * `%S` - second as a decimal number [00,61].
-* `%U` - week number of the year (Sunday as the first day of the week) as a decimal number [00,53].
-* `%w` - weekday as a decimal number [0(Sunday),6].
-* `%W` - week number of the year (Monday as the first day of the week) as a decimal number [00,53].
+* `%U` - Sunday-based week of the year as a decimal number [00,53].
+* `%w` - Sunday-based weekday as a decimal number [0,6].
+* `%W` - Monday-based week of the year as a decimal number [00,53].
 * `%x` - date, as `"%m/%d/%Y"`.
 * `%X` - time, as `"%H:%M:%S"`.
 * `%y` - year without century as a decimal number [00,99].
