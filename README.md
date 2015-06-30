@@ -51,7 +51,7 @@ An alias for [*locale*.utcFormat](#locale_utcFormat) on the default locale. Whil
 
 <a name="isoFormat" href="#isoFormat">#</a> <b>isoFormat</b>
 
-The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time [*format* function](#_format) for the default locale. Where available, this method will use [Date.toISOString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString) to format and the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC format](#utcFormat):
+The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time [*format* function](#_format). Where available, this method will use [Date.toISOString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString) to format and the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC format](#utcFormat):
 
 ```js
 var isoFormat = utcFormat("%Y-%m-%dT%H:%M:%S.%LZ");
