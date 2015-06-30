@@ -148,4 +148,4 @@ To change the default locale, edit [index.js](https://github.com/d3/d3-time-form
 
 * Removed format.multi.
 
-* Renamed format.utc to utcFormat.
+* Renamed format.utc to utcFormat and format.iso to isoFormat.
