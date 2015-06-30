@@ -235,9 +235,7 @@ export default function(locale) {
 
   return {
     format: newFormat,
-    multiFormat: newMultiFormat(newFormat),
-    utcFormat: newUtcFormat,
-    utcMultiFormat: newMultiFormat(newUtcFormat)
+    utcFormat: newUtcFormat
   };
 };
 
@@ -357,16 +355,4 @@ function formatZone(d) {
   return (z > 0 ? "-" : (z *= -1, "+"))
       + pad(z / 60 | 0, "0", 2)
       + pad(z % 60, "0", 2);
-}
-
-function newMultiFormat(newFormat) {
-  return function(formats) {
-    var n = formats.length, i = -1;
-    while (++i < n) formats[i][0] = newFormat(formats[i][0]);
-    return function(date) {
-      var i = 0, f = formats[i];
-      while (!f[1](date)) f = formats[++i];
-      return f[0](date);
-    };
-  };
 }
