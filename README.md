@@ -61,11 +61,11 @@ var isoFormat = utcFormat("%Y-%m-%dT%H:%M:%S.%LZ");
 
 Returns a new [*format* function](#_format) for the given string *specifier*. The specifier string may contain the following directives:
 
-* `%a` - abbreviated weekday name.
-* `%A` - full weekday name.
-* `%b` - abbreviated month name.
-* `%B` - full month name.
-* `%c` - the locale’s date and time, such as `%a %b %e %H:%M:%S %Y`.
+* `%a` - abbreviated weekday name.*
+* `%A` - full weekday name.*
+* `%b` - abbreviated month name.*
+* `%B` - full month name.*
+* `%c` - the locale’s date and time, such as `%a %b %e %H:%M:%S %Y`.*
 * `%d` - zero-padded day of the month as a decimal number [01,31].
 * `%e` - space-padded day of the month as a decimal number [ 1,31]; equivalent to `%_d`.
 * `%H` - hour (24-hour clock) as a decimal number [00,23].
@@ -74,19 +74,19 @@ Returns a new [*format* function](#_format) for the given string *specifier*. Th
 * `%m` - month as a decimal number [01,12].
 * `%M` - minute as a decimal number [00,59].
 * `%L` - milliseconds as a decimal number [000, 999].
-* `%p` - either AM or PM.
+* `%p` - either AM or PM.*
 * `%S` - second as a decimal number [00,61].
 * `%U` - Sunday-based week of the year as a decimal number [00,53].
 * `%w` - Sunday-based weekday as a decimal number [0,6].
 * `%W` - Monday-based week of the year as a decimal number [00,53].
-* `%x` - the locale’s date, such as `%m/%d/%Y`.
-* `%X` - the locale’s time, such as `%H:%M:%S`.
+* `%x` - the locale’s date, such as `%m/%d/%Y`.*
+* `%X` - the locale’s time, such as `%H:%M:%S`.*
 * `%y` - year without century as a decimal number [00,99].
 * `%Y` - year with century as a decimal number.
 * `%Z` - time zone offset, such as `-0700`.
 * `%%` - a literal percent sign (`%`).
 
-For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. (In some implementations of strftime and strptime, a directive may include an optional field width or precision; this feature is not yet implemented.)
+Directives marked with an asterisk (*) may be affected by the [locale definition](#localeFormat). For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. (In some implementations of strftime and strptime, a directive may include an optional field width or precision; this feature is not yet implemented.)
 
 The `%` sign indicating a directive may be immediately followed by a padding modifier:
 
