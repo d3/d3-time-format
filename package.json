@@ -1,12 +1,13 @@
 {
   "name": "d3-time-format",
   "version": "0.0.1",
-  "description": "",
+  "description": "A JavaScript time formatter and parser inspired by C’s strftime and strptime.",
   "keywords": [
     "d3",
     "time",
     "format",
-    "strftime"
+    "strftime",
+    "strptime"
   ],
   "homepage": "https://github.com/d3/d3-time-format",
   "license": "BSD-3-Clause",
