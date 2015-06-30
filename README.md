@@ -94,6 +94,7 @@ Formats the specified *[date](https://developer.mozilla.org/en/JavaScript/Refere
 var formatMonth = format("%B"),
     formatDay = format("%A"),
     date = new Date(2014, 4, 1); // Thu May 01 2014 00:00:00 GMT-0700 (PDT)
+
 formatMonth(date); // "May"
 formatDay(date); // "Thursday"
 ```
@@ -105,6 +106,10 @@ Parses the specified *string*, returning the corresponding [date](https://develo
 Parsing is strict: if the specified <i>string</i> does not exactly match the associated format specifier, this method returns null. For example, if the associated format is `"%Y-%m-%dT%H:%M:%SZ"`, then the string `"2011-07-01T19:15:28Z"` will be parsed as expected, but `"2011-07-01T19:15:28"`, `"2011-07-01 19:15:28"` and `"2011-07-01"` will return null. (Note that the hard-coded `"Z"` here is different from the time zone offset directive `%Z`.) If a more flexible parser is desired, try multiple formats sequentially until one returns non-null.
 
 The `%d` and `%e` format specifiers are considered equivalent for parsing.
+
+<a name="format_toString" href="#format_toString">#</a> <i>format</i>.toString()
+
+Returns this format’s specifier.
 
 ## Changes from D3 3.x:
 
