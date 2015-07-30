@@ -47,11 +47,11 @@ If you use NPM, `npm install d3-time-format`. Otherwise, download the [latest re
 
 <a name="format" href="#format">#</a> <b>format</b>(<i>specifier</i>)
 
-An alias for [*locale*.format](#locale_format) on the default locale. While this method generates output for [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)-speaking humans by default, humans in other locales may be served using [localeFormat](#localeFormat) or by editing [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and rebuilding.
+An alias for [*locale*.format](#locale_format) on the default [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js) locale. Use [localeFormat](#localeFormat) for a different built-in locale or to define a new locale.
 
 <a name="utcFormat" href="#utcFormat">#</a> <b>utcFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcFormat](#locale_utcFormat) on the default locale. While this method generates output for [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)-speaking humans by default, humans in other locales may be served using [localeFormat](#localeFormat) or by editing [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and rebuilding.
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the default [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js) locale. Use [localeFormat](#localeFormat) for a different built-in locale or to define a new locale.
 
 <a name="isoFormat" href="#isoFormat">#</a> <b>isoFormat</b>
 
@@ -131,7 +131,27 @@ Returns this format’s specifier.
 
 <a name="localeFormat" href="#localeFormat">#</a> <b>localeFormat</b>(<i>definition</i>)
 
-Returns a *locale* object for the specified *definition*, with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. The locale *definition* must include the following properties:
+Returns a *locale* object for the specified *definition* with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. If *definition* is a string, it is the name of a built-in locale:
+
+* `"ca-ES"` - [Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
+* `"de-DE"` - [German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
+* `"en-CA"` - [English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
+* `"en-GB"` - [English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
+* `"en-US"` - [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
+* `"es-ES"` - [Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
+* `"fi-FI"` - [Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
+* `"fr-CA"` - [French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
+* `"fr-FR"` - [French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
+* `"he-IL"` - [Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
+* `"it-IT"` - [Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
+* `"mk-MK"` - [Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
+* `"nl-NL"` - [Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
+* `"pl-PL"` - [Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
+* `"pt-BR"` - [Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
+* `"ru-RU"` - [Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
+* `"zh-CN"` - [Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
+
+Otherwise, the locale *definition* must include the following properties:
 
 * `dateTime` - the date and time (`%c`) format specifier (<i>e.g.</i>, `"%a %b %e %X %Y"`).
 * `date` - the date (`%x`) format specifier (<i>e.g.</i>, `"%m/%d/%Y"`).
@@ -142,29 +162,9 @@ Returns a *locale* object for the specified *definition*, with [*locale*.format]
 * `months` - the full names of the months (starting with January).
 * `shortMonths` - the abbreviated names of the months (starting with January).
 
-The following locale definitions are available in the source:
-
-* [Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
-* [German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
-* [English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
-* [English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
-* [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
-* [Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
-* [Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
-* [French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
-* [French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
-* [Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
-* [Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
-* [Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
-* [Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
-* [Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
-* [Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
-* [Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
-* [Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
-
-To change the default locale, edit [index.js](https://github.com/d3/d3-time-format/tree/master/index.js) and run `npm run prepublish`.
-
 ## Changes from D3 3.x:
+
+* Exposed built-in locales.
 
 * Removed format.multi.
 

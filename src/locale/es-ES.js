@@ -1,6 +1,4 @@
-import localeFormat from "../localeFormat";
-
-export default localeFormat({
+export default {
   dateTime: "%A, %e de %B de %Y, %X",
   date: "%d/%m/%Y",
   time: "%H:%M:%S",
@@ -9,4 +7,4 @@ export default localeFormat({
   shortDays: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
   months: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
   shortMonths: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
-});
+};

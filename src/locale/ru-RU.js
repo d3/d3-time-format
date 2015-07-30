@@ -1,6 +1,4 @@
-import localeFormat from "../localeFormat";
-
-export default localeFormat({
+export default {
   dateTime: "%A, %e %B %Y г. %X",
   date: "%d.%m.%Y",
   time: "%H:%M:%S",
@@ -9,4 +7,4 @@ export default localeFormat({
   shortDays: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
   months: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
   shortMonths: ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"]
-});
+};

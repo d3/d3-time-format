@@ -1,6 +1,4 @@
-import localeFormat from "../localeFormat";
-
-export default localeFormat({
+export default {
   dateTime: "%A, %e %B %Y, %X",
   date: "%d/%m/%Y",
   time: "%H:%M:%S",
@@ -9,4 +7,4 @@ export default localeFormat({
   shortDays: ["Niedz.", "Pon.", "Wt.", "Śr.", "Czw.", "Pt.", "Sob."],
   months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
   shortMonths: ["Stycz.", "Luty", "Marz.", "Kwie.", "Maj", "Czerw.", "Lipc.", "Sierp.", "Wrz.", "Paźdz.", "Listop.", "Grudz."]/* In Polish language abbraviated months are not commonly used so there is a dispute about the proper abbraviations. */
-});
+};
