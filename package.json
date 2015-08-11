@@ -22,7 +22,7 @@
     "url": "https://github.com/d3/d3-time-format.git"
   },
   "scripts": {
-    "pretest": "mkdir -p build && d3-bundler --polyfill-map --format=umd --name=timeFormat -- index.js > build/timeFormat.js",
+    "pretest": "mkdir -p build && d3-bundler --format=umd --name=timeFormat -- index.js > build/timeFormat.js",
     "test": "TZ=America/Los_Angeles faucet `find test -name '*-test.js'`",
     "prepublish": "npm run test && uglifyjs build/timeFormat.js -c -m -o build/timeFormat.min.js && rm -f build/timeFormat.zip && zip -j build/timeFormat.zip -- LICENSE README.md build/timeFormat.js build/timeFormat.min.js"
   },

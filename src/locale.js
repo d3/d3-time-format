@@ -214,22 +214,22 @@ export default function(locale) {
 
   function parseShortWeekday(d, string, i) {
     var n = shortWeekdayRe.exec(string.slice(i));
-    return n ? (d.w = shortWeekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseWeekday(d, string, i) {
     var n = weekdayRe.exec(string.slice(i));
-    return n ? (d.w = weekdayLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseShortMonth(d, string, i) {
     var n = shortMonthRe.exec(string.slice(i));
-    return n ? (d.m = shortMonthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseMonth(d, string, i) {
     var n = monthRe.exec(string.slice(i));
-    return n ? (d.m = monthLookup.get(n[0].toLowerCase()), i + n[0].length) : -1;
+    return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseLocaleDateTime(d, string, i) {
@@ -245,7 +245,7 @@ export default function(locale) {
   }
 
   function parsePeriod(d, string, i) {
-    var n = periodLookup.get(string.slice(i, i += 2).toLowerCase());
+    var n = periodLookup[string.slice(i, i += 2).toLowerCase()];
     return n == null ? -1 : (d.p = n, i);
   }
 
@@ -326,8 +326,8 @@ function formatRe(names) {
 }
 
 function formatLookup(names) {
-  var map = new Map, i = -1, n = names.length;
-  while (++i < n) map.set(names[i].toLowerCase(), i);
+  var map = Object.create(null), i = -1, n = names.length;
+  while (++i < n) map[names[i].toLowerCase()] = i;
   return map;
 }
 
