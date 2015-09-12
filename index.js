@@ -12,6 +12,7 @@ import frCa from "./src/locale/fr-CA.js";
 import frFr from "./src/locale/fr-FR.js";
 import heIl from "./src/locale/he-IL.js";
 import itIt from "./src/locale/it-IT.js";
+import jaJp from "./src/locale/ja-JP.js";
 import mkMk from "./src/locale/mk-MK.js";
 import nlNl from "./src/locale/nl-NL.js";
 import plPl from "./src/locale/pl-PL.js";
@@ -31,6 +32,7 @@ var localeDefinitions = (new Map)
     .set("fr-FR", frFr)
     .set("he-IL", heIl)
     .set("it-IT", itIt)
+    .set("ja-JP", jaJp)
     .set("mk-MK", mkMk)
     .set("nl-NL", nlNl)
     .set("pl-PL", plPl)
