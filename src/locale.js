@@ -357,9 +357,14 @@ function parseYear(d, string, i) {
 }
 
 function parseZone(d, string, i) {
-  return /^[+-]\d{4}$/.test(string = string.slice(i, i + 5))
-      ? (d.Z = -string, i + 5) // sign differs from getTimezoneOffset!
-      : -1;
+  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i));
+  if (n) {
+    d.Z = n[1]
+        ? 0
+        : -(n[2] + (n[3] || "00")); // sign differs from getTimezoneOffset!
+    return i + n[0].length;
+  }
+  return -1;
 }
 
 function parseMonthNumber(d, string, i) {

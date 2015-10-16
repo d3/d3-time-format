@@ -173,6 +173,26 @@ tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset", function(test
   test.end();
 });
 
+tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form '+-hh:mm'", function(test) {
+  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 +01:30"), date.local(1990, 0, 1, 14, 30));
+  test.deepEqual(p("01/02/1990 -01:30"), date.local(1990, 0, 1, 17, 30));
+  test.end();
+});
+
+tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form '+-hh'", function(test) {
+  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 +01"), date.local(1990, 0, 1, 15));
+  test.deepEqual(p("01/02/1990 -01"), date.local(1990, 0, 1, 17));
+  test.end();
+});
+
+tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form 'Z'", function(test) {
+  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 Z"), date.local(1990, 0, 1, 16));
+  test.end();
+});
+
 tape("format(\"%-m/%0d/%_Y\").parse(date) ignores optional padding modifier, skipping zeroes and spaces", function(test) {
   var p = timeFormat.format("%-m/%0d/%_Y").parse;
   test.deepEqual(p("01/ 1/1990"), date.local(1990, 0, 1));
