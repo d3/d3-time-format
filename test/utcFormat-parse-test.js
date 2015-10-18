@@ -98,3 +98,23 @@ tape("utcFormat(\"\").parse(date) parses timezone offset", function(test) {
   test.deepEqual(p("01/02/1990 -0800"), date.local(1990, 0, 2));
   test.end();
 });
+
+tape("utcFormat(\"\").parse(date) parses timezone offset (in the form '+-hh:mm')", function(test) {
+  var p = timeFormat.utcFormat("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 +01:30"), date.utc(1990, 0, 1, 22, 30));
+  test.deepEqual(p("01/02/1990 -01:30"), date.utc(1990, 0, 2, 1, 30));
+  test.end();
+});
+
+tape("utcFormat(\"\").parse(date) parses timezone offset (in the form '+-hh')", function(test) {
+  var p = timeFormat.utcFormat("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 +01"), date.utc(1990, 0, 1, 23));
+  test.deepEqual(p("01/02/1990 -01"), date.utc(1990, 0, 2, 1));
+  test.end();
+});
+
+tape("utcFormat(\"\").parse(date) parses timezone offset (in the form 'Z')", function(test) {
+  var p = timeFormat.utcFormat("%m/%d/%Y %Z").parse;
+  test.deepEqual(p("01/02/1990 Z"), date.utc(1990, 0, 2));
+  test.end();
+});

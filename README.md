@@ -87,7 +87,7 @@ Returns a new [*format* function](#_format) for the given string *specifier*. Th
 * `%X` - the locale’s time, such as `%H:%M:%S`.*
 * `%y` - year without century as a decimal number [00,99].
 * `%Y` - year with century as a decimal number.
-* `%Z` - time zone offset, such as `-0700`.
+* `%Z` - time zone offset, such as `-0700`, `-07:00`, `-07`, or `Z`.
 * `%%` - a literal percent sign (`%`).
 
 Directives marked with an asterisk (*) may be affected by the [locale definition](#localeFormat). For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. Week numbers are computed using [*interval*.count](https://github.com/d3/d3-time#interval_count).
