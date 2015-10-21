@@ -18,6 +18,7 @@ import nlNl from "./src/locale/nl-NL.js";
 import plPl from "./src/locale/pl-PL.js";
 import ptBr from "./src/locale/pt-BR.js";
 import ruRu from "./src/locale/ru-RU.js";
+import svSe from "./src/locale/sv-SE.js";
 import zhCn from "./src/locale/zh-CN.js";
 
 var localeDefinitions = {
@@ -38,6 +39,7 @@ var localeDefinitions = {
   "pl-PL": plPl,
   "pt-BR": ptBr,
   "ru-RU": ruRu,
+  "sv-SE": svSe,
   "zh-CN": zhCn
 };
 
