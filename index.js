@@ -2,6 +2,7 @@ import isoFormat from "./src/isoFormat";
 import locale from "./src/locale";
 
 import caEs from "./src/locale/ca-ES.js";
+import deCh from "./src/locale/de-CH.js";
 import deDe from "./src/locale/de-DE.js";
 import enCa from "./src/locale/en-CA.js";
 import enGb from "./src/locale/en-GB.js";
@@ -24,6 +25,7 @@ import zhCn from "./src/locale/zh-CN.js";
 
 var localeDefinitions = {
   "ca-ES": caEs,
+  "de-CH": deCh,
   "de-DE": deDe,
   "en-CA": enCa,
   "en-GB": enGb,
