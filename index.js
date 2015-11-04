@@ -1,6 +1,4 @@
-import isoFormat from "./src/isoFormat";
 import locale from "./src/locale";
-
 import caEs from "./src/locale/ca-ES.js";
 import deCh from "./src/locale/de-CH.js";
 import deDe from "./src/locale/de-DE.js";
@@ -61,6 +59,4 @@ export function localeFormat(definition) {
   return locale(definition);
 };
 
-export {
-  isoFormat
-};
+export {default as isoFormat} from "./src/isoFormat";
