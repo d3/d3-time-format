@@ -1,6 +1,6 @@
 {
   "name": "d3-time-format",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A JavaScript time formatter and parser inspired by strftime and strptime.",
   "keywords": [
     "d3",
@@ -15,20 +15,22 @@
     "name": "Mike Bostock",
     "url": "http://bost.ocks.org/mike"
   },
-  "main": "build/timeFormat",
+  "main": "build/time-format.cjs",
   "jsnext:main": "index",
   "repository": {
     "type": "git",
     "url": "https://github.com/d3/d3-time-format.git"
   },
   "scripts": {
-    "pretest": "mkdir -p build && d3-bundler --format=umd --name=timeFormat -- index.js > build/timeFormat.js",
+    "pretest": "mkdir -p build && d3-bundler -x -f cjs -o build/time-format.cjs.js",
     "test": "TZ=America/Los_Angeles faucet `find test -name '*-test.js'`",
-    "prepublish": "npm run test && uglifyjs build/timeFormat.js -c -m -o build/timeFormat.min.js && rm -f build/timeFormat.zip && zip -j build/timeFormat.zip -- LICENSE README.md build/timeFormat.js build/timeFormat.min.js"
+    "prepublish": "npm run test && d3-bundler -n timeFormat -o build/time-format.js && uglifyjs build/time-format.js -c -m -o build/time-format.min.js && rm -f build/time-format.zip && zip -j build/time-format.zip -- LICENSE README.md build/time-format.js build/time-format.min.js"
+  },
+  "dependencies": {
+    "d3-time": "~0.0.6"
   },
   "devDependencies": {
-    "d3-bundler": "~0.2.5",
-    "d3-time": "~0.0.2",
+    "d3-bundler": "~0.4.0",
     "faucet": "0.0",
     "tape": "4",
     "uglify-js": "2"
