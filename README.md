@@ -92,6 +92,8 @@ Returns a new [*format* function](#_format) for the given string *specifier*. Th
 
 Directives marked with an asterisk (*) may be affected by the [locale definition](#localeFormat). For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. Week numbers are computed using [*interval*.count](https://github.com/d3/d3-time#interval_count).
 
+The `%` sign indicating a directive may be immediately followed by a sign modifier, `+`. If no sign modifier is specified, the field will be displayed as unsigned. Otherwise, the field will be formatted with a plus sign (`+`) for positive or zero values and a minus sign (`-`) for negative values.
+
 The `%` sign indicating a directive may be immediately followed by a padding modifier:
 
 * `0` - zero-padding
