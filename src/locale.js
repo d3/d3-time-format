@@ -32,7 +32,8 @@ export default function(locale) {
       locale_months = locale.months,
       locale_shortMonths = locale.shortMonths;
 
-  var periodLookup = formatLookup(locale_periods),
+  var periodRe = formatRe(locale_periods),
+      periodLookup = formatLookup(locale_periods),
       weekdayRe = formatRe(locale_weekdays),
       weekdayLookup = formatLookup(locale_weekdays),
       shortWeekdayRe = formatRe(locale_shortWeekdays),
@@ -212,6 +213,11 @@ export default function(locale) {
     return j;
   }
 
+  function parsePeriod(d, string, i) {
+    var n = periodRe.exec(string.slice(i));
+    return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+  }
+
   function parseShortWeekday(d, string, i) {
     var n = shortWeekdayRe.exec(string.slice(i));
     return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
@@ -242,11 +248,6 @@ export default function(locale) {
 
   function parseLocaleTime(d, string, i) {
     return parseSpecifier(d, locale_time, string, i);
-  }
-
-  function parsePeriod(d, string, i) {
-    var n = periodLookup[string.slice(i, i += 2).toLowerCase()];
-    return n == null ? -1 : (d.p = n, i);
   }
 
   function formatShortWeekday(d) {
