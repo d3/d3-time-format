@@ -166,29 +166,23 @@ export default function(locale) {
       // The am-pm flag is 0 for AM, and 1 for PM.
       if ("p" in d) d.H = d.H % 12 + d.p * 12;
 
+      // Convert day-of-week and week-of-year to day-of-year.
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        d.m = 0;
+        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+      }
+
       // If a time zone is specified, all fields are interpreted as UTC and then
       // offset according to the specified time zone.
       if ("Z" in d) {
-        if ("W" in d || "U" in d) {
-          if (!("w" in d)) d.w = "W" in d ? 1 : 0;
-          var day = utcDate(newYear(d.y)).getUTCDay();
-          if ("W" in d) d.U = d.W, d.w = (d.w + 6) % 7, --day;
-          d.m = 0;
-          d.d = d.w + d.U * 7 - (day + 6) % 7;
-        }
         d.H += d.Z / 100 | 0;
         d.M += d.Z % 100;
         return utcDate(d);
       }
 
       // Otherwise, all fields are in local time.
-      if ("W" in d || "U" in d) {
-        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
-        var day = newDate(newYear(d.y)).getDay();
-        if ("W" in d) d.U = d.W, d.w = (d.w + 6) % 7, --day;
-        d.m = 0;
-        d.d = d.w + d.U * 7 - (day + 6) % 7;
-      }
       return newDate(d);
     };
   }
