@@ -146,7 +146,8 @@ export default function(locale) {
         if (specifier.charCodeAt(i) === 37) {
           string.push(specifier.slice(j, i));
           if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
-          if (format = formats[c]) c = format(date, pad == null ? (c === "e" ? " " : "0") : pad);
+          else pad = c === "e" ? " " : "0";
+          if (format = formats[c]) c = format(date, pad);
           string.push(c);
           j = i + 1;
         }
