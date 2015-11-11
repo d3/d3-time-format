@@ -22,6 +22,10 @@ function newYear(y) {
   return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
 }
 
+function empty() {
+  return "";
+}
+
 export default function(locale) {
   var locale_dateTime = locale.dateTime,
       locale_date = locale.date,
@@ -30,7 +34,8 @@ export default function(locale) {
       locale_weekdays = locale.days,
       locale_shortWeekdays = locale.shortDays,
       locale_months = locale.months,
-      locale_shortMonths = locale.shortMonths;
+      locale_shortMonths = locale.shortMonths,
+      locale_ordinal = locale.ordinal || empty;
 
   var periodRe = formatRe(locale_periods),
       periodLookup = formatLookup(locale_periods),
@@ -56,6 +61,7 @@ export default function(locale) {
     "j": formatDayOfYear,
     "L": formatMilliseconds,
     "m": formatMonthNumber,
+    "o": formatDayOfMonthOrdinal,
     "M": formatMinutes,
     "p": formatPeriod,
     "S": formatSeconds,
@@ -83,6 +89,7 @@ export default function(locale) {
     "j": formatUTCDayOfYear,
     "L": formatUTCMilliseconds,
     "m": formatUTCMonthNumber,
+    "o": formatUTCDayOfMonthOrdinal,
     "M": formatUTCMinutes,
     "p": formatUTCPeriod,
     "S": formatUTCSeconds,
@@ -110,6 +117,7 @@ export default function(locale) {
     "j": parseDayOfYear,
     "L": parseMilliseconds,
     "m": parseMonthNumber,
+    "o": null, // TODO
     "M": parseMinutes,
     "p": parsePeriod,
     "S": parseSeconds,
@@ -146,7 +154,7 @@ export default function(locale) {
         if (specifier.charCodeAt(i) === 37) {
           string.push(specifier.slice(j, i));
           if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
-          else pad = c === "e" ? " " : "0";
+          else pad = c === "e" ? " " : c === "o" ? "" : "0";
           if (format = formats[c]) c = format(date, pad);
           string.push(c);
           j = i + 1;
@@ -247,6 +255,11 @@ export default function(locale) {
     return parseSpecifier(d, locale_time, string, i);
   }
 
+  function formatDayOfMonthOrdinal(d, p) {
+    var v = d.getDate();
+    return pad(v, p, 2) + locale_ordinal(v);
+  }
+
   function formatShortWeekday(d) {
     return locale_shortWeekdays[d.getDay()];
   }
@@ -265,6 +278,11 @@ export default function(locale) {
 
   function formatPeriod(d) {
     return locale_periods[+(d.getHours() >= 12)];
+  }
+
+  function formatUTCDayOfMonthOrdinal(d, p) {
+    var v = d.getUTCDate();
+    return pad(v, p, 2) + locale_ordinal(v);
   }
 
   function formatUTCShortWeekday(d) {
