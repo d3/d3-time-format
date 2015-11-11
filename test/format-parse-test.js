@@ -18,6 +18,14 @@ tape("format(\"%A %m/%d/%Y\").parse(date) parses weekday and date", function(tes
   test.end();
 });
 
+tape("format(\"%U %Y\").parse(date) parses week number (Sunday) and year", function(test) {
+  var p = timeFormat.format("%U %Y").parse;
+  test.deepEqual(p("00 1990"), date.local(1989, 11, 31));
+  test.deepEqual(p("05 1991"), date.local(1991,  1,  3));
+  test.deepEqual(p("01 1995"), date.local(1995,  0,  1));
+  test.end();
+});
+
 tape("format(\"%a %U %Y\").parse(date) parses abbreviated weekday, week number (Sunday) and year", function(test) {
   var p = timeFormat.format("%a %U %Y").parse;
   test.deepEqual(p("Mon 00 1990"), date.local(1990, 0, 1));
@@ -42,6 +50,14 @@ tape("format(\"%w %U %Y\").parse(date) parses numeric weekday, week number (Sund
   test.deepEqual(p("0 05 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("0 01 1995"), date.local(1995, 0, 1));
   test.equal(p("X 03 2010"), null);
+  test.end();
+});
+
+tape("format(\"%W %Y\").parse(date) parses week number (Monday) and year", function(test) {
+  var p = timeFormat.format("%W %Y").parse;
+  test.deepEqual(p("01 1990"), date.local(1990,  0,  1));
+  test.deepEqual(p("04 1991"), date.local(1991,  0, 28));
+  test.deepEqual(p("00 1995"), date.local(1994, 11, 26));
   test.end();
 });
 

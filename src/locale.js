@@ -169,7 +169,8 @@ export default function(locale) {
       // If a time zone is specified, all fields are interpreted as UTC and then
       // offset according to the specified time zone.
       if ("Z" in d) {
-        if ("w" in d && ("W" in d || "U" in d)) {
+        if ("W" in d || "U" in d) {
+          if (!("w" in d)) d.w = "W" in d ? 1 : 0;
           var day = utcDate(newYear(d.y)).getUTCDay();
           if ("W" in d) d.U = d.W, d.w = (d.w + 6) % 7, --day;
           d.m = 0;
@@ -181,7 +182,8 @@ export default function(locale) {
       }
 
       // Otherwise, all fields are in local time.
-      if ("w" in d && ("W" in d || "U" in d)) {
+      if ("W" in d || "U" in d) {
+        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
         var day = newDate(newYear(d.y)).getDay();
         if ("W" in d) d.U = d.W, d.w = (d.w + 6) % 7, --day;
         d.m = 0;
