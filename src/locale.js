@@ -355,13 +355,7 @@ function parseYear(d, string, i) {
 
 function parseZone(d, string, i) {
   var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
-  if (n) {
-    d.Z = n[1] ? 0              // 'Z' for UTC
-        : n[3] ? -(n[2] + n[3]) // sign differs from getTimezoneOffset!
-               : -n[2] * 100;
-    return i + n[0].length;
-  }
-  return -1;
+  return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
 }
 
 function parseMonthNumber(d, string, i) {
