@@ -22,6 +22,18 @@ function multi(d) {
       : formatYear)(d);
 }
 
+tape("format(date) coerces the specified date to a Date", function(test) {
+  var f = timeFormat.format("%c");
+  test.equal(f(+date.local(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 2)), "Tue Jan  2 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 3)), "Wed Jan  3 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 4)), "Thu Jan  4 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 5)), "Fri Jan  5 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 6)), "Sat Jan  6 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 7)), "Sun Jan  7 00:00:00 1990");
+  test.end();
+});
+
 tape("format(\"%a\")(date) formats abbreviated weekdays", function(test) {
   var f = timeFormat.format("%a");
   test.equal(f(date.local(1990, 0, 1)), "Mon");

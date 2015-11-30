@@ -142,6 +142,8 @@ export default function(locale) {
           pad,
           format;
 
+      if (!(date instanceof Date)) date = new Date(+date);
+
       while (++i < n) {
         if (specifier.charCodeAt(i) === 37) {
           string.push(specifier.slice(j, i));
@@ -161,7 +163,7 @@ export default function(locale) {
   function newParse(specifier, newDate) {
     return function(string) {
       var d = newYear(1900),
-          i = parseSpecifier(d, specifier, string, 0);
+          i = parseSpecifier(d, specifier, string += "", 0);
       if (i != string.length) return null;
 
       // The am-pm flag is 0 for AM, and 1 for PM.

@@ -2,6 +2,18 @@ var tape = require("tape"),
     timeFormat = require("../"),
     date = require("./date");
 
+tape("parse(string) coerces the specified string to a string", function(test) {
+  var p = timeFormat.format("%c").parse;
+  test.deepEqual(p({toString: function() { return "Mon Jan  1 00:00:00 1990"; }}), date.local(1990, 0, 1));
+  test.deepEqual(p({toString: function() { return "Tue Jan  2 00:00:00 1990"; }}), date.local(1990, 0, 2));
+  test.deepEqual(p({toString: function() { return "Wed Jan  3 00:00:00 1990"; }}), date.local(1990, 0, 3));
+  test.deepEqual(p({toString: function() { return "Thu Jan  4 00:00:00 1990"; }}), date.local(1990, 0, 4));
+  test.deepEqual(p({toString: function() { return "Fri Jan  5 00:00:00 1990"; }}), date.local(1990, 0, 5));
+  test.deepEqual(p({toString: function() { return "Sat Jan  6 00:00:00 1990"; }}), date.local(1990, 0, 6));
+  test.deepEqual(p({toString: function() { return "Sun Jan  7 00:00:00 1990"; }}), date.local(1990, 0, 7));
+  test.end();
+});
+
 tape("format(\"%a %m/%d/%Y\").parse(date) parses abbreviated weekday and date", function(test) {
   var p = timeFormat.format("%a %m/%d/%Y").parse;
   test.deepEqual(p("Sun 01/01/1990"), date.local(1990, 0, 1));
