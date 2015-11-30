@@ -171,7 +171,7 @@ tape("format(\"%I:%M:%S %p\").parse(date) parses twelve hour, minute and second"
 });
 
 tape("format(\"%I %p\").parse(date) parses period in non-English locales", function(test) {
-  var p = timeFormat.localeFormat("fi-FI").format("%I:%M:%S %p").parse;
+  var p = timeFormat.localeFiFi.format("%I:%M:%S %p").parse;
   test.deepEqual(p("12:00:00 a.m."), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59 A.M."), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00 p.m."), date.local(1900, 0, 1, 12, 0, 0));

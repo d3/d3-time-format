@@ -47,11 +47,11 @@ If you use NPM, `npm install d3-time-format`. Otherwise, download the [latest re
 
 <a name="format" href="#format">#</a> <b>format</b>(<i>specifier</i>)
 
-An alias for [*locale*.format](#locale_format) on the default [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js) locale. Use [localeFormat](#localeFormat) for a different built-in locale or to define a new locale.
+An alias for [*locale*.format](#locale_format) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales), or use [locale](#locale) to define a new locale.
 
 <a name="utcFormat" href="#utcFormat">#</a> <b>utcFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcFormat](#locale_utcFormat) on the default [U.S. English](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js) locale. Use [localeFormat](#localeFormat) for a different built-in locale or to define a new locale.
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales), or use [locale](#locale) to define a new locale.
 
 <a name="isoFormat" href="#isoFormat">#</a> <b>isoFormat</b>
 
@@ -129,34 +129,11 @@ The `%d` and `%e` directives are considered equivalent for parsing.
 
 Returns this format’s specifier.
 
-<a name="localeFormat" href="#localeFormat">#</a> <b>localeFormat</b>(<i>definition</i>)
+### Locales
 
-Returns a *locale* object for the specified *definition* with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. If *definition* is a string, it is the name of a built-in locale:
+<a name="locale" href="#locale">#</a> <b>locale</b>(<i>definition</i>)
 
-* `"ca-ES"` - [Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
-* `"de-CH"` - [German (Switzerland)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-CH.js)
-* `"de-DE"` - [German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
-* `"en-CA"` - [English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
-* `"en-GB"` - [English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
-* `"en-US"` - [English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
-* `"es-ES"` - [Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
-* `"fi-FI"` - [Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
-* `"fr-CA"` - [French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
-* `"fr-FR"` - [French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
-* `"he-IL"` - [Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
-* `"hu-HU"` - [Hungarian (Hungary)](https://github.com/d3/d3-time-format/tree/master/src/locale/hu-HU.js)
-* `"it-IT"` - [Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
-* `"ja-JP"` - [Japanese (Japan)](https://github.com/d3/d3-time-format/tree/master/src/locale/ja-JP.js)
-* `"ko-KR"` - [Korean (South Korea)](https://github.com/d3/d3-time-format/tree/master/src/locale/ko-KR.js)
-* `"mk-MK"` - [Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
-* `"nl-NL"` - [Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
-* `"pl-PL"` - [Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
-* `"pt-BR"` - [Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
-* `"ru-RU"` - [Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
-* `"sv-SE"` - [Swedish (Sweden)](https://github.com/d3/d3-time-format/tree/master/src/locale/sv-SE.js)
-* `"zh-CN"` - [Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
-
-Otherwise, the locale *definition* must include the following properties:
+Returns a *locale* object for the specified *definition* with [*locale*.format](#locale_format) and [*locale*.utcFormat](#locale_utcFormat) methods. The *definition* must include the following properties:
 
 * `dateTime` - the date and time (`%c`) format specifier (<i>e.g.</i>, `"%a %b %e %X %Y"`).
 * `date` - the date (`%x`) format specifier (<i>e.g.</i>, `"%m/%d/%Y"`).
@@ -166,6 +143,94 @@ Otherwise, the locale *definition* must include the following properties:
 * `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
 * `months` - the full names of the months (starting with January).
 * `shortMonths` - the abbreviated names of the months (starting with January).
+
+<a name="localeCaEs" href="#localeCaEs">#</a> <b>localeCaEs</b>
+
+[Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
+
+<a name="localeDeCh" href="#localeDeCh">#</a> <b>localeDeCh</b>
+
+[German (Switzerland)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-CH.js)
+
+<a name="localeDeDe" href="#localeDeDe">#</a> <b>localeDeDe</b>
+
+[German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
+
+<a name="localeEnCa" href="#localeEnCa">#</a> <b>localeEnCa</b>
+
+[English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
+
+<a name="localeEnGb" href="#localeEnGb">#</a> <b>localeEnGb</b>
+
+[English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
+
+<a name="localeEnUs" href="#localeEnUs">#</a> <b>localeEnUs</b>
+
+[English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
+
+<a name="localeEsEs" href="#localeEsEs">#</a> <b>localeEsEs</b>
+
+[Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
+
+<a name="localeFiFi" href="#localeFiFi">#</a> <b>localeFiFi</b>
+
+[Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
+
+<a name="localeFrCa" href="#localeFrCa">#</a> <b>localeFrCa</b>
+
+[French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
+
+<a name="localeFrFr" href="#localeFrFr">#</a> <b>localeFrFr</b>
+
+[French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
+
+<a name="localeHeIl" href="#localeHeIl">#</a> <b>localeHeIl</b>
+
+[Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
+
+<a name="localeHuHu" href="#localeHuHu">#</a> <b>localeHuHu</b>
+
+[Hungarian (Hungary)](https://github.com/d3/d3-time-format/tree/master/src/locale/hu-HU.js)
+
+<a name="localeItIt" href="#localeItIt">#</a> <b>localeItIt</b>
+
+[Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
+
+<a name="localeJaJp" href="#localeJaJp">#</a> <b>localeJaJp</b>
+
+[Japanese (Japan)](https://github.com/d3/d3-time-format/tree/master/src/locale/ja-JP.js)
+
+<a name="localeKoKr" href="#localeKoKr">#</a> <b>localeKoKr</b>
+
+[Korean (South Korea)](https://github.com/d3/d3-time-format/tree/master/src/locale/ko-KR.js)
+
+<a name="localeMkMk" href="#localeMkMk">#</a> <b>localeMkMk</b>
+
+[Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
+
+<a name="localeNlNl" href="#localeNlNl">#</a> <b>localeNlNl</b>
+
+[Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
+
+<a name="localePlPl" href="#localePlPl">#</a> <b>localePlPl</b>
+
+[Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
+
+<a name="localePtBr" href="#localePtBr">#</a> <b>localePtBr</b>
+
+[Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
+
+<a name="localeRuRu" href="#localeRuRu">#</a> <b>localeRuRu</b>
+
+[Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
+
+<a name="localeSvSe" href="#localeSvSe">#</a> <b>localeSvSe</b>
+
+[Swedish (Sweden)](https://github.com/d3/d3-time-format/tree/master/src/locale/sv-SE.js)
+
+<a name="localeZhCn" href="#localeZhCn">#</a> <b>localeZhCn</b>
+
+[Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
 
 ## Changes from D3 3.x:
 

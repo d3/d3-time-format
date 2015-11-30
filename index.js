@@ -1,62 +1,27 @@
-import locale from "./src/locale";
-import caEs from "./src/locale/ca-ES.js";
-import deCh from "./src/locale/de-CH.js";
-import deDe from "./src/locale/de-DE.js";
-import enCa from "./src/locale/en-CA.js";
-import enGb from "./src/locale/en-GB.js";
-import enUs from "./src/locale/en-US.js";
-import esEs from "./src/locale/es-ES.js";
-import fiFi from "./src/locale/fi-FI.js";
-import frCa from "./src/locale/fr-CA.js";
-import frFr from "./src/locale/fr-FR.js";
-import heIl from "./src/locale/he-IL.js";
-import huHu from "./src/locale/hu-HU.js";
-import itIt from "./src/locale/it-IT.js";
-import jaJp from "./src/locale/ja-JP.js";
-import koKr from "./src/locale/ko-KR.js";
-import mkMk from "./src/locale/mk-MK.js";
-import nlNl from "./src/locale/nl-NL.js";
-import plPl from "./src/locale/pl-PL.js";
-import ptBr from "./src/locale/pt-BR.js";
-import ruRu from "./src/locale/ru-RU.js";
-import svSe from "./src/locale/sv-SE.js";
-import zhCn from "./src/locale/zh-CN.js";
-
-var localeDefinitions = {
-  "ca-ES": caEs,
-  "de-CH": deCh,
-  "de-DE": deDe,
-  "en-CA": enCa,
-  "en-GB": enGb,
-  "en-US": enUs,
-  "es-ES": esEs,
-  "fi-FI": fiFi,
-  "fr-CA": frCa,
-  "fr-FR": frFr,
-  "he-IL": heIl,
-  "hu-HU": huHu,
-  "it-IT": itIt,
-  "ja-JP": jaJp,
-  "ko-KR": koKr,
-  "mk-MK": mkMk,
-  "nl-NL": nlNl,
-  "pl-PL": plPl,
-  "pt-BR": ptBr,
-  "ru-RU": ruRu,
-  "sv-SE": svSe,
-  "zh-CN": zhCn
-};
-
-var defaultLocale = locale(enUs);
+import defaultLocale from "./src/locale/en-US";
+export {default as locale} from "./src/locale";
+export {default as localeCaEs} from "./src/locale/ca-ES";
+export {default as localeDeCh} from "./src/locale/de-CH";
+export {default as localeDeDe} from "./src/locale/de-DE";
+export {default as localeEnCa} from "./src/locale/en-CA";
+export {default as localeEnGb} from "./src/locale/en-GB";
+export {default as localeEnUs} from "./src/locale/en-US";
+export {default as localeEsEs} from "./src/locale/es-ES";
+export {default as localeFiFi} from "./src/locale/fi-FI";
+export {default as localeFrCa} from "./src/locale/fr-CA";
+export {default as localeFrFr} from "./src/locale/fr-FR";
+export {default as localeHeIl} from "./src/locale/he-IL";
+export {default as localeHuHu} from "./src/locale/hu-HU";
+export {default as localeItIt} from "./src/locale/it-IT";
+export {default as localeJaJp} from "./src/locale/ja-JP";
+export {default as localeKoKr} from "./src/locale/ko-KR";
+export {default as localeMkMk} from "./src/locale/mk-MK";
+export {default as localeNlNl} from "./src/locale/nl-NL";
+export {default as localePlPl} from "./src/locale/pl-PL";
+export {default as localePtBr} from "./src/locale/pt-BR";
+export {default as localeRuRu} from "./src/locale/ru-RU";
+export {default as localeSvSe} from "./src/locale/sv-SE";
+export {default as localeZhCn} from "./src/locale/zh-CN";
+export {default as isoFormat} from "./src/isoFormat";
 export var format = defaultLocale.format;
 export var utcFormat = defaultLocale.utcFormat;
-
-export function localeFormat(definition) {
-  if (typeof definition === "string") {
-    if (!localeDefinitions.hasOwnProperty(definition)) return null;
-    definition = localeDefinitions[definition];
-  }
-  return locale(definition);
-};
-
-export {default as isoFormat} from "./src/isoFormat";
