@@ -222,7 +222,7 @@ tape("format(\"%y\")(date) formats zero-padded two-digit years", function(test) 
   var f = timeFormat.format("%y");
   test.equal(f(date.local(+1990, 0, 1)), "90");
   test.equal(f(date.local(+2002, 0, 1)), "02");
-  test.equal(f(date.local(-0002, 0, 1)), "-02");
+  test.equal(f(date.local(-0002, 0, 1)), "02"); // unsigned year!
   test.end();
 });
 
@@ -232,7 +232,43 @@ tape("format(\"%Y\")(date) formats zero-padded four-digit years", function(test)
   test.equal(f(date.local( 1990, 0, 1)), "1990");
   test.equal(f(date.local( 2002, 0, 1)), "2002");
   test.equal(f(date.local(10002, 0, 1)), "0002");
+  test.equal(f(date.local(   -2, 0, 1)), "0002"); // unsigned year!
+  test.end();
+});
+
+tape("format(\"%+y\")(date) formats zero-padded signed two-digit years", function(test) {
+  var f = timeFormat.format("%+y");
+  test.equal(f(date.local(+1990, 0, 1)), "+90");
+  test.equal(f(date.local(+2002, 0, 1)), "+02");
+  test.equal(f(date.local(-0002, 0, 1)), "-02");
+  test.end();
+});
+
+tape("format(\"%+Y\")(date) formats zero-padded signed four-digit years", function(test) {
+  var f = timeFormat.format("%+Y");
+  test.equal(f(date.local(  123, 0, 1)), "+0123");
+  test.equal(f(date.local( 1990, 0, 1)), "+1990");
+  test.equal(f(date.local( 2002, 0, 1)), "+2002");
+  test.equal(f(date.local(10002, 0, 1)), "+0002");
   test.equal(f(date.local(   -2, 0, 1)), "-0002");
+  test.end();
+});
+
+tape("format(\"%+_y\")(date) formats space-padded signed two-digit years", function(test) {
+  var f = timeFormat.format("%+_y");
+  test.equal(f(date.local(+1990, 0, 1)), "+90");
+  test.equal(f(date.local(+2002, 0, 1)), " +2");
+  test.equal(f(date.local(-0002, 0, 1)), " -2");
+  test.end();
+});
+
+tape("format(\"%+_Y\")(date) formats space-padded signed four-digit years", function(test) {
+  var f = timeFormat.format("%+_Y");
+  test.equal(f(date.local(  123, 0, 1)), " +123");
+  test.equal(f(date.local( 1990, 0, 1)), "+1990");
+  test.equal(f(date.local( 2002, 0, 1)), "+2002");
+  test.equal(f(date.local(10002, 0, 1)), "   +2");
+  test.equal(f(date.local(   -2, 0, 1)), "   -2");
   test.end();
 });
 

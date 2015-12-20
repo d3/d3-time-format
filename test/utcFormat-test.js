@@ -210,7 +210,7 @@ tape("utcFormat(\"%y\")(date) formats zero-padded two-digit years", function(tes
   var f = timeFormat.utcFormat("%y");
   test.equal(f(date.utc(+1990, 0, 1)), "90");
   test.equal(f(date.utc(+2002, 0, 1)), "02");
-  test.equal(f(date.utc(-0002, 0, 1)), "-02");
+  test.equal(f(date.utc(-0002, 0, 1)), "02"); // unsigned year!
   test.end();
 });
 
@@ -220,7 +220,43 @@ tape("utcFormat(\"%Y\")(date) formats zero-padded four-digit years", function(te
   test.equal(f(date.utc( 1990, 0, 1)), "1990");
   test.equal(f(date.utc( 2002, 0, 1)), "2002");
   test.equal(f(date.utc(10002, 0, 1)), "0002");
+  test.equal(f(date.utc(   -2, 0, 1)), "0002"); // unsigned year!
+  test.end();
+});
+
+tape("utcFormat(\"%+y\")(date) formats zero-padded signed two-digit years", function(test) {
+  var f = timeFormat.utcFormat("%+y");
+  test.equal(f(date.utc(+1990, 0, 1)), "+90");
+  test.equal(f(date.utc(+2002, 0, 1)), "+02");
+  test.equal(f(date.utc(-0002, 0, 1)), "-02");
+  test.end();
+});
+
+tape("utcFormat(\"%+Y\")(date) formats zero-padded signed four-digit years", function(test) {
+  var f = timeFormat.utcFormat("%+Y");
+  test.equal(f(date.utc(  123, 0, 1)), "+0123");
+  test.equal(f(date.utc( 1990, 0, 1)), "+1990");
+  test.equal(f(date.utc( 2002, 0, 1)), "+2002");
+  test.equal(f(date.utc(10002, 0, 1)), "+0002");
   test.equal(f(date.utc(   -2, 0, 1)), "-0002");
+  test.end();
+});
+
+tape("utcFormat(\"%+_y\")(date) formats space-padded signed two-digit years", function(test) {
+  var f = timeFormat.utcFormat("%+_y");
+  test.equal(f(date.utc(+1990, 0, 1)), "+90");
+  test.equal(f(date.utc(+2002, 0, 1)), " +2");
+  test.equal(f(date.utc(-0002, 0, 1)), " -2");
+  test.end();
+});
+
+tape("utcFormat(\"%+_Y\")(date) formats space-padded signed four-digit years", function(test) {
+  var f = timeFormat.utcFormat("%+_Y");
+  test.equal(f(date.utc(  123, 0, 1)), " +123");
+  test.equal(f(date.utc( 1990, 0, 1)), "+1990");
+  test.equal(f(date.utc( 2002, 0, 1)), "+2002");
+  test.equal(f(date.utc(10002, 0, 1)), "   +2");
+  test.equal(f(date.utc(   -2, 0, 1)), "   -2");
   test.end();
 });
 

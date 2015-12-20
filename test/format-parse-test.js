@@ -110,6 +110,17 @@ tape("format(\"%m/%d/%y\").parse(date) parses month, date and two-digit year", f
   test.end();
 });
 
+// TODO
+// tape("format(\"%m/%d/%+y\").parse(date) parses month, date and signed two-digit year", function(test) {
+//   var p = timeFormat.format("%m/%d/%y").parse;
+//   test.deepEqual(p("02/03/+69"), date.local(1969, 1, 3));
+//   test.deepEqual(p("01/01/+90"), date.local(1990, 0, 1));
+//   test.deepEqual(p("02/03/+91"), date.local(1991, 1, 3));
+//   test.deepEqual(p("02/03/-68"), date.local(-68, 1, 3));
+//   test.equal(p("03/10/10"), null);
+//   test.end();
+// });
+
 tape("format(\"%x\").parse(date) parses locale date", function(test) {
   var p = timeFormat.format("%x").parse;
   test.deepEqual(p("01/01/1990"), date.local(1990, 0, 1));
