@@ -37,7 +37,7 @@ function multiFormat(date) {
 }
 ```
 
-This module is used by D3 [time scales](https://github.com/d3/d3-scales#time-scales) to generate human-readable ticks.
+This module is used by D3 [time scales](https://github.com/d3/d3-scale#time-scales) to generate human-readable ticks.
 
 ## Installing
 
