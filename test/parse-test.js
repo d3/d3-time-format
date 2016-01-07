@@ -3,7 +3,7 @@ var tape = require("tape"),
     date = require("./date");
 
 tape("parse(string) coerces the specified string to a string", function(test) {
-  var p = timeFormat.format("%c").parse;
+  var p = timeFormat.timeParse("%c");
   test.deepEqual(p({toString: function() { return "Mon Jan  1 00:00:00 1990"; }}), date.local(1990, 0, 1));
   test.deepEqual(p({toString: function() { return "Tue Jan  2 00:00:00 1990"; }}), date.local(1990, 0, 2));
   test.deepEqual(p({toString: function() { return "Wed Jan  3 00:00:00 1990"; }}), date.local(1990, 0, 3));
@@ -14,32 +14,32 @@ tape("parse(string) coerces the specified string to a string", function(test) {
   test.end();
 });
 
-tape("format(\"%a %m/%d/%Y\").parse(date) parses abbreviated weekday and date", function(test) {
-  var p = timeFormat.format("%a %m/%d/%Y").parse;
+tape("timeParse(\"%a %m/%d/%Y\")(date) parses abbreviated weekday and date", function(test) {
+  var p = timeFormat.timeParse("%a %m/%d/%Y");
   test.deepEqual(p("Sun 01/01/1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Wed 02/03/1991"), date.local(1991, 1, 3));
   test.equal(p("XXX 03/10/2010"), null);
   test.end();
 });
 
-tape("format(\"%A %m/%d/%Y\").parse(date) parses weekday and date", function(test) {
-  var p = timeFormat.format("%A %m/%d/%Y").parse;
+tape("timeParse(\"%A %m/%d/%Y\")(date) parses weekday and date", function(test) {
+  var p = timeFormat.timeParse("%A %m/%d/%Y");
   test.deepEqual(p("Sunday 01/01/1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Wednesday 02/03/1991"), date.local(1991, 1, 3));
   test.equal(p("Caturday 03/10/2010"), null);
   test.end();
 });
 
-tape("format(\"%U %Y\").parse(date) parses week number (Sunday) and year", function(test) {
-  var p = timeFormat.format("%U %Y").parse;
+tape("timeParse(\"%U %Y\")(date) parses week number (Sunday) and year", function(test) {
+  var p = timeFormat.timeParse("%U %Y");
   test.deepEqual(p("00 1990"), date.local(1989, 11, 31));
   test.deepEqual(p("05 1991"), date.local(1991,  1,  3));
   test.deepEqual(p("01 1995"), date.local(1995,  0,  1));
   test.end();
 });
 
-tape("format(\"%a %U %Y\").parse(date) parses abbreviated weekday, week number (Sunday) and year", function(test) {
-  var p = timeFormat.format("%a %U %Y").parse;
+tape("timeParse(\"%a %U %Y\")(date) parses abbreviated weekday, week number (Sunday) and year", function(test) {
+  var p = timeFormat.timeParse("%a %U %Y");
   test.deepEqual(p("Mon 00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Sun 05 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("Sun 01 1995"), date.local(1995, 0, 1));
@@ -47,8 +47,8 @@ tape("format(\"%a %U %Y\").parse(date) parses abbreviated weekday, week number (
   test.end();
 });
 
-tape("format(\"%A %U %Y\").parse(date) parses weekday, week number (Sunday) and year", function(test) {
-  var p = timeFormat.format("%A %U %Y").parse;
+tape("timeParse(\"%A %U %Y\")(date) parses weekday, week number (Sunday) and year", function(test) {
+  var p = timeFormat.timeParse("%A %U %Y");
   test.deepEqual(p("Monday 00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Sunday 05 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("Sunday 01 1995"), date.local(1995, 0, 1));
@@ -56,8 +56,8 @@ tape("format(\"%A %U %Y\").parse(date) parses weekday, week number (Sunday) and 
   test.end();
 });
 
-tape("format(\"%w %U %Y\").parse(date) parses numeric weekday, week number (Sunday) and year", function(test) {
-  var p = timeFormat.format("%w %U %Y").parse;
+tape("timeParse(\"%w %U %Y\")(date) parses numeric weekday, week number (Sunday) and year", function(test) {
+  var p = timeFormat.timeParse("%w %U %Y");
   test.deepEqual(p("1 00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("0 05 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("0 01 1995"), date.local(1995, 0, 1));
@@ -65,16 +65,16 @@ tape("format(\"%w %U %Y\").parse(date) parses numeric weekday, week number (Sund
   test.end();
 });
 
-tape("format(\"%W %Y\").parse(date) parses week number (Monday) and year", function(test) {
-  var p = timeFormat.format("%W %Y").parse;
+tape("timeParse(\"%W %Y\")(date) parses week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%W %Y");
   test.deepEqual(p("01 1990"), date.local(1990,  0,  1));
   test.deepEqual(p("04 1991"), date.local(1991,  0, 28));
   test.deepEqual(p("00 1995"), date.local(1994, 11, 26));
   test.end();
 });
 
-tape("format(\"%a %W %Y\").parse(date) parses abbreviated weekday, week number (Monday) and year", function(test) {
-  var p = timeFormat.format("%a %W %Y").parse;
+tape("timeParse(\"%a %W %Y\")(date) parses abbreviated weekday, week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%a %W %Y");
   test.deepEqual(p("Mon 01 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Sun 04 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("Sun 00 1995"), date.local(1995, 0, 1));
@@ -82,8 +82,8 @@ tape("format(\"%a %W %Y\").parse(date) parses abbreviated weekday, week number (
   test.end();
 });
 
-tape("format(\"%A %W %Y\").parse(date) parses weekday, week number (Monday) and year", function(test) {
-  var p = timeFormat.format("%A %W %Y").parse;
+tape("timeParse(\"%A %W %Y\")(date) parses weekday, week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%A %W %Y");
   test.deepEqual(p("Monday 01 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Sunday 04 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("Sunday 00 1995"), date.local(1995, 0, 1));
@@ -91,8 +91,8 @@ tape("format(\"%A %W %Y\").parse(date) parses weekday, week number (Monday) and 
   test.end();
 });
 
-tape("format(\"%w %W %Y\").parse(date) parses numeric weekday, week number (Monday) and year", function(test) {
-  var p = timeFormat.format("%w %W %Y").parse;
+tape("timeParse(\"%w %W %Y\")(date) parses numeric weekday, week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%w %W %Y");
   test.deepEqual(p("1 01 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("0 04 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("0 00 1995"), date.local(1995, 0, 1));
@@ -100,8 +100,8 @@ tape("format(\"%w %W %Y\").parse(date) parses numeric weekday, week number (Mond
   test.end();
 });
 
-tape("format(\"%m/%d/%y\").parse(date) parses month, date and two-digit year", function(test) {
-  var p = timeFormat.format("%m/%d/%y").parse;
+tape("timeParse(\"%m/%d/%y\")(date) parses month, date and two-digit year", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%y");
   test.deepEqual(p("02/03/69"), date.local(1969, 1, 3));
   test.deepEqual(p("01/01/90"), date.local(1990, 0, 1));
   test.deepEqual(p("02/03/91"), date.local(1991, 1, 3));
@@ -110,40 +110,40 @@ tape("format(\"%m/%d/%y\").parse(date) parses month, date and two-digit year", f
   test.end();
 });
 
-tape("format(\"%x\").parse(date) parses locale date", function(test) {
-  var p = timeFormat.format("%x").parse;
+tape("timeParse(\"%x\")(date) parses locale date", function(test) {
+  var p = timeFormat.timeParse("%x");
   test.deepEqual(p("01/01/1990"), date.local(1990, 0, 1));
   test.deepEqual(p("02/03/1991"), date.local(1991, 1, 3));
   test.deepEqual(p("03/10/2010"), date.local(2010, 2, 10));
   test.end();
 });
 
-tape("format(\"%b %d, %Y\").parse(date) parses abbreviated month, date and year", function(test) {
-  var p = timeFormat.format("%b %d, %Y").parse;
+tape("timeParse(\"%b %d, %Y\")(date) parses abbreviated month, date and year", function(test) {
+  var p = timeFormat.timeParse("%b %d, %Y");
   test.deepEqual(p("jan 01, 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("feb  2, 2010"), date.local(2010, 1, 2));
   test.equal(p("jan. 1, 1990"), null);
   test.end();
 });
 
-tape("format(\"%B %d, %Y\").parse(date) parses month, date and year", function(test) {
-  var p = timeFormat.format("%B %d, %Y").parse;
+tape("timeParse(\"%B %d, %Y\")(date) parses month, date and year", function(test) {
+  var p = timeFormat.timeParse("%B %d, %Y");
   test.deepEqual(p("january 01, 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("February  2, 2010"), date.local(2010, 1, 2));
   test.equal(p("jan 1, 1990"), null);
   test.end();
 });
 
-tape("format(\"%j %m/%d/%Y\").parse(date) parses day of year and date", function(test) {
-  var p = timeFormat.format("%j %m/%d/%Y").parse;
+tape("timeParse(\"%j %m/%d/%Y\")(date) parses day of year and date", function(test) {
+  var p = timeFormat.timeParse("%j %m/%d/%Y");
   test.deepEqual(p("001 01/01/1990"), date.local(1990, 0, 1));
   test.deepEqual(p("034 02/03/1991"), date.local(1991, 1, 3));
   test.equal(p("2012 03/10/2010"), null);
   test.end();
 });
 
-tape("format(\"%c\").parse(date) parses locale date and time", function(test) {
-  var p = timeFormat.format("%c").parse;
+tape("timeParse(\"%c\")(date) parses locale date and time", function(test) {
+  var p = timeFormat.timeParse("%c");
   test.deepEqual(p("Mon Jan  1 00:00:00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Sun Jan  1 00:00:00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("Mon Jan 01 00:00:00 1990"), date.local(1990, 0, 1));
@@ -152,8 +152,8 @@ tape("format(\"%c\").parse(date) parses locale date and time", function(test) {
   test.end();
 });
 
-tape("format(\"%H:%M:%S\").parse(date) parses twenty-four hour, minute and second", function(test) {
-  var p = timeFormat.format("%H:%M:%S").parse;
+tape("timeParse(\"%H:%M:%S\")(date) parses twenty-four hour, minute and second", function(test) {
+  var p = timeFormat.timeParse("%H:%M:%S");
   test.deepEqual(p("00:00:00"), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59"), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00"), date.local(1900, 0, 1, 12, 0, 0));
@@ -162,8 +162,8 @@ tape("format(\"%H:%M:%S\").parse(date) parses twenty-four hour, minute and secon
   test.end();
 });
 
-tape("format(\"%X\").parse(date) parses locale time", function(test) {
-  var p = timeFormat.format("%X").parse;
+tape("timeParse(\"%X\")(date) parses locale time", function(test) {
+  var p = timeFormat.timeParse("%X");
   test.deepEqual(p("00:00:00"), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59"), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00"), date.local(1900, 0, 1, 12, 0, 0));
@@ -172,8 +172,8 @@ tape("format(\"%X\").parse(date) parses locale time", function(test) {
   test.end();
 });
 
-tape("format(\"%I:%M:%S %p\").parse(date) parses twelve hour, minute and second", function(test) {
-  var p = timeFormat.format("%I:%M:%S %p").parse;
+tape("timeParse(\"%I:%M:%S %p\")(date) parses twelve hour, minute and second", function(test) {
+  var p = timeFormat.timeParse("%I:%M:%S %p");
   test.deepEqual(p("12:00:00 am"), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59 AM"), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00 pm"), date.local(1900, 0, 1, 12, 0, 0));
@@ -182,8 +182,8 @@ tape("format(\"%I:%M:%S %p\").parse(date) parses twelve hour, minute and second"
   test.end();
 });
 
-tape("format(\"%I %p\").parse(date) parses period in non-English locales", function(test) {
-  var p = timeFormat.localeFiFi.format("%I:%M:%S %p").parse;
+tape("timeParse(\"%I %p\")(date) parses period in non-English locales", function(test) {
+  var p = timeFormat.timeFormatFiFi.parse("%I:%M:%S %p");
   test.deepEqual(p("12:00:00 a.m."), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59 A.M."), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00 p.m."), date.local(1900, 0, 1, 12, 0, 0));
@@ -192,16 +192,16 @@ tape("format(\"%I %p\").parse(date) parses period in non-English locales", funct
   test.end();
 });
 
-tape("format(\"%% %m/%d/%Y\").parse(date) parses literal %", function(test) {
-  var p = timeFormat.format("%% %m/%d/%Y").parse;
+tape("timeParse(\"%% %m/%d/%Y\")(date) parses literal %", function(test) {
+  var p = timeFormat.timeParse("%% %m/%d/%Y");
   test.deepEqual(p("% 01/01/1990"), date.local(1990, 0, 1));
   test.deepEqual(p("% 02/03/1991"), date.local(1991, 1, 3));
   test.equal(p("%% 03/10/2010"), null);
   test.end();
 });
 
-tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset", function(test) {
-  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+tape("timeParse(\"%m/%d/%Y %Z\")(date) parses timezone offset", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%Y %Z");
   test.deepEqual(p("01/02/1990 +0000"), date.local(1990, 0, 1, 16));
   test.deepEqual(p("01/02/1990 +0100"), date.local(1990, 0, 1, 15));
   test.deepEqual(p("01/02/1990 +0130"), date.local(1990, 0, 1, 14, 30));
@@ -211,36 +211,36 @@ tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset", function(test
   test.end();
 });
 
-tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form '+-hh:mm'", function(test) {
-  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+tape("timeParse(\"%m/%d/%Y %Z\")(date) parses timezone offset in the form '+-hh:mm'", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%Y %Z");
   test.deepEqual(p("01/02/1990 +01:30"), date.local(1990, 0, 1, 14, 30));
   test.deepEqual(p("01/02/1990 -01:30"), date.local(1990, 0, 1, 17, 30));
   test.end();
 });
 
-tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form '+-hh'", function(test) {
-  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+tape("timeParse(\"%m/%d/%Y %Z\")(date) parses timezone offset in the form '+-hh'", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%Y %Z");
   test.deepEqual(p("01/02/1990 +01"), date.local(1990, 0, 1, 15));
   test.deepEqual(p("01/02/1990 -01"), date.local(1990, 0, 1, 17));
   test.end();
 });
 
-tape("format(\"%m/%d/%Y %Z\").parse(date) parses timezone offset in the form 'Z'", function(test) {
-  var p = timeFormat.format("%m/%d/%Y %Z").parse;
+tape("timeParse(\"%m/%d/%Y %Z\")(date) parses timezone offset in the form 'Z'", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%Y %Z");
   test.deepEqual(p("01/02/1990 Z"), date.local(1990, 0, 1, 16));
   test.end();
 });
 
-tape("format(\"%-m/%0d/%_Y\").parse(date) ignores optional padding modifier, skipping zeroes and spaces", function(test) {
-  var p = timeFormat.format("%-m/%0d/%_Y").parse;
+tape("timeParse(\"%-m/%0d/%_Y\")(date) ignores optional padding modifier, skipping zeroes and spaces", function(test) {
+  var p = timeFormat.timeParse("%-m/%0d/%_Y");
   test.deepEqual(p("01/ 1/1990"), date.local(1990, 0, 1));
   test.end();
 });
 
-tape("format(\"%b %d, %Y\").parse(date) doesn't crash when given weird strings", function(test) {
+tape("timeParse(\"%b %d, %Y\")(date) doesn't crash when given weird strings", function(test) {
   try {
     Object.prototype.foo = 10;
-    var p = timeFormat.format("%b %d, %Y").parse;
+    var p = timeFormat.timeParse("%b %d, %Y");
     test.equal(p("foo 1, 1990"), null);
   } finally {
     delete Object.prototype.foo;

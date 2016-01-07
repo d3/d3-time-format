@@ -3,27 +3,27 @@ var tape = require("tape"),
     timeFormat = require("../"),
     date = require("./date");
 
-var formatMillisecond = timeFormat.format(".%L"),
-    formatSecond = timeFormat.format(":%S"),
-    formatMinute = timeFormat.format("%I:%M"),
-    formatHour = timeFormat.format("%I %p"),
-    formatDay = timeFormat.format("%a %d"),
-    formatWeek = timeFormat.format("%b %d"),
-    formatMonth = timeFormat.format("%B"),
-    formatYear = timeFormat.format("%Y");
+var formatMillisecond = timeFormat.timeFormat(".%L"),
+    formatSecond = timeFormat.timeFormat(":%S"),
+    formatMinute = timeFormat.timeFormat("%I:%M"),
+    formatHour = timeFormat.timeFormat("%I %p"),
+    formatDay = timeFormat.timeFormat("%a %d"),
+    formatWeek = timeFormat.timeFormat("%b %d"),
+    formatMonth = timeFormat.timeFormat("%B"),
+    formatYear = timeFormat.timeFormat("%Y");
 
 function multi(d) {
-  return (time.second(d) < d ? formatMillisecond
-      : time.minute(d) < d ? formatSecond
-      : time.hour(d) < d ? formatMinute
-      : time.day(d) < d ? formatHour
-      : time.month(d) < d ? (time.week(d) < d ? formatDay : formatWeek)
-      : time.year(d) < d ? formatMonth
+  return (time.timeSecond(d) < d ? formatMillisecond
+      : time.timeMinute(d) < d ? formatSecond
+      : time.timeHour(d) < d ? formatMinute
+      : time.timeDay(d) < d ? formatHour
+      : time.timeMonth(d) < d ? (time.timeWeek(d) < d ? formatDay : formatWeek)
+      : time.timeYear(d) < d ? formatMonth
       : formatYear)(d);
 }
 
-tape("format(date) coerces the specified date to a Date", function(test) {
-  var f = timeFormat.format("%c");
+tape("timeFormat(date) coerces the specified date to a Date", function(test) {
+  var f = timeFormat.timeFormat("%c");
   test.equal(f(+date.local(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
   test.equal(f(+date.local(1990, 0, 2)), "Tue Jan  2 00:00:00 1990");
   test.equal(f(+date.local(1990, 0, 3)), "Wed Jan  3 00:00:00 1990");
@@ -34,8 +34,8 @@ tape("format(date) coerces the specified date to a Date", function(test) {
   test.end();
 });
 
-tape("format(\"%a\")(date) formats abbreviated weekdays", function(test) {
-  var f = timeFormat.format("%a");
+tape("timeFormat(\"%a\")(date) formats abbreviated weekdays", function(test) {
+  var f = timeFormat.timeFormat("%a");
   test.equal(f(date.local(1990, 0, 1)), "Mon");
   test.equal(f(date.local(1990, 0, 2)), "Tue");
   test.equal(f(date.local(1990, 0, 3)), "Wed");
@@ -46,8 +46,8 @@ tape("format(\"%a\")(date) formats abbreviated weekdays", function(test) {
   test.end();
 });
 
-tape("format(\"%A\")(date) formats weekdays", function(test) {
-  var f = timeFormat.format("%A");
+tape("timeFormat(\"%A\")(date) formats weekdays", function(test) {
+  var f = timeFormat.timeFormat("%A");
   test.equal(f(date.local(1990, 0, 1)), "Monday");
   test.equal(f(date.local(1990, 0, 2)), "Tuesday");
   test.equal(f(date.local(1990, 0, 3)), "Wednesday");
@@ -58,8 +58,8 @@ tape("format(\"%A\")(date) formats weekdays", function(test) {
   test.end();
 });
 
-tape("format(\"%b\")(date) formats abbreviated months", function(test) {
-  var f = timeFormat.format("%b");
+tape("timeFormat(\"%b\")(date) formats abbreviated months", function(test) {
+  var f = timeFormat.timeFormat("%b");
   test.equal(f(date.local(1990,  0, 1)), "Jan");
   test.equal(f(date.local(1990,  1, 1)), "Feb");
   test.equal(f(date.local(1990,  2, 1)), "Mar");
@@ -75,8 +75,8 @@ tape("format(\"%b\")(date) formats abbreviated months", function(test) {
   test.end();
 });
 
-tape("format(\"%B\")(date) formats months", function(test) {
-  var f = timeFormat.format("%B");
+tape("timeFormat(\"%B\")(date) formats months", function(test) {
+  var f = timeFormat.timeFormat("%B");
   test.equal(f(date.local(1990,  0, 1)), "January");
   test.equal(f(date.local(1990,  1, 1)), "February");
   test.equal(f(date.local(1990,  2, 1)), "March");
@@ -92,40 +92,40 @@ tape("format(\"%B\")(date) formats months", function(test) {
   test.end();
 });
 
-tape("format(\"%c\")(date) formats localized dates and times", function(test) {
-  var f = timeFormat.format("%c");
+tape("timeFormat(\"%c\")(date) formats localized dates and times", function(test) {
+  var f = timeFormat.timeFormat("%c");
   test.equal(f(date.local(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
   test.end();
 });
 
-tape("format(\"%d\")(date) formats zero-padded dates", function(test) {
-  var f = timeFormat.format("%d");
+tape("timeFormat(\"%d\")(date) formats zero-padded dates", function(test) {
+  var f = timeFormat.timeFormat("%d");
   test.equal(f(date.local(1990, 0, 1)), "01");
   test.end();
 });
 
-tape("format(\"%e\")(date) formats space-padded dates", function(test) {
-  var f = timeFormat.format("%e");
+tape("timeFormat(\"%e\")(date) formats space-padded dates", function(test) {
+  var f = timeFormat.timeFormat("%e");
   test.equal(f(date.local(1990, 0, 1)), " 1");
   test.end();
 });
 
-tape("format(\"%H\")(date) formats zero-padded hours (24)", function(test) {
-  var f = timeFormat.format("%H");
+tape("timeFormat(\"%H\")(date) formats zero-padded hours (24)", function(test) {
+  var f = timeFormat.timeFormat("%H");
   test.equal(f(date.local(1990, 0, 1,  0)), "00");
   test.equal(f(date.local(1990, 0, 1, 13)), "13");
   test.end();
 });
 
-tape("format(\"%I\")(date) formats zero-padded hours (12)", function(test) {
-  var f = timeFormat.format("%I");
+tape("timeFormat(\"%I\")(date) formats zero-padded hours (12)", function(test) {
+  var f = timeFormat.timeFormat("%I");
   test.equal(f(date.local(1990, 0, 1,  0)), "12");
   test.equal(f(date.local(1990, 0, 1, 13)), "01");
   test.end();
 });
 
-tape("format(\"%j\")(date) formats zero-padded day of year numbers", function(test) {
-  var f = timeFormat.format("%j");
+tape("timeFormat(\"%j\")(date) formats zero-padded day of year numbers", function(test) {
+  var f = timeFormat.timeFormat("%j");
   test.equal(f(date.local(1990,  0,  1)), "001");
   test.equal(f(date.local(1990,  5,  1)), "152");
   test.equal(f(date.local(2010,  2, 13)), "072");
@@ -137,62 +137,62 @@ tape("format(\"%j\")(date) formats zero-padded day of year numbers", function(te
   test.end();
 });
 
-tape("format(\"%m\")(date) formats zero-padded months", function(test) {
-  var f = timeFormat.format("%m");
+tape("timeFormat(\"%m\")(date) formats zero-padded months", function(test) {
+  var f = timeFormat.timeFormat("%m");
   test.equal(f(date.local(1990, 0, 1)), "01");
   test.equal(f(date.local(1990, 9, 1)), "10");
   test.end();
 });
 
-tape("format(\"%M\")(date) formats zero-padded minutes", function(test) {
-  var f = timeFormat.format("%M");
+tape("timeFormat(\"%M\")(date) formats zero-padded minutes", function(test) {
+  var f = timeFormat.timeFormat("%M");
   test.equal(f(date.local(1990, 0, 1, 0,  0)), "00");
   test.equal(f(date.local(1990, 0, 1, 0, 32)), "32");
   test.end();
 });
 
-tape("format(\"%p\")(date) formats AM or PM", function(test) {
-  var f = timeFormat.format("%p");
+tape("timeFormat(\"%p\")(date) formats AM or PM", function(test) {
+  var f = timeFormat.timeFormat("%p");
   test.equal(f(date.local(1990, 0, 1,  0)), "AM");
   test.equal(f(date.local(1990, 0, 1, 13)), "PM");
   test.end();
 });
 
-tape("format(\"%S\")(date) formats zero-padded seconds", function(test) {
-  var f = timeFormat.format("%S");
+tape("timeFormat(\"%S\")(date) formats zero-padded seconds", function(test) {
+  var f = timeFormat.timeFormat("%S");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  0)), "00");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 32)), "32");
-  var f = timeFormat.format("%0S");
+  var f = timeFormat.timeFormat("%0S");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  0)), "00");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 32)), "32");
   test.end();
 });
 
-tape("format(\"%_S\")(date) formats space-padded seconds", function(test) {
-  var f = timeFormat.format("%_S");
+tape("timeFormat(\"%_S\")(date) formats space-padded seconds", function(test) {
+  var f = timeFormat.timeFormat("%_S");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  0)), " 0");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  3)), " 3");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 32)), "32");
   test.end();
 });
 
-tape("format(\"-S\")(date) formats no-padded seconds", function(test) {
-  var f = timeFormat.format("%-S");
+tape("timeFormat(\"-S\")(date) formats no-padded seconds", function(test) {
+  var f = timeFormat.timeFormat("%-S");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  0)), "0");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  3)), "3");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 32)), "32");
   test.end();
 });
 
-tape("format(\"%L\")(date) formats zero-padded milliseconds", function(test) {
-  var f = timeFormat.format("%L");
+tape("timeFormat(\"%L\")(date) formats zero-padded milliseconds", function(test) {
+  var f = timeFormat.timeFormat("%L");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 0,   0)), "000");
   test.equal(f(date.local(1990, 0, 1, 0, 0, 0, 432)), "432");
   test.end();
 });
 
-tape("format(\"%U\")(date) formats zero-padded week numbers", function(test) {
-  var f = timeFormat.format("%U");
+tape("timeFormat(\"%U\")(date) formats zero-padded week numbers", function(test) {
+  var f = timeFormat.timeFormat("%U");
   test.equal(f(date.local(1990,  0,  1,  0)), "00");
   test.equal(f(date.local(1990,  5,  1,  0)), "21");
   test.equal(f(date.local(2010,  2, 13, 23)), "10");
@@ -204,30 +204,30 @@ tape("format(\"%U\")(date) formats zero-padded week numbers", function(test) {
   test.end();
 });
 
-tape("format(\"%x\")(date) formats localized dates", function(test) {
-  var f = timeFormat.format("%x");
+tape("timeFormat(\"%x\")(date) formats localized dates", function(test) {
+  var f = timeFormat.timeFormat("%x");
   test.equal(f(date.local(1990, 0, 1)), "01/01/1990");
   test.equal(f(date.local(2010, 5, 1)), "06/01/2010");
   test.end();
 });
 
-tape("format(\"%X\")(date) formats localized times", function(test) {
-  var f = timeFormat.format("%X");
+tape("timeFormat(\"%X\")(date) formats localized times", function(test) {
+  var f = timeFormat.timeFormat("%X");
   test.equal(f(date.local(1990, 0, 1,  0,  0,  0)), "00:00:00");
   test.equal(f(date.local(1990, 0, 1, 13, 34, 59)), "13:34:59");
   test.end();
 });
 
-tape("format(\"%y\")(date) formats zero-padded two-digit years", function(test) {
-  var f = timeFormat.format("%y");
+tape("timeFormat(\"%y\")(date) formats zero-padded two-digit years", function(test) {
+  var f = timeFormat.timeFormat("%y");
   test.equal(f(date.local(+1990, 0, 1)), "90");
   test.equal(f(date.local(+2002, 0, 1)), "02");
   test.equal(f(date.local(-0002, 0, 1)), "-02");
   test.end();
 });
 
-tape("format(\"%Y\")(date) formats zero-padded four-digit years", function(test) {
-  var f = timeFormat.format("%Y");
+tape("timeFormat(\"%Y\")(date) formats zero-padded four-digit years", function(test) {
+  var f = timeFormat.timeFormat("%Y");
   test.equal(f(date.local(  123, 0, 1)), "0123");
   test.equal(f(date.local( 1990, 0, 1)), "1990");
   test.equal(f(date.local( 2002, 0, 1)), "2002");
@@ -236,19 +236,19 @@ tape("format(\"%Y\")(date) formats zero-padded four-digit years", function(test)
   test.end();
 });
 
-tape("format(\"%Z\")(date) formats time zones", function(test) {
-  var f = timeFormat.format("%Z");
+tape("timeFormat(\"%Z\")(date) formats time zones", function(test) {
+  var f = timeFormat.timeFormat("%Z");
   test.equal(f(date.local(1990, 0, 1)), "-0800");
   test.end();
 });
 
-tape("format(\"%%\")(date) formats literal percent signs", function(test) {
-  var f = timeFormat.format("%%");
+tape("timeFormat(\"%%\")(date) formats literal percent signs", function(test) {
+  var f = timeFormat.timeFormat("%%");
   test.equal(f(date.local(1990, 0, 1)), "%");
   test.end();
 });
 
-tape("format(…) can be used to create a conditional multi-format", function(test) {
+tape("timeFormat(…) can be used to create a conditional multi-format", function(test) {
   test.equal(multi(date.local(1990, 0, 1, 0, 0, 0, 12)), ".012");
   test.equal(multi(date.local(1990, 0, 1, 0, 0, 1,  0)), ":01");
   test.equal(multi(date.local(1990, 0, 1, 0, 1, 0,  0)), "12:01");

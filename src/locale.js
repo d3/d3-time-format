@@ -1,4 +1,4 @@
-import {day, sunday, monday, year, utcDay, utcSunday, utcMonday, utcYear} from "d3-time";
+import {timeDay, timeSunday, timeMonday, timeYear, utcDay, utcSunday, utcMonday, utcYear} from "d3-time";
 
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
@@ -292,15 +292,23 @@ export default function(locale) {
   return {
     format: function(specifier) {
       var f = newFormat(specifier += "", formats);
-      f.parse = newParse(specifier, localDate);
       f.toString = function() { return specifier; };
       return f;
     },
+    parse: function(specifier) {
+      var p = newParse(specifier += "", localDate);
+      p.toString = function() { return specifier; };
+      return p;
+    },
     utcFormat: function(specifier) {
       var f = newFormat(specifier += "", utcFormats);
-      f.parse = newParse(specifier, utcDate);
       f.toString = function() { return specifier; };
       return f;
+    },
+    utcParse: function(specifier) {
+      var p = newParse(specifier, utcDate);
+      p.toString = function() { return specifier; };
+      return p;
     }
   };
 };
@@ -414,7 +422,7 @@ function formatHour12(d, p) {
 }
 
 function formatDayOfYear(d, p) {
-  return pad(1 + day.count(year(d), d), p, 3);
+  return pad(1 + timeDay.count(timeYear(d), d), p, 3);
 }
 
 function formatMilliseconds(d, p) {
@@ -434,7 +442,7 @@ function formatSeconds(d, p) {
 }
 
 function formatWeekNumberSunday(d, p) {
-  return pad(sunday.count(year(d), d), p, 2);
+  return pad(timeSunday.count(timeYear(d), d), p, 2);
 }
 
 function formatWeekdayNumber(d) {
@@ -442,7 +450,7 @@ function formatWeekdayNumber(d) {
 }
 
 function formatWeekNumberMonday(d, p) {
-  return pad(monday.count(year(d), d), p, 2);
+  return pad(timeMonday.count(timeYear(d), d), p, 2);
 }
 
 function formatYear(d, p) {

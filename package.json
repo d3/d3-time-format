@@ -1,6 +1,6 @@
 {
   "name": "d3-time-format",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A JavaScript time formatter and parser inspired by strftime and strptime.",
   "keywords": [
     "d3",
@@ -27,7 +27,7 @@
     "prepublish": "npm run test && uglifyjs build/d3-time-format.js -c -m -o build/d3-time-format.min.js && rm -f build/d3-time-format.zip && zip -j build/d3-time-format.zip -- LICENSE README.md build/d3-time-format.js build/d3-time-format.min.js"
   },
   "dependencies": {
-    "d3-time": "~0.1.1"
+    "d3-time": "~0.2.0"
   },
   "devDependencies": {
     "faucet": "0.0",
