@@ -1,13 +1,13 @@
 # d3-time-format
 
-This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library, and can be used to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of locale-specific representations. To format a date, create a [format function](#locale_format) from a specifier (a string with the desired format *directives*, indicated by `%`); then pass a date to the format function, which returns a string. For example, to convert the current date to a human-readable string:
+This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library, and can be used to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of locale-specific representations. To format a date, create a [formatter](#locale_format) from a specifier (a string with the desired format *directives*, indicated by `%`); then pass a date to the formatter, which returns a string. For example, to convert the current date to a human-readable string:
 
 ```js
 var formatTime = d3.timeFormat("%B %d, %Y");
 formatTime(new Date); // "June 30, 2015"
 ```
 
-Likewise, to convert a string back to a date, create a [parse function](#locale_parse):
+Likewise, to convert a string back to a date, create a [parser](#locale_parse):
 
 ```js
 var parseTime = d3.timeParse("%B %d, %Y");
@@ -70,11 +70,11 @@ An alias for [*locale*.utcParse](#locale_utcParse) on the [U.S. English locale](
 
 <a name="isoFormat" href="#isoFormat">#</a> d3.<b>isoFormat</b>
 
-The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time *format* function. Where available, this method will use [Date.toISOString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString) to format.
+The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time formatter. Where available, this method will use [Date.toISOString](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date/toISOString) to format.
 
 <a name="isoParse" href="#isoParse">#</a> d3.<b>isoParse</b>
 
-The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time *parse* function. Where available, this method will use the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC parser function](#utcParse):
+The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time parser. Where available, this method will use the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC parser function](#utcParse):
 
 ```js
 var strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
@@ -82,7 +82,7 @@ var strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>)
 
-Returns a new format function for the given string *specifier*. The specifier string may contain the following directives:
+Returns a new formatter for the given string *specifier*. The specifier string may contain the following directives:
 
 * `%a` - abbreviated weekday name.*
 * `%A` - full weekday name.*
@@ -132,7 +132,7 @@ formatDay(date); // "Thursday"
 
 <a name="locale_parse" href="#locale_parse">#</a> <i>locale</i>.<b>parse</b>(<i>specifier</i>)
 
-Returns a new parser function for the given string *specifier*. The specifier string may contain the same directives as [*locale*.format](#locale_format). The `%d` and `%e` directives are considered equivalent for parsing.
+Returns a new parser for the given string *specifier*. The specifier string may contain the same directives as [*locale*.format](#locale_format). The `%d` and `%e` directives are considered equivalent for parsing.
 
 The returned function parses a specified *string*, returning the corresponding [date](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date) or null if the string could not be parsed according to this format’s specifier. Parsing is strict: if the specified <i>string</i> does not exactly match the associated specifier, this method returns null. For example, if the associated specifier is `%Y-%m-%dT%H:%M:%SZ`, then the string `"2011-07-01T19:15:28Z"` will be parsed as expected, but `"2011-07-01T19:15:28"`, `"2011-07-01 19:15:28"` and `"2011-07-01"` will return null. (Note that the literal `Z` here is different from the time zone offset directive `%Z`.) If a more flexible parser is desired, try multiple formats sequentially until one returns non-null.
 
