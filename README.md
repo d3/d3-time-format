@@ -54,19 +54,19 @@ In a vanilla environment, a `d3_time_format` global is exported. [Try d3-time-fo
 
 <a name="timeFormat" href="#timeFormat">#</a> d3.<b>timeFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.format](#locale_format) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales), or use [timeFormatLocale](#timeFormatLocale) to define a new locale.
+An alias for [*locale*.format](#locale_format) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales).
 
 <a name="timeParse" href="#timeParse">#</a> d3.<b>timeParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.parse](#locale_parse) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales), or use [timeFormatLocale](#timeFormatLocale) to define a new locale.
+An alias for [*locale*.parse](#locale_parse) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales).
 
 <a name="utcFormat" href="#utcFormat">#</a> d3.<b>utcFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcFormat](#locale_utcFormat) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales), or use [timeFormatLocale](#timeFormatLocale) to define a new locale.
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales).
 
 <a name="utcParse" href="#utcParse">#</a> d3.<b>utcParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcParse](#locale_utcParse) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales), or use [timeFormatLocale](#timeFormatLocale) to define a new locale.
+An alias for [*locale*.utcParse](#locale_utcParse) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales).
 
 <a name="isoFormat" href="#isoFormat">#</a> d3.<b>isoFormat</b>
 
