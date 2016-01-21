@@ -311,7 +311,7 @@ export default function(locale) {
       return p;
     }
   };
-};
+}
 
 var pads = {"-": "", "_": " ", "0": "0"},
     numberRe = /^\s*\d+/, // note: ignores next directive

@@ -23,7 +23,7 @@
   },
   "scripts": {
     "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -g d3-time:d3_time -u d3-time-format -n d3_time_format -o build/d3-time-format.js -- build/bundle.js",
-    "test": "TZ=America/Los_Angeles faucet `find test -name '*-test.js'`",
+    "test": "TZ=America/Los_Angeles faucet `find test -name '*-test.js'` && eslint index.js src",
     "prepublish": "npm run test && uglifyjs build/d3-time-format.js -c -m -o build/d3-time-format.min.js && rm -f build/d3-time-format.zip && zip -j build/d3-time-format.zip -- LICENSE README.md build/d3-time-format.js build/d3-time-format.min.js"
   },
   "dependencies": {
