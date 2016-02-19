@@ -118,3 +118,17 @@ tape("utcParse(\"\")(date) parses timezone offset (in the form 'Z')", function(t
   test.deepEqual(p("01/02/1990 Z"), date.utc(1990, 0, 2));
   test.end();
 });
+
+tape("utcParse(\"\")(date) parses Unix timestamps", function(test) {
+  var p = timeFormat.utcParse("%Q");
+  test.deepEqual(p("0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000000"), date.utc(1990, 0, 1));
+  test.end();
+});
+
+tape("utcParse(\"\")(date) parses Unix timestamps in seconds", function(test) {
+  var p = timeFormat.utcParse("%s");
+  test.deepEqual(p("0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000"), date.utc(1990, 0, 1));
+  test.end();
+});
