@@ -150,3 +150,17 @@ tape("utcParse(\"%V %Y\")(date) week number (ISO) and year", function(test) {
   test.deepEqual(p("X 1995 Z"), null);
   test.end();
 });
+
+tape("utcParse(\"\")(date) parses Unix timestamps", function(test) {
+  var p = timeFormat.utcParse("%Q");
+  test.deepEqual(p("0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000000"), date.utc(1990, 0, 1));
+  test.end();
+});
+
+tape("utcParse(\"\")(date) parses Unix timestamps in seconds", function(test) {
+  var p = timeFormat.utcParse("%s");
+  test.deepEqual(p("0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000"), date.utc(1990, 0, 1));
+  test.end();
+});
