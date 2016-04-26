@@ -213,27 +213,27 @@ export default function(locale) {
   }
 
   function parsePeriod(d, string, i) {
-    var n = periodRe.exec(string.slice(i));
+    var n = string.slice(i).match(periodRe);
     return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseShortWeekday(d, string, i) {
-    var n = shortWeekdayRe.exec(string.slice(i));
+    var n = string.slice(i).match(shortWeekdayRe);
     return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseWeekday(d, string, i) {
-    var n = weekdayRe.exec(string.slice(i));
+    var n = string.slice(i).match(weekdayRe);
     return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseShortMonth(d, string, i) {
-    var n = shortMonthRe.exec(string.slice(i));
+    var n = string.slice(i).match(shortMonthRe);
     return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
   function parseMonth(d, string, i) {
-    var n = monthRe.exec(string.slice(i));
+    var n = string.slice(i).match(monthRe);
     return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
   }
 
@@ -316,6 +316,7 @@ export default function(locale) {
 var pads = {"-": "", "_": " ", "0": "0"},
     numberRe = /^\s*\d+/, // note: ignores next directive
     percentRe = /^%/,
+    zoneRe = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/,
     requoteRe = /[\\\^\$\*\+\?\|\[\]\(\)\.\{\}]/g;
 
 function pad(value, fill, width) {
@@ -340,72 +341,72 @@ function formatLookup(names) {
 }
 
 function parseWeekdayNumber(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 1));
+  var n = string.slice(i, i + 1).match(numberRe);
   return n ? (d.w = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberSunday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = string.slice(i).match(numberRe);
   return n ? (d.U = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberMonday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = string.slice(i).match(numberRe);
   return n ? (d.W = +n[0], i + n[0].length) : -1;
 }
 
 function parseFullYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 4));
+  var n = string.slice(i, i + 4).match(numberRe);
   return n ? (d.y = +n[0], i + n[0].length) : -1;
 }
 
 function parseYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
 }
 
 function parseZone(d, string, i) {
-  var n = /^(Z)|([+-]\d\d)(?:\:?(\d\d))?/.exec(string.slice(i, i + 6));
+  var n = string.slice(i, i + 6).match(zoneRe);
   return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
 }
 
 function parseMonthNumber(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
 }
 
 function parseDayOfMonth(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.d = +n[0], i + n[0].length) : -1;
 }
 
 function parseDayOfYear(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
+  var n = string.slice(i, i + 3).match(numberRe);
   return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
 }
 
 function parseHour24(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.H = +n[0], i + n[0].length) : -1;
 }
 
 function parseMinutes(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.M = +n[0], i + n[0].length) : -1;
 }
 
 function parseSeconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 2));
+  var n = string.slice(i, i + 2).match(numberRe);
   return n ? (d.S = +n[0], i + n[0].length) : -1;
 }
 
 function parseMilliseconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i, i + 3));
+  var n = string.slice(i, i + 3).match(numberRe);
   return n ? (d.L = +n[0], i + n[0].length) : -1;
 }
 
 function parseLiteralPercent(d, string, i) {
-  var n = percentRe.exec(string.slice(i, i + 1));
+  var n = string.slice(i, i + 1).match(percentRe);
   return n ? i + n[0].length : -1;
 }
 
