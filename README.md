@@ -59,19 +59,19 @@ var format = d3.timeFormat("%x");
 
 <a name="timeFormat" href="#timeFormat">#</a> d3.<b>timeFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.format](#locale_format) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales).
+An alias for [*locale*.format](#locale_format) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
 
 <a name="timeParse" href="#timeParse">#</a> d3.<b>timeParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.parse](#locale_parse) on the [U.S. English locale](#timeFormatEnUs). See the other [locales](#locales).
+An alias for [*locale*.parse](#locale_parse) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
 
 <a name="utcFormat" href="#utcFormat">#</a> d3.<b>utcFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcFormat](#locale_utcFormat) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales).
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
 
 <a name="utcParse" href="#utcParse">#</a> d3.<b>utcParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcParse](#locale_utcParse) on the [U.S. English locale](#localeEnUs). See the other [locales](#locales).
+An alias for [*locale*.utcParse](#locale_utcParse) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
 
 <a name="isoFormat" href="#isoFormat">#</a> d3.<b>isoFormat</b>
 
@@ -165,91 +165,3 @@ Returns a *locale* object for the specified *definition* with [*locale*.format](
 * `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
 * `months` - the full names of the months (starting with January).
 * `shortMonths` - the abbreviated names of the months (starting with January).
-
-<a name="timeFormatCaEs" href="#timeFormatCaEs">#</a> d3.<b>timeFormatCaEs</b>
-
-[Catalan (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/ca-ES.js)
-
-<a name="timeFormatDeCh" href="#timeFormatDeCh">#</a> d3.<b>timeFormatDeCh</b>
-
-[German (Switzerland)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-CH.js)
-
-<a name="timeFormatDeDe" href="#timeFormatDeDe">#</a> d3.<b>timeFormatDeDe</b>
-
-[German (Germany)](https://github.com/d3/d3-time-format/tree/master/src/locale/de-DE.js)
-
-<a name="timeFormatEnCa" href="#timeFormatEnCa">#</a> d3.<b>timeFormatEnCa</b>
-
-[English (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-CA.js)
-
-<a name="timeFormatEnGb" href="#timeFormatEnGb">#</a> d3.<b>timeFormatEnGb</b>
-
-[English (United Kingdom)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-GB.js)
-
-<a name="timeFormatEnUs" href="#timeFormatEnUs">#</a> d3.<b>timeFormatEnUs</b>
-
-[English (United States)](https://github.com/d3/d3-time-format/tree/master/src/locale/en-US.js)
-
-<a name="timeFormatEsEs" href="#timeFormatEsEs">#</a> d3.<b>timeFormatEsEs</b>
-
-[Spanish (Spain)](https://github.com/d3/d3-time-format/tree/master/src/locale/es-ES.js)
-
-<a name="timeFormatFiFi" href="#timeFormatFiFi">#</a> d3.<b>timeFormatFiFi</b>
-
-[Finnish (Finland)](https://github.com/d3/d3-time-format/tree/master/src/locale/fi-FI.js)
-
-<a name="timeFormatFrCa" href="#timeFormatFrCa">#</a> d3.<b>timeFormatFrCa</b>
-
-[French (Canada)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-CA.js)
-
-<a name="timeFormatFrFr" href="#timeFormatFrFr">#</a> d3.<b>timeFormatFrFr</b>
-
-[French (France)](https://github.com/d3/d3-time-format/tree/master/src/locale/fr-FR.js)
-
-<a name="timeFormatHeIl" href="#timeFormatHeIl">#</a> d3.<b>timeFormatHeIl</b>
-
-[Hebrew (Israel)](https://github.com/d3/d3-time-format/tree/master/src/locale/he-IL.js)
-
-<a name="timeFormatHuHu" href="#timeFormatHuHu">#</a> d3.<b>timeFormatHuHu</b>
-
-[Hungarian (Hungary)](https://github.com/d3/d3-time-format/tree/master/src/locale/hu-HU.js)
-
-<a name="timeFormatItIt" href="#timeFormatItIt">#</a> d3.<b>timeFormatItIt</b>
-
-[Italian (Italy)](https://github.com/d3/d3-time-format/tree/master/src/locale/it-IT.js)
-
-<a name="timeFormatJaJp" href="#timeFormatJaJp">#</a> d3.<b>timeFormatJaJp</b>
-
-[Japanese (Japan)](https://github.com/d3/d3-time-format/tree/master/src/locale/ja-JP.js)
-
-<a name="timeFormatKoKr" href="#timeFormatKoKr">#</a> d3.<b>timeFormatKoKr</b>
-
-[Korean (South Korea)](https://github.com/d3/d3-time-format/tree/master/src/locale/ko-KR.js)
-
-<a name="timeFormatMkMk" href="#timeFormatMkMk">#</a> d3.<b>timeFormatMkMk</b>
-
-[Macedonian (Macedonia)](https://github.com/d3/d3-time-format/tree/master/src/locale/mk-MK.js)
-
-<a name="timeFormatNlNl" href="#timeFormatNlNl">#</a> d3.<b>timeFormatNlNl</b>
-
-[Dutch (Netherlands)](https://github.com/d3/d3-time-format/tree/master/src/locale/nl-NL.js)
-
-<a name="timeFormatPlPl" href="#timeFormatPlPl">#</a> d3.<b>timeFormatPlPl</b>
-
-[Polish (Poland)](https://github.com/d3/d3-time-format/tree/master/src/locale/pl-PL.js)
-
-<a name="timeFormatPtBr" href="#timeFormatPtBr">#</a> d3.<b>timeFormatPtBr</b>
-
-[Portuguese (Brazil)](https://github.com/d3/d3-time-format/tree/master/src/locale/pt-BR.js)
-
-<a name="timeFormatRuRu" href="#timeFormatRuRu">#</a> d3.<b>timeFormatRuRu</b>
-
-[Russian (Russia)](https://github.com/d3/d3-time-format/tree/master/src/locale/ru-RU.js)
-
-<a name="timeFormatSvSe" href="#timeFormatSvSe">#</a> d3.<b>timeFormatSvSe</b>
-
-[Swedish (Sweden)](https://github.com/d3/d3-time-format/tree/master/src/locale/sv-SE.js)
-
-<a name="timeFormatZhCn" href="#timeFormatZhCn">#</a> d3.<b>timeFormatZhCn</b>
-
-[Chinese (China)](https://github.com/d3/d3-time-format/tree/master/src/locale/zh-CN.js)
