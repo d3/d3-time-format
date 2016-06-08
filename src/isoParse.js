@@ -1,5 +1,5 @@
-import locale from "./locale/en-US";
 import {isoSpecifier} from "./isoFormat";
+import {utcParse} from "./locale";
 
 function parseIsoNative(string) {
   var date = new Date(string);
@@ -8,6 +8,6 @@ function parseIsoNative(string) {
 
 var parseIso = +new Date("2000-01-01T00:00:00.000Z")
     ? parseIsoNative
-    : locale.utcParse(isoSpecifier);
+    : utcParse(isoSpecifier);
 
 export default parseIso;

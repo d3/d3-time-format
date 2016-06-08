@@ -1,4 +1,4 @@
-import locale from "./locale/en-US";
+import {utcFormat} from "./locale";
 
 export var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
 
@@ -8,6 +8,6 @@ function formatIsoNative(date) {
 
 var formatIso = Date.prototype.toISOString
     ? formatIsoNative
-    : locale.utcFormat(isoSpecifier);
+    : utcFormat(isoSpecifier);
 
 export default formatIso;

@@ -1,6 +1,7 @@
 var tape = require("tape"),
     timeFormat = require("../"),
-    date = require("./date");
+    date = require("./date"),
+    FiFi = require("../locale/fi-FI");
 
 tape("parse(string) coerces the specified string to a string", function(test) {
   var p = timeFormat.timeParse("%c");
@@ -183,7 +184,7 @@ tape("timeParse(\"%I:%M:%S %p\")(date) parses twelve hour, minute and second", f
 });
 
 tape("timeParse(\"%I %p\")(date) parses period in non-English locales", function(test) {
-  var p = timeFormat.timeFormatFiFi.parse("%I:%M:%S %p");
+  var p = timeFormat.timeFormatLocale(FiFi).parse("%I:%M:%S %p");
   test.deepEqual(p("12:00:00 a.m."), date.local(1900, 0, 1, 0, 0, 0));
   test.deepEqual(p("11:59:59 A.M."), date.local(1900, 0, 1, 11, 59, 59));
   test.deepEqual(p("12:00:00 p.m."), date.local(1900, 0, 1, 12, 0, 0));

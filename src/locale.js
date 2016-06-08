@@ -1,5 +1,21 @@
 import {timeDay, timeSunday, timeMonday, timeYear, utcDay, utcSunday, utcMonday, utcYear} from "d3-time";
 
+var defaultLocale = formatLocale({
+  dateTime: "%a %b %e %X %Y",
+  date: "%m/%d/%Y",
+  time: "%H:%M:%S",
+  periods: ["AM", "PM"],
+  days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+});
+
+export var timeFormat = defaultLocale.format;
+export var timeParse = defaultLocale.parse;
+export var utcFormat = defaultLocale.utcFormat;
+export var utcParse = defaultLocale.utcParse;
+
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
     var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
@@ -22,7 +38,7 @@ function newYear(y) {
   return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
 }
 
-export default function(locale) {
+export default function formatLocale(locale) {
   var locale_dateTime = locale.dateTime,
       locale_date = locale.date,
       locale_time = locale.time,
