@@ -1,4 +1,3 @@
-export {version} from "./build/package";
 import defaultLocale from "./src/locale/en-US";
 export {default as timeFormatLocale} from "./src/locale";
 export {default as timeFormatCaEs} from "./src/locale/ca-ES";
