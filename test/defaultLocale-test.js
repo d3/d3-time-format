@@ -23,6 +23,26 @@ var frFr = {
   "shortMonths": ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
 };
 
+tape("d3.timeFormat(specifier) defaults to en-US", function(test) {
+  test.equal(d3.timeFormat("%c")(new Date(2000, 0, 1)), "Sat Jan  1 00:00:00 2000");
+  test.end();
+});
+
+tape("d3.timeParse(specifier) defaults to en-US", function(test) {
+  test.equal(+d3.timeParse("%c")("Sat Jan  1 00:00:00 2000"), +new Date(2000, 0, 1));
+  test.end();
+});
+
+tape("d3.utcFormat(specifier) defaults to en-US", function(test) {
+  test.equal(d3.utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "Sat Jan  1 00:00:00 2000");
+  test.end();
+});
+
+tape("d3.utcParse(specifier) defaults to en-US", function(test) {
+  test.equal(+d3.utcParse("%c")("Sat Jan  1 00:00:00 2000"), +new Date(Date.UTC(2000, 0, 1)));
+  test.end();
+});
+
 tape("d3.timeFormatDefaultLocale(definition) returns the new default locale", function(test) {
   var locale = d3.timeFormatDefaultLocale(frFr);
   try {
