@@ -32,6 +32,7 @@
     "d3-time": "1"
   },
   "devDependencies": {
+    "d3-queue": "3",
     "eslint": "2",
     "package-preamble": "0.0",
     "rollup": "0.31",

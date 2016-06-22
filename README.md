@@ -59,19 +59,19 @@ var format = d3.timeFormat("%x");
 
 <a name="timeFormat" href="#timeFormat">#</a> d3.<b>timeFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.format](#locale_format) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
+An alias for [*locale*.format](#locale_format) on the [default locale](#timeFormatDefaultLocale).
 
 <a name="timeParse" href="#timeParse">#</a> d3.<b>timeParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.parse](#locale_parse) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
+An alias for [*locale*.parse](#locale_parse) on the [default locale](#timeFormatDefaultLocale).
 
 <a name="utcFormat" href="#utcFormat">#</a> d3.<b>utcFormat</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcFormat](#locale_utcFormat) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
+An alias for [*locale*.utcFormat](#locale_utcFormat) on the [default locale](#timeFormatDefaultLocale).
 
 <a name="utcParse" href="#utcParse">#</a> d3.<b>utcParse</b>(<i>specifier</i>)
 
-An alias for [*locale*.utcParse](#locale_utcParse) on the U.S. English locale. See [d3.timeFormatLocale](#timeFormatLocale) to defined a new locale.
+An alias for [*locale*.utcParse](#locale_utcParse) on the [default locale](#timeFormatDefaultLocale).
 
 <a name="isoFormat" href="#isoFormat">#</a> d3.<b>isoFormat</b>
 
@@ -165,3 +165,7 @@ Returns a *locale* object for the specified *definition* with [*locale*.format](
 * `shortDays` - the abbreviated names of the weekdays, starting with Sunday.
 * `months` - the full names of the months (starting with January).
 * `shortMonths` - the abbreviated names of the months (starting with January).
+
+<a name="timeFormatDefaultLocale" href="#timeFormatDefaultLocale">#</a> d3.<b>timeFormatDefaultLocale</b>(<i>definition</i>)
+
+Equivalent to [d3.timeFormatLocale](#timeFormatLocale), except it also redefines [d3.timeFormat](#timeFormat), [d3.timeParse](#timeParse), [d3.utcFormat](#utcFormat) and [d3.utcParse](#utcParse) to the new locale’s [*locale*.format](#locale_format), [*locale*.parse](#locale_parse), [*locale*.utcFormat](#locale_utcFormat) and [*locale*.utcParse](#locale_utcParse). If you do not set a default locale, it defaults to [U.S. English](https://github.com/d3/d3-time-format/blob/master/locale/en-US.json).
