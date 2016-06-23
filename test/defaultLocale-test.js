@@ -1,45 +1,25 @@
 var tape = require("tape"),
-    d3 = require("../");
-
-var enUs = {
-  "dateTime": "%a %b %e %X %Y",
-  "date": "%m/%d/%Y",
-  "time": "%H:%M:%S",
-  "periods": ["AM", "PM"],
-  "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-  "shortDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-  "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-};
-
-var frFr = {
-  "dateTime": "%A, le %e %B %Y, %X",
-  "date": "%d/%m/%Y",
-  "time": "%H:%M:%S",
-  "periods": ["AM", "PM"],
-  "days": ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
-  "shortDays": ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-  "months": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
-  "shortMonths": ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
-};
+    d3 = require("../"),
+    enUs = require("../locale/en-US"),
+    frFr = require("../locale/fr-FR");
 
 tape("d3.timeFormat(specifier) defaults to en-US", function(test) {
-  test.equal(d3.timeFormat("%c")(new Date(2000, 0, 1)), "Sat Jan  1 00:00:00 2000");
+  test.equal(d3.timeFormat("%c")(new Date(2000, 0, 1)), "1/1/2000, 12:00:00 AM");
   test.end();
 });
 
 tape("d3.timeParse(specifier) defaults to en-US", function(test) {
-  test.equal(+d3.timeParse("%c")("Sat Jan  1 00:00:00 2000"), +new Date(2000, 0, 1));
+  test.equal(+d3.timeParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(2000, 0, 1));
   test.end();
 });
 
 tape("d3.utcFormat(specifier) defaults to en-US", function(test) {
-  test.equal(d3.utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "Sat Jan  1 00:00:00 2000");
+  test.equal(d3.utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "1/1/2000, 12:00:00 AM");
   test.end();
 });
 
 tape("d3.utcParse(specifier) defaults to en-US", function(test) {
-  test.equal(+d3.utcParse("%c")("Sat Jan  1 00:00:00 2000"), +new Date(Date.UTC(2000, 0, 1)));
+  test.equal(+d3.utcParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(Date.UTC(2000, 0, 1)));
   test.end();
 });
 

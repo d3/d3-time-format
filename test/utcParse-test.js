@@ -52,11 +52,7 @@ tape("utcParse(\"\")(date) parses month, date and year", function(test) {
 
 tape("utcParse(\"\")(date) parses locale date and time", function(test) {
   var p = timeFormat.utcParse("%c");
-  test.deepEqual(p("Mon Jan  1 00:00:00 1990"), date.utc(1990, 0, 1));
-  test.deepEqual(p("Sun Jan  1 00:00:00 1990"), date.utc(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 01 00:00:00 1990"), date.utc(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 1 00:00:00 1990"), date.utc(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 1 0:0:0 1990"), date.utc(1990, 0, 1));
+  test.deepEqual(p("1/1/1990, 12:00:00 AM"), date.utc(1990, 0, 1));
   test.end();
 });
 
@@ -72,11 +68,11 @@ tape("utcParse(\"\")(date) parses twenty-four hour, minute and second", function
 
 tape("utcParse(\"\")(date) parses locale time", function(test) {
   var p = timeFormat.utcParse("%X");
-  test.deepEqual(p("00:00:00"), date.utc(1900, 0, 1, 0, 0, 0));
-  test.deepEqual(p("11:59:59"), date.utc(1900, 0, 1, 11, 59, 59));
-  test.deepEqual(p("12:00:00"), date.utc(1900, 0, 1, 12, 0, 0));
-  test.deepEqual(p("12:00:01"), date.utc(1900, 0, 1, 12, 0, 1));
-  test.deepEqual(p("23:59:59"), date.utc(1900, 0, 1, 23, 59, 59));
+  test.deepEqual(p("12:00:00 AM"), date.utc(1900, 0, 1, 0, 0, 0));
+  test.deepEqual(p("11:59:59 AM"), date.utc(1900, 0, 1, 11, 59, 59));
+  test.deepEqual(p("12:00:00 PM"), date.utc(1900, 0, 1, 12, 0, 0));
+  test.deepEqual(p("12:00:01 PM"), date.utc(1900, 0, 1, 12, 0, 1));
+  test.deepEqual(p("11:59:59 PM"), date.utc(1900, 0, 1, 23, 59, 59));
   test.end();
 });
 

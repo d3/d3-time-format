@@ -24,13 +24,13 @@ function multi(d) {
 
 tape("timeFormat(date) coerces the specified date to a Date", function(test) {
   var f = timeFormat.timeFormat("%c");
-  test.equal(f(+date.local(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 2)), "Tue Jan  2 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 3)), "Wed Jan  3 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 4)), "Thu Jan  4 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 5)), "Fri Jan  5 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 6)), "Sat Jan  6 00:00:00 1990");
-  test.equal(f(+date.local(1990, 0, 7)), "Sun Jan  7 00:00:00 1990");
+  test.equal(f(+date.local(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 2)), "1/2/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 3)), "1/3/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 4)), "1/4/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 5)), "1/5/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 6)), "1/6/1990, 12:00:00 AM");
+  test.equal(f(+date.local(1990, 0, 7)), "1/7/1990, 12:00:00 AM");
   test.end();
 });
 
@@ -94,7 +94,7 @@ tape("timeFormat(\"%B\")(date) formats months", function(test) {
 
 tape("timeFormat(\"%c\")(date) formats localized dates and times", function(test) {
   var f = timeFormat.timeFormat("%c");
-  test.equal(f(date.local(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
+  test.equal(f(date.local(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
   test.end();
 });
 
@@ -206,15 +206,15 @@ tape("timeFormat(\"%U\")(date) formats zero-padded week numbers", function(test)
 
 tape("timeFormat(\"%x\")(date) formats localized dates", function(test) {
   var f = timeFormat.timeFormat("%x");
-  test.equal(f(date.local(1990, 0, 1)), "01/01/1990");
-  test.equal(f(date.local(2010, 5, 1)), "06/01/2010");
+  test.equal(f(date.local(1990, 0, 1)), "1/1/1990");
+  test.equal(f(date.local(2010, 5, 1)), "6/1/2010");
   test.end();
 });
 
 tape("timeFormat(\"%X\")(date) formats localized times", function(test) {
   var f = timeFormat.timeFormat("%X");
-  test.equal(f(date.local(1990, 0, 1,  0,  0,  0)), "00:00:00");
-  test.equal(f(date.local(1990, 0, 1, 13, 34, 59)), "13:34:59");
+  test.equal(f(date.local(1990, 0, 1,  0,  0,  0)), "12:00:00 AM");
+  test.equal(f(date.local(1990, 0, 1, 13, 34, 59)), "1:34:59 PM");
   test.end();
 });
 

@@ -5,13 +5,13 @@ var tape = require("tape"),
 
 tape("parse(string) coerces the specified string to a string", function(test) {
   var p = timeFormat.timeParse("%c");
-  test.deepEqual(p({toString: function() { return "Mon Jan  1 00:00:00 1990"; }}), date.local(1990, 0, 1));
-  test.deepEqual(p({toString: function() { return "Tue Jan  2 00:00:00 1990"; }}), date.local(1990, 0, 2));
-  test.deepEqual(p({toString: function() { return "Wed Jan  3 00:00:00 1990"; }}), date.local(1990, 0, 3));
-  test.deepEqual(p({toString: function() { return "Thu Jan  4 00:00:00 1990"; }}), date.local(1990, 0, 4));
-  test.deepEqual(p({toString: function() { return "Fri Jan  5 00:00:00 1990"; }}), date.local(1990, 0, 5));
-  test.deepEqual(p({toString: function() { return "Sat Jan  6 00:00:00 1990"; }}), date.local(1990, 0, 6));
-  test.deepEqual(p({toString: function() { return "Sun Jan  7 00:00:00 1990"; }}), date.local(1990, 0, 7));
+  test.deepEqual(p({toString: function() { return "1/1/1990, 12:00:00 AM"; }}), date.local(1990, 0, 1));
+  test.deepEqual(p({toString: function() { return "1/2/1990, 12:00:00 AM"; }}), date.local(1990, 0, 2));
+  test.deepEqual(p({toString: function() { return "1/3/1990, 12:00:00 AM"; }}), date.local(1990, 0, 3));
+  test.deepEqual(p({toString: function() { return "1/4/1990, 12:00:00 AM"; }}), date.local(1990, 0, 4));
+  test.deepEqual(p({toString: function() { return "1/5/1990, 12:00:00 AM"; }}), date.local(1990, 0, 5));
+  test.deepEqual(p({toString: function() { return "1/6/1990, 12:00:00 AM"; }}), date.local(1990, 0, 6));
+  test.deepEqual(p({toString: function() { return "1/7/1990, 12:00:00 AM"; }}), date.local(1990, 0, 7));
   test.end();
 });
 
@@ -113,9 +113,9 @@ tape("timeParse(\"%m/%d/%y\")(date) parses month, date and two-digit year", func
 
 tape("timeParse(\"%x\")(date) parses locale date", function(test) {
   var p = timeFormat.timeParse("%x");
-  test.deepEqual(p("01/01/1990"), date.local(1990, 0, 1));
-  test.deepEqual(p("02/03/1991"), date.local(1991, 1, 3));
-  test.deepEqual(p("03/10/2010"), date.local(2010, 2, 10));
+  test.deepEqual(p("1/1/1990"), date.local(1990, 0, 1));
+  test.deepEqual(p("2/3/1991"), date.local(1991, 1, 3));
+  test.deepEqual(p("3/10/2010"), date.local(2010, 2, 10));
   test.end();
 });
 
@@ -145,11 +145,7 @@ tape("timeParse(\"%j %m/%d/%Y\")(date) parses day of year and date", function(te
 
 tape("timeParse(\"%c\")(date) parses locale date and time", function(test) {
   var p = timeFormat.timeParse("%c");
-  test.deepEqual(p("Mon Jan  1 00:00:00 1990"), date.local(1990, 0, 1));
-  test.deepEqual(p("Sun Jan  1 00:00:00 1990"), date.local(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 01 00:00:00 1990"), date.local(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 1 00:00:00 1990"), date.local(1990, 0, 1));
-  test.deepEqual(p("Mon Jan 1 0:0:0 1990"), date.local(1990, 0, 1));
+  test.deepEqual(p("1/1/1990, 12:00:00 AM"), date.local(1990, 0, 1));
   test.end();
 });
 
@@ -165,11 +161,11 @@ tape("timeParse(\"%H:%M:%S\")(date) parses twenty-four hour, minute and second",
 
 tape("timeParse(\"%X\")(date) parses locale time", function(test) {
   var p = timeFormat.timeParse("%X");
-  test.deepEqual(p("00:00:00"), date.local(1900, 0, 1, 0, 0, 0));
-  test.deepEqual(p("11:59:59"), date.local(1900, 0, 1, 11, 59, 59));
-  test.deepEqual(p("12:00:00"), date.local(1900, 0, 1, 12, 0, 0));
-  test.deepEqual(p("12:00:01"), date.local(1900, 0, 1, 12, 0, 1));
-  test.deepEqual(p("23:59:59"), date.local(1900, 0, 1, 23, 59, 59));
+  test.deepEqual(p("12:00:00 AM"), date.local(1900, 0, 1, 0, 0, 0));
+  test.deepEqual(p("11:59:59 AM"), date.local(1900, 0, 1, 11, 59, 59));
+  test.deepEqual(p("12:00:00 PM"), date.local(1900, 0, 1, 12, 0, 0));
+  test.deepEqual(p("12:00:01 PM"), date.local(1900, 0, 1, 12, 0, 1));
+  test.deepEqual(p("11:59:59 PM"), date.local(1900, 0, 1, 23, 59, 59));
   test.end();
 });
 

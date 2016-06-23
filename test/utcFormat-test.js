@@ -82,7 +82,7 @@ tape("utcFormat(\"%B\")(date) formats months", function(test) {
 
 tape("utcFormat(\"%c\")(date) formats localized dates and times", function(test) {
   var f = timeFormat.utcFormat("%c");
-  test.equal(f(date.utc(1990, 0, 1)), "Mon Jan  1 00:00:00 1990");
+  test.equal(f(date.utc(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
   test.end();
 });
 
@@ -194,15 +194,15 @@ tape("utcFormat(\"%U\")(date) formats zero-padded week numbers", function(test) 
 
 tape("utcFormat(\"%x\")(date) formats localized dates", function(test) {
   var f = timeFormat.utcFormat("%x");
-  test.equal(f(date.utc(1990, 0, 1)), "01/01/1990");
-  test.equal(f(date.utc(2010, 5, 1)), "06/01/2010");
+  test.equal(f(date.utc(1990, 0, 1)), "1/1/1990");
+  test.equal(f(date.utc(2010, 5, 1)), "6/1/2010");
   test.end();
 });
 
 tape("utcFormat(\"%X\")(date) formats localized times", function(test) {
   var f = timeFormat.utcFormat("%X");
-  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0)), "00:00:00");
-  test.equal(f(date.utc(1990, 0, 1, 13, 34, 59)), "13:34:59");
+  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0)), "12:00:00 AM");
+  test.equal(f(date.utc(1990, 0, 1, 13, 34, 59)), "1:34:59 PM");
   test.end();
 });
 

@@ -7,9 +7,9 @@ export var utcFormat;
 export var utcParse;
 
 defaultLocale({
-  dateTime: "%a %b %e %X %Y",
-  date: "%m/%d/%Y",
-  time: "%H:%M:%S",
+  dateTime: "%x, %X",
+  date: "%-m/%-d/%Y",
+  time: "%-I:%M:%S %p",
   periods: ["AM", "PM"],
   days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
