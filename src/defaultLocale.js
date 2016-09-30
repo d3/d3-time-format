@@ -6,6 +6,15 @@ export var timeParse;
 export var utcFormat;
 export var utcParse;
 
+function defaultLocale(definition) {
+  locale = formatLocale(definition);
+  timeFormat = locale.format;
+  timeParse = locale.parse;
+  utcFormat = locale.utcFormat;
+  utcParse = locale.utcParse;
+  return locale;
+}
+
 defaultLocale({
   dateTime: "%x, %X",
   date: "%-m/%-d/%Y",
@@ -17,11 +26,4 @@ defaultLocale({
   shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 });
 
-export default function defaultLocale(definition) {
-  locale = formatLocale(definition);
-  timeFormat = locale.format;
-  timeParse = locale.parse;
-  utcFormat = locale.utcFormat;
-  utcParse = locale.utcParse;
-  return locale;
-}
+export default defaultLocale;
