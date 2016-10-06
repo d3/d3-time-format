@@ -110,6 +110,7 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%c` - the locale’s date and time, such as `%x, %X`.*
 * `%d` - zero-padded day of the month as a decimal number [01,31].
 * `%e` - space-padded day of the month as a decimal number [ 1,31]; equivalent to `%_d`.
+* `%f` - microseconds as a decimal number [000000, 999999].
 * `%H` - hour (24-hour clock) as a decimal number [00,23].
 * `%I` - hour (12-hour clock) as a decimal number [01,12].
 * `%j` - day of the year as a decimal number [001,366].

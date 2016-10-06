@@ -199,6 +199,13 @@ tape("timeFormat(\"%u\")(date) formats week day numbers", function(test) {
   test.end();
 });
 
+tape("timeFormat(\"%f\")(date) formats zero-padded microseconds", function(test) {
+  var f = timeFormat.timeFormat("%f");
+  test.equal(f(date.local(1990, 0, 1, 0, 0, 0,   0)), "000000");
+  test.equal(f(date.local(1990, 0, 1, 0, 0, 0, 432)), "432000");
+  test.end();
+});
+
 tape("timeFormat(\"%U\")(date) formats zero-padded week numbers", function(test) {
   var f = timeFormat.timeFormat("%U");
   test.equal(f(date.local(1990,  0,  1,  0)), "00");
