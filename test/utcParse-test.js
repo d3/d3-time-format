@@ -76,6 +76,18 @@ tape("utcParse(\"\")(date) parses locale time", function(test) {
   test.end();
 });
 
+tape("utcParse(\"%L\")(date) parses milliseconds", function(test) {
+  var p = timeFormat.utcParse("%L");
+  test.deepEqual(p("432"), date.utc(1900, 0, 1, 0, 0, 0, 432));
+  test.end();
+});
+
+tape("utcParse(\"%f\")(date) parses microseconds", function(test) {
+  var p = timeFormat.utcParse("%f");
+  test.deepEqual(p("432000"), date.utc(1900, 0, 1, 0, 0, 0, 432));
+  test.end();
+});
+
 tape("utcParse(\"\")(date) parses twelve hour, minute and second", function(test) {
   var p = timeFormat.utcParse("%I:%M:%S %p");
   test.deepEqual(p("12:00:00 am"), date.utc(1900, 0, 1, 0, 0, 0));
