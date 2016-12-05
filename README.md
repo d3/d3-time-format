@@ -53,6 +53,20 @@ var format = d3.timeFormat("%x");
 </script>
 ```
 
+Locale files are hosted on [unpkg](https://unpkg.com/) and can be loaded using [d3.json](https://github.com/d3/d3-request/blob/master/README.md#json). For example, to set Russian as the default locale:
+
+```js
+d3.json("https://unpkg.com/d3-time-format@2/locale/ru-RU.json", function(error, locale) {
+  if (error) throw error;
+
+  d3.timeFormatDefaultLocale(locale);
+
+  var format = d3.timeFormat("%c");
+
+  console.log(format(new Date)); // понедельник,  5 декабря 2016 г. 10:31:59
+});
+```
+
 [Try d3-time-format in your browser.](https://tonicdev.com/npm/d3-time-format)
 
 ## API Reference
@@ -166,6 +180,10 @@ Returns a *locale* object for the specified *definition* with [*locale*.format](
 * `months` - the full names of the months (starting with January).
 * `shortMonths` - the abbreviated names of the months (starting with January).
 
+For an example, see [Localized Time Axis II](https://bl.ocks.org/mbostock/805115ebaa574e771db1875a6d828949).
+
 <a name="timeFormatDefaultLocale" href="#timeFormatDefaultLocale">#</a> d3.<b>timeFormatDefaultLocale</b>(<i>definition</i>) [<>](https://github.com/d3/d3-time-format/blob/master/src/defaultLocale.js "Source")
 
 Equivalent to [d3.timeFormatLocale](#timeFormatLocale), except it also redefines [d3.timeFormat](#timeFormat), [d3.timeParse](#timeParse), [d3.utcFormat](#utcFormat) and [d3.utcParse](#utcParse) to the new locale’s [*locale*.format](#locale_format), [*locale*.parse](#locale_parse), [*locale*.utcFormat](#locale_utcFormat) and [*locale*.utcParse](#locale_utcParse). If you do not set a default locale, it defaults to [U.S. English](https://github.com/d3/d3-time-format/blob/master/locale/en-US.json).
+
+For an example, see [Localized Time Axis](https://bl.ocks.org/mbostock/6f1cc065d4d172bcaf322e399aa8d62f).
