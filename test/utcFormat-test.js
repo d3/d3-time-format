@@ -146,6 +146,22 @@ tape("utcFormat(\"%p\")(date) formats AM or PM", function(test) {
   test.end();
 });
 
+tape("utcFormat(\"%Q\")(date) formats UNIX timestamps", function(test) {
+  var f = timeFormat.utcFormat("%Q");
+  test.equal(f(date.utc(1970, 0, 1,  0,  0,  0)), "0");
+  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0)), "631152000000");
+  test.equal(f(date.utc(1990, 0, 1, 12, 34, 56)), "631197296000");
+  test.end();
+});
+
+tape("utcFormat(\"%s\")(date) formats UNIX timetamps in seconds", function(test) {
+  var f = timeFormat.utcFormat("%s");
+  test.equal(f(date.utc(1970, 0, 1,  0,  0,  0)), "0");
+  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0)), "631152000");
+  test.equal(f(date.utc(1990, 0, 1, 12, 34, 56)), "631197296");
+  test.end();
+});
+
 tape("utcFormat(\"%S\")(date) formats zero-padded seconds", function(test) {
   var f = timeFormat.utcFormat("%S");
   test.equal(f(date.utc(1990, 0, 1, 0, 0,  0)), "00");

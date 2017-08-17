@@ -58,6 +58,8 @@ export default function formatLocale(locale) {
     "m": formatMonthNumber,
     "M": formatMinutes,
     "p": formatPeriod,
+    "Q": formatUnixTimestamp,
+    "s": formatUnixTimestampSeconds,
     "S": formatSeconds,
     "U": formatWeekNumberSunday,
     "w": formatWeekdayNumber,
@@ -85,6 +87,8 @@ export default function formatLocale(locale) {
     "m": formatUTCMonthNumber,
     "M": formatUTCMinutes,
     "p": formatUTCPeriod,
+    "Q": formatUnixTimestamp,
+    "s": formatUnixTimestampSeconds,
     "S": formatUTCSeconds,
     "U": formatUTCWeekNumberSunday,
     "w": formatUTCWeekdayNumber,
@@ -112,6 +116,8 @@ export default function formatLocale(locale) {
     "m": parseMonthNumber,
     "M": parseMinutes,
     "p": parsePeriod,
+    "Q": parseUnixTimestamp,
+    "s": parseUnixTimestampSeconds,
     "S": parseSeconds,
     "U": parseWeekNumberSunday,
     "w": parseWeekdayNumber,
@@ -175,6 +181,11 @@ export default function formatLocale(locale) {
         var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+      }
+
+      // If Unix timestamp is specified, return date constructed from milliseconds from Epoch
+      if ("Q" in d) {
+        return new Date(d.Q);
       }
 
       // If a time zone is specified, all fields are interpreted as UTC and then
@@ -409,6 +420,16 @@ function parseLiteralPercent(d, string, i) {
   return n ? i + n[0].length : -1;
 }
 
+function parseUnixTimestamp(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.Q = +n[0], i + n[0].length) : -1;
+}
+
+function parseUnixTimestampSeconds(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.Q = (+n[0]) * 1000, i + n[0].length) : -1;
+}
+
 function formatDayOfMonth(d, p) {
   return pad(d.getDate(), p, 2);
 }
@@ -526,4 +547,12 @@ function formatUTCZone() {
 
 function formatLiteralPercent() {
   return "%";
+}
+
+function formatUnixTimestamp(d) {
+  return d.getTime();
+}
+
+function formatUnixTimestampSeconds(d) {
+  return Math.floor(d.getTime() / 1000);
 }
