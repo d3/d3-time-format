@@ -179,6 +179,14 @@ tape("utcFormat(\"%L\")(date) formats zero-padded milliseconds", function(test) 
   test.end();
 });
 
+tape("utcFormat(\"%u\")(date) formats week day numbers", function(test) {
+  var f = timeFormat.utcFormat("%u");
+  test.equal(f(date.utc(1990,  0,  1,  0)), "1");
+  test.equal(f(date.utc(1990,  0,  7,  0)), "7");
+  test.equal(f(date.utc(2010,  2, 13, 23)), "6");
+  test.end();
+});
+
 tape("utcFormat(\"%U\")(date) formats zero-padded week numbers", function(test) {
   var f = timeFormat.utcFormat("%U");
   test.equal(f(date.utc(1990,  0,  1,  0)), "00");
