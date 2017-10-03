@@ -174,8 +174,7 @@ export default function formatLocale(locale) {
 
       // Convert day-of-week and week-of-year to day-of-year.
       if ("W" in d || "U" in d) {
-        if (!("u" in d)) d.u = "W" in d ? 1 : 7;
-        if (!("w" in d)) d.w = d.u === 7 ? 0 : d.u;
+        if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
         var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
