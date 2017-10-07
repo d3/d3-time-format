@@ -127,6 +127,7 @@ export default function formatLocale(locale) {
     "p": parsePeriod,
     "S": parseSeconds,
     "U": parseWeekNumberSunday,
+    "V": parseWeekNumberISO,
     "w": parseWeekdayNumber,
     "W": parseWeekNumberMonday,
     "x": parseLocaleDate,
@@ -183,11 +184,32 @@ export default function formatLocale(locale) {
       if ("p" in d) d.H = d.H % 12 + d.p * 12;
 
       // Convert day-of-week and week-of-year to day-of-year.
-      if ("W" in d || "U" in d) {
-        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
-        var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
-        d.m = 0;
-        d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+      if ("W" in d || "U" in d || "V" in d) {
+        if ("V" in d) {
+          if (d.V < 1 || d.V > 53) return null;
+          // fall back to the start of the week (Monday) if no day-of-week is given
+          if (!("w" in d)) d.w = 1;
+          if ("Z" in d) {
+            var isod_Z = utcDate(newYear(d.y)), dow_Z = isod_Z.getUTCDay();
+            isod_Z = dow_Z > 4 || dow_Z === 0 ? utcMonday.ceil(isod_Z) : utcMonday(isod_Z);
+            isod_Z = utcDay.offset(isod_Z, (d.V - 1) * 7);
+            d.y = isod_Z.getUTCFullYear();
+            d.m = isod_Z.getUTCMonth();
+            d.d = isod_Z.getUTCDate() + (d.w + 6) % 7;
+          } else {
+            var isod = newDate(newYear(d.y)), dow = isod.getDay();
+            isod = dow > 4 || dow === 0 ? timeMonday.ceil(isod) : timeMonday(isod);
+            isod = timeDay.offset(isod, (d.V - 1) * 7);
+            d.y = isod.getFullYear();
+            d.m = isod.getMonth();
+            d.d = isod.getDate() + (d.w + 6) % 7;
+          }
+        } else {
+          if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+          var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+          d.m = 0;
+          d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+        }
       }
 
       // If a time zone is specified, all fields are interpreted as UTC and then
@@ -360,6 +382,11 @@ function parseWeekdayNumber(d, string, i) {
 function parseWeekNumberSunday(d, string, i) {
   var n = numberRe.exec(string.slice(i));
   return n ? (d.U = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekNumberISO(d, string, i) {
+  var n = numberRe.exec(string.slice(i));
+  return n ? (d.V = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberMonday(d, string, i) {

@@ -114,3 +114,27 @@ tape("utcParse(\"\")(date) parses timezone offset (in the form 'Z')", function(t
   test.deepEqual(p("01/02/1990 Z"), date.utc(1990, 0, 2));
   test.end();
 });
+
+tape("utcParse(\"%w %V %Y\")(date) parses numeric weekday, week number (ISO) and year", function(test) {
+  var p = timeFormat.timeParse("%w %V %Y %Z");
+  test.deepEqual(p("1 01 1990 Z"), date.utc(1990,  0,  1));
+  test.deepEqual(p("0 05 1991 Z"), date.utc(1991,  1,  3));
+  test.deepEqual(p("4 53 1992 Z"), date.utc(1992, 11, 31));
+  test.deepEqual(p("0 52 1994 Z"), date.utc(1995,  0,  1));
+  test.deepEqual(p("0 01 1995 Z"), date.utc(1995,  0,  8));
+  test.equal(p("X 03 2010"), null);
+  test.end();
+});
+
+tape("utcParse(\"%V %Y\")(date) week number (ISO) and year", function(test) {
+  var p = timeFormat.timeParse("%V %Y %Z");
+  test.deepEqual(p("01 1990 Z"), date.utc(1990,  0,  1));
+  test.deepEqual(p("05 1991 Z"), date.utc(1991,  0, 28));
+  test.deepEqual(p("53 1992 Z"), date.utc(1992, 11, 28));
+  test.deepEqual(p("01 1993 Z"), date.utc(1993,  0,  4));
+  test.deepEqual(p("01 1995 Z"), date.utc(1995,  0,  2));
+  test.deepEqual(p("00 1995 Z"), null);
+  test.deepEqual(p("54 1995 Z"), null);
+  test.deepEqual(p("X 1995 Z"), null);
+  test.end();
+});
