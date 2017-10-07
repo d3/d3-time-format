@@ -380,17 +380,17 @@ function parseWeekdayNumber(d, string, i) {
 }
 
 function parseWeekNumberSunday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (d.U = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberISO(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (d.V = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberMonday(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (d.W = +n[0], i + n[0].length) : -1;
 }
 
