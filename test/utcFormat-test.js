@@ -192,6 +192,21 @@ tape("utcFormat(\"%U\")(date) formats zero-padded week numbers", function(test) 
   test.end();
 });
 
+tape("utcFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", function(test) {
+  var f = timeFormat.utcFormat("%V");
+  test.equal(f(date.utc(1990,  0,  1,  0)), "01");
+  test.equal(f(date.utc(1990,  5,  1,  0)), "22");
+  test.equal(f(date.utc(2010,  2, 13, 23)), "10");
+  test.equal(f(date.utc(2010,  2, 14,  0)), "10"); // DST begins
+  test.equal(f(date.utc(2010,  2, 15,  0)), "11");
+  test.equal(f(date.utc(2010, 10,  6, 23)), "44");
+  test.equal(f(date.utc(2010, 10,  7,  0)), "44"); // DST ends
+  test.equal(f(date.utc(2010, 10,  8,  0)), "45");
+  test.equal(f(date.utc(2015, 11,  31, 0)), "53");
+  test.equal(f(date.utc(2016,  0,  1,  0)), "53");
+  test.end();
+});
+
 tape("utcFormat(\"%x\")(date) formats localized dates", function(test) {
   var f = timeFormat.utcFormat("%x");
   test.equal(f(date.utc(1990, 0, 1)), "1/1/1990");

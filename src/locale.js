@@ -1,4 +1,15 @@
-import {timeDay, timeSunday, timeMonday, timeYear, utcDay, utcSunday, utcMonday, utcYear} from "d3-time";
+import {
+  timeDay,
+  timeSunday,
+  timeMonday,
+  timeThursday,
+  timeYear,
+  utcDay,
+  utcSunday,
+  utcMonday,
+  utcThursday,
+  utcYear
+} from 'd3-time';
 
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
@@ -60,6 +71,7 @@ export default function formatLocale(locale) {
     "p": formatPeriod,
     "S": formatSeconds,
     "U": formatWeekNumberSunday,
+    'V': formatWeekNumberISO,
     "w": formatWeekdayNumber,
     "W": formatWeekNumberMonday,
     "x": null,
@@ -87,6 +99,7 @@ export default function formatLocale(locale) {
     "p": formatUTCPeriod,
     "S": formatUTCSeconds,
     "U": formatUTCWeekNumberSunday,
+    "V": formatUTCWeekNumberISO,
     "w": formatUTCWeekdayNumber,
     "W": formatUTCWeekNumberMonday,
     "x": null,
@@ -445,6 +458,16 @@ function formatWeekNumberSunday(d, p) {
   return pad(timeSunday.count(timeYear(d), d), p, 2);
 }
 
+function formatWeekNumberISO(d, p) {
+  var dow = d.getDay();
+  d = (dow >= 4 || dow === 0) ? timeThursday(d) : timeThursday.ceil(d);
+  var weekNum = timeThursday.count(timeYear(d), d);
+  if (timeYear(d).getDay() === 4) {
+    weekNum++;
+  }
+  return pad(weekNum, p, 2);
+}
+
 function formatWeekdayNumber(d) {
   return d.getDay();
 }
@@ -502,6 +525,16 @@ function formatUTCSeconds(d, p) {
 
 function formatUTCWeekNumberSunday(d, p) {
   return pad(utcSunday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCWeekNumberISO(d, p) {
+  var dow = d.getUTCDay();
+  d = (dow >= 4 || dow === 0) ? utcThursday(d) : utcThursday.ceil(d);
+  var weekNum = utcThursday.count(utcYear(d), d);
+  if (utcYear(d).getUTCDay() === 4) {
+    weekNum++;
+  }
+  return pad(weekNum, p, 2);
 }
 
 function formatUTCWeekdayNumber(d) {
