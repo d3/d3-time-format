@@ -193,6 +193,9 @@ export default function formatLocale(locale) {
           week, day;
       if (i != string.length) return null;
 
+      // If a UNIX timestamp is specified, return it.
+      if ("Q" in d) return new Date(d.Q);
+
       // The am-pm flag is 0 for AM, and 1 for PM.
       if ("p" in d) d.H = d.H % 12 + d.p * 12;
 
@@ -220,11 +223,6 @@ export default function formatLocale(locale) {
         day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
-      }
-
-      // If Unix timestamp is specified, return date constructed from milliseconds from Epoch
-      if ("Q" in d) {
-        return new Date(d.Q);
       }
 
       // If a time zone is specified, all fields are interpreted as UTC and then
