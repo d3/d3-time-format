@@ -118,8 +118,8 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%M` - minute as a decimal number [00,59].
 * `%L` - milliseconds as a decimal number [000, 999].
 * `%p` - either AM or PM.*
-* `%Q` - UNIX timestamp - milliseconds from Epoch
-* `%s` - UNIX timestamp in seconds - seconds from Epoch
+* `%Q` - milliseconds since UNIX epoch.
+* `%s` - seconds since UNIX epoch.
 * `%S` - second as a decimal number [00,61].
 * `%u` - Monday-based (ISO) weekday as a decimal number [1,7].
 * `%U` - Sunday-based week of the year as a decimal number [00,53].
