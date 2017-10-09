@@ -382,8 +382,7 @@ function parseWeekdayNumberSunday(d, string, i) {
 
 function parseWeekdayNumberMonday(d, string, i) {
   var n = numberRe.exec(string.slice(i, i + 1));
-  var r = n ? (d.u = +n[0], i + n[0].length) : -1;
-  return r;
+  return n ? (d.u = +n[0], i + n[0].length) : -1;
 }
 
 function parseWeekNumberSunday(d, string, i) {
@@ -489,8 +488,8 @@ function formatSeconds(d, p) {
 }
 
 function formatWeekdayNumberMonday(d) {
-  var dow = d.getDay();
-  return dow === 0 ? 7 : dow;
+  var day = d.getDay();
+  return day === 0 ? 7 : day;
 }
 
 function formatWeekNumberSunday(d, p) {
