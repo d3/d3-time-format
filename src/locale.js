@@ -632,9 +632,9 @@ function formatLiteralPercent() {
 }
 
 function formatUnixTimestamp(d) {
-  return d.getTime();
+  return +d;
 }
 
 function formatUnixTimestampSeconds(d) {
-  return Math.floor(d.getTime() / 1000);
+  return Math.floor(+d / 1000);
 }
