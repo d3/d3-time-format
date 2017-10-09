@@ -121,9 +121,9 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%Q` - milliseconds since UNIX epoch.
 * `%s` - seconds since UNIX epoch.
 * `%S` - second as a decimal number [00,61].
-* `%u` - Monday-based (ISO) weekday as a decimal number [1,7].
+* `%u` - Monday-based (ISO 8601) weekday as a decimal number [1,7].
 * `%U` - Sunday-based week of the year as a decimal number [00,53].
-* `%V` - ISO 8601 week number of the year as a decimal number [01, 53].
+* `%V` - ISO 8601 week of the year as a decimal number [01, 53].
 * `%w` - Sunday-based weekday as a decimal number [0,6].
 * `%W` - Monday-based week of the year as a decimal number [00,53].
 * `%x` - the locale’s date, such as `%-m/%-d/%Y`.*
