@@ -70,9 +70,10 @@ export default function formatLocale(locale) {
     "M": formatMinutes,
     "p": formatPeriod,
     "S": formatSeconds,
+    "u": formatWeekdayNumberMonday,
     "U": formatWeekNumberSunday,
     "V": formatWeekNumberISO,
-    "w": formatWeekdayNumber,
+    "w": formatWeekdayNumberSunday,
     "W": formatWeekNumberMonday,
     "x": null,
     "X": null,
@@ -98,9 +99,10 @@ export default function formatLocale(locale) {
     "M": formatUTCMinutes,
     "p": formatUTCPeriod,
     "S": formatUTCSeconds,
+    "u": formatUTCWeekdayNumberMonday,
     "U": formatUTCWeekNumberSunday,
     "V": formatUTCWeekNumberISO,
-    "w": formatUTCWeekdayNumber,
+    "w": formatUTCWeekdayNumberSunday,
     "W": formatUTCWeekNumberMonday,
     "x": null,
     "X": null,
@@ -126,9 +128,10 @@ export default function formatLocale(locale) {
     "M": parseMinutes,
     "p": parsePeriod,
     "S": parseSeconds,
+    "u": parseWeekdayNumberMonday,
     "U": parseWeekNumberSunday,
     "V": parseWeekNumberISO,
-    "w": parseWeekdayNumber,
+    "w": parseWeekdayNumberSunday,
     "W": parseWeekNumberMonday,
     "x": parseLocaleDate,
     "X": parseLocaleTime,
@@ -204,7 +207,7 @@ export default function formatLocale(locale) {
           d.d = week.getDate() + (d.w + 6) % 7;
         }
       } else if ("W" in d || "U" in d) {
-        if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
         day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
@@ -372,9 +375,15 @@ function formatLookup(names) {
   return map;
 }
 
-function parseWeekdayNumber(d, string, i) {
+function parseWeekdayNumberSunday(d, string, i) {
   var n = numberRe.exec(string.slice(i, i + 1));
   return n ? (d.w = +n[0], i + n[0].length) : -1;
+}
+
+function parseWeekdayNumberMonday(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  var r = n ? (d.u = +n[0], i + n[0].length) : -1;
+  return r;
 }
 
 function parseWeekNumberSunday(d, string, i) {
@@ -479,6 +488,11 @@ function formatSeconds(d, p) {
   return pad(d.getSeconds(), p, 2);
 }
 
+function formatWeekdayNumberMonday(d) {
+  var dow = d.getDay();
+  return dow === 0 ? 7 : dow;
+}
+
 function formatWeekNumberSunday(d, p) {
   return pad(timeSunday.count(timeYear(d), d), p, 2);
 }
@@ -489,7 +503,7 @@ function formatWeekNumberISO(d, p) {
   return pad(timeThursday.count(timeYear(d), d) + (timeYear(d).getDay() === 4), p, 2);
 }
 
-function formatWeekdayNumber(d) {
+function formatWeekdayNumberSunday(d) {
   return d.getDay();
 }
 
@@ -544,6 +558,11 @@ function formatUTCSeconds(d, p) {
   return pad(d.getUTCSeconds(), p, 2);
 }
 
+function formatUTCWeekdayNumberMonday(d) {
+  var dow = d.getUTCDay();
+  return dow === 0 ? 7 : dow;
+}
+
 function formatUTCWeekNumberSunday(d, p) {
   return pad(utcSunday.count(utcYear(d), d), p, 2);
 }
@@ -554,7 +573,7 @@ function formatUTCWeekNumberISO(d, p) {
   return pad(utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4), p, 2);
 }
 
-function formatUTCWeekdayNumber(d) {
+function formatUTCWeekdayNumberSunday(d) {
   return d.getUTCDay();
 }
 

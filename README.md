@@ -118,6 +118,7 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%L` - milliseconds as a decimal number [000, 999].
 * `%p` - either AM or PM.*
 * `%S` - second as a decimal number [00,61].
+* `%u` - Monday-based (ISO) weekday as a decimal number [1,7].
 * `%U` - Sunday-based week of the year as a decimal number [00,53].
 * `%V` - ISO 8601 week number of the year as a decimal number [01, 53].
 * `%w` - Sunday-based weekday as a decimal number [0,6].

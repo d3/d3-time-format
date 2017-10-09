@@ -57,7 +57,7 @@ tape("timeParse(\"%A %U %Y\")(date) parses weekday, week number (Sunday) and yea
   test.end();
 });
 
-tape("timeParse(\"%w %U %Y\")(date) parses numeric weekday, week number (Sunday) and year", function(test) {
+tape("timeParse(\"%w %U %Y\")(date) parses numeric weekday (Sunday), week number (Sunday) and year", function(test) {
   var p = timeFormat.timeParse("%w %U %Y");
   test.deepEqual(p("1 00 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("0 05 1991"), date.local(1991, 1, 3));
@@ -73,6 +73,16 @@ tape("timeParse(\"%w %V %Y\")(date) parses numeric weekday, week number (ISO) an
   test.deepEqual(p("4 53 1992"), date.local(1992, 11, 31));
   test.deepEqual(p("0 52 1994"), date.local(1995,  0,  1));
   test.deepEqual(p("0 01 1995"), date.local(1995,  0,  8));
+  test.end();
+});
+
+tape("timeParse(\"%u %U %Y\")(date) parses numeric weekday (Monday), week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%u %W %Y");
+  test.deepEqual(p("1 00 1990"), date.local(1989, 11, 25));
+  test.deepEqual(p("1 01 1990"), date.local(1990, 0, 1));
+  test.deepEqual(p("1 05 1991"), date.local(1991, 1, 4));
+  test.deepEqual(p("7 00 1995"), date.local(1995, 0, 1));
+  test.deepEqual(p("1 01 1995"), date.local(1995, 0, 2));
   test.equal(p("X 03 2010"), null);
   test.end();
 });
@@ -103,11 +113,20 @@ tape("timeParse(\"%A %W %Y\")(date) parses weekday, week number (Monday) and yea
   test.end();
 });
 
-tape("timeParse(\"%w %W %Y\")(date) parses numeric weekday, week number (Monday) and year", function(test) {
+tape("timeParse(\"%w %W %Y\")(date) parses numeric weekday (Sunday), week number (Monday) and year", function(test) {
   var p = timeFormat.timeParse("%w %W %Y");
   test.deepEqual(p("1 01 1990"), date.local(1990, 0, 1));
   test.deepEqual(p("0 04 1991"), date.local(1991, 1, 3));
   test.deepEqual(p("0 00 1995"), date.local(1995, 0, 1));
+  test.equal(p("X 03 2010"), null);
+  test.end();
+});
+
+tape("timeParse(\"%u %W %Y\")(date) parses numeric weekday (Monday), week number (Monday) and year", function(test) {
+  var p = timeFormat.timeParse("%u %W %Y");
+  test.deepEqual(p("1 01 1990"), date.local(1990, 0, 1));
+  test.deepEqual(p("7 04 1991"), date.local(1991, 1, 3));
+  test.deepEqual(p("7 00 1995"), date.local(1995, 0, 1));
   test.equal(p("X 03 2010"), null);
   test.end();
 });
