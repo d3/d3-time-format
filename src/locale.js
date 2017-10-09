@@ -9,7 +9,7 @@ import {
   utcMonday,
   utcThursday,
   utcYear
-} from 'd3-time';
+} from "d3-time";
 
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
@@ -71,7 +71,7 @@ export default function formatLocale(locale) {
     "p": formatPeriod,
     "S": formatSeconds,
     "U": formatWeekNumberSunday,
-    'V': formatWeekNumberISO,
+    "V": formatWeekNumberISO,
     "w": formatWeekdayNumber,
     "W": formatWeekNumberMonday,
     "x": null,
@@ -177,7 +177,8 @@ export default function formatLocale(locale) {
   function newParse(specifier, newDate) {
     return function(string) {
       var d = newYear(1900),
-          i = parseSpecifier(d, specifier, string += "", 0);
+          i = parseSpecifier(d, specifier, string += "", 0),
+          week, day;
       if (i != string.length) return null;
 
       // The am-pm flag is 0 for AM, and 1 for PM.
@@ -186,26 +187,25 @@ export default function formatLocale(locale) {
       // Convert day-of-week and week-of-year to day-of-year.
       if ("V" in d) {
         if (d.V < 1 || d.V > 53) return null;
-        // fall back to the start of the week (Monday) if no day-of-week is given
         if (!("w" in d)) d.w = 1;
         if ("Z" in d) {
-          var isod_Z = utcDate(newYear(d.y)), dow_Z = isod_Z.getUTCDay();
-          isod_Z = dow_Z > 4 || dow_Z === 0 ? utcMonday.ceil(isod_Z) : utcMonday(isod_Z);
-          isod_Z = utcDay.offset(isod_Z, (d.V - 1) * 7);
-          d.y = isod_Z.getUTCFullYear();
-          d.m = isod_Z.getUTCMonth();
-          d.d = isod_Z.getUTCDate() + (d.w + 6) % 7;
+          week = utcDate(newYear(d.y)), day = week.getUTCDay();
+          week = day > 4 || day === 0 ? utcMonday.ceil(week) : utcMonday(week);
+          week = utcDay.offset(week, (d.V - 1) * 7);
+          d.y = week.getUTCFullYear();
+          d.m = week.getUTCMonth();
+          d.d = week.getUTCDate() + (d.w + 6) % 7;
         } else {
-          var isod = newDate(newYear(d.y)), dow = isod.getDay();
-          isod = dow > 4 || dow === 0 ? timeMonday.ceil(isod) : timeMonday(isod);
-          isod = timeDay.offset(isod, (d.V - 1) * 7);
-          d.y = isod.getFullYear();
-          d.m = isod.getMonth();
-          d.d = isod.getDate() + (d.w + 6) % 7;
+          week = newDate(newYear(d.y)), day = week.getDay();
+          week = day > 4 || day === 0 ? timeMonday.ceil(week) : timeMonday(week);
+          week = timeDay.offset(week, (d.V - 1) * 7);
+          d.y = week.getFullYear();
+          d.m = week.getMonth();
+          d.d = week.getDate() + (d.w + 6) % 7;
         }
       } else if ("W" in d || "U" in d) {
         if (!("w" in d)) d.w = "W" in d ? 1 : 0;
-        var day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
       }
@@ -484,13 +484,9 @@ function formatWeekNumberSunday(d, p) {
 }
 
 function formatWeekNumberISO(d, p) {
-  var dow = d.getDay();
-  d = (dow >= 4 || dow === 0) ? timeThursday(d) : timeThursday.ceil(d);
-  var weekNum = timeThursday.count(timeYear(d), d);
-  if (timeYear(d).getDay() === 4) {
-    weekNum++;
-  }
-  return pad(weekNum, p, 2);
+  var day = d.getDay();
+  d = (day >= 4 || day === 0) ? timeThursday(d) : timeThursday.ceil(d);
+  return pad(timeThursday.count(timeYear(d), d) + (timeYear(d).getDay() === 4), p, 2);
 }
 
 function formatWeekdayNumber(d) {
@@ -553,13 +549,9 @@ function formatUTCWeekNumberSunday(d, p) {
 }
 
 function formatUTCWeekNumberISO(d, p) {
-  var dow = d.getUTCDay();
-  d = (dow >= 4 || dow === 0) ? utcThursday(d) : utcThursday.ceil(d);
-  var weekNum = utcThursday.count(utcYear(d), d);
-  if (utcYear(d).getUTCDay() === 4) {
-    weekNum++;
-  }
-  return pad(weekNum, p, 2);
+  var day = d.getUTCDay();
+  d = (day >= 4 || day === 0) ? utcThursday(d) : utcThursday.ceil(d);
+  return pad(utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4), p, 2);
 }
 
 function formatUTCWeekdayNumber(d) {

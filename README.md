@@ -129,11 +129,12 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%Z` - time zone offset, such as `-0700`, `-07:00`, `-07`, or `Z`.
 * `%%` - a literal percent sign (`%`).
 
-Directives marked with an asterisk (*) may be affected by the [locale definition](#localeFormat).
+Directives marked with an asterisk (\*) may be affected by the [locale definition](#localeFormat).
 
 For `%U`, all days in a new year preceding the first Sunday are considered to be in week 0. For `%W`, all days in a new year preceding the first Monday are considered to be in week 0. Week numbers are computed using [*interval*.count](https://github.com/d3/d3-time/blob/master/README.md#interval_count). For example, 2015-52 and 2016-00 represent Monday, December 28, 2015, while 2015-53 and 2016-01 represent Monday, January 4, 2016. This differs from the [ISO week date](https://en.wikipedia.org/wiki/ISO_week_date) specification (`%V`), which uses a more complicated definition!
 
-For `%V`, see the [strftime man page](http://man7.org/linux/man-pages/man3/strftime.3.html):
+For `%V`, per the [strftime man page](http://man7.org/linux/man-pages/man3/strftime.3.html):
+
 > In this system, weeks start on a Monday, and are numbered from 01, for the first week, up to 52 or 53, for the last week.  Week 1 is the first week where four or more days fall within the new year (or, synonymously, week 01 is: the first week of the year that contains a Thursday; or, the week that has 4 January in it).
 
 The `%` sign indicating a directive may be immediately followed by a padding modifier:
