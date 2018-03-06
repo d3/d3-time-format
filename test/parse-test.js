@@ -286,3 +286,16 @@ tape("timeParse(\"%b %d, %Y\")(date) doesn't crash when given weird strings", fu
   }
   test.end();
 });
+
+tape("timeParse(\"%m/%d/%Y %Z\")(date) parses timezone offset", function(test) {
+  var p = timeFormat.timeParse("%m/%d/%Y %Z");
+  test.deepEqual(p("01/02/1990 +0000 foo", true), date.local(1990, 0, 1, 16));
+  test.deepEqual(p("01/02/1990 +0100bar", true), date.local(1990, 0, 1, 15));
+  test.deepEqual(p("01/02/1990 +01300", true), date.local(1990, 0, 1, 14, 30));
+  test.deepEqual(p("01/02/1990 -0100foobar", true), date.local(1990, 0, 1, 17));
+  test.deepEqual(p("01/02/1990 -013012", true), date.local(1990, 0, 1, 17, 30));
+  test.deepEqual(p("01/02/1990 -0800+", true), date.local(1990, 0, 2, 0));
+  test.end();
+});
+
+

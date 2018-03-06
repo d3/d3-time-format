@@ -187,11 +187,11 @@ export default function formatLocale(locale) {
   }
 
   function newParse(specifier, newDate) {
-    return function(string) {
+    return function(string, loose) {
       var d = newYear(1900),
           i = parseSpecifier(d, specifier, string += "", 0),
           week, day;
-      if (i != string.length) return null;
+      if ((!loose && i != string.length) || i < 0) return null;
 
       // If a UNIX timestamp is specified, return it.
       if ("Q" in d) return new Date(d.Q);
