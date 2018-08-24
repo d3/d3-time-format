@@ -191,8 +191,8 @@ d3-queue@3:
   resolved "https://registry.yarnpkg.com/d3-queue/-/d3-queue-3.0.7.tgz#c93a2e54b417c0959129d7d73f6cf7d4292e7618"
 
 d3-time@1:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.9.tgz#ca7eebbcfe99c76cc837f903c7438defd28b73fe"
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.10.tgz#8259dd71288d72eeacfd8de281c4bf5c7393053c"
 
 debug@^3.1.0:
   version "3.1.0"
