@@ -16,7 +16,7 @@
     "name": "Mike Bostock",
     "url": "http://bost.ocks.org/mike"
   },
-  "main": "build/d3-time-format.js",
+  "main": "dist/d3-time-format.min.js",
   "module": "index",
   "jsnext:main": "index",
   "repository": {
@@ -24,20 +24,19 @@
     "url": "https://github.com/d3/d3-time-format.git"
   },
   "scripts": {
-    "pretest": "rm -rf build && mkdir build && rollup -c --banner \"$(preamble)\"",
+    "pretest": "rollup -c",
     "test": "TZ=America/Los_Angeles tape 'test/**/*-test.js' && eslint index.js src",
-    "prepublishOnly": "npm run test && uglifyjs -b beautify=false,preamble=\"'$(preamble)'\" build/d3-time-format.js -c -m -o build/d3-time-format.min.js",
-    "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../d3-time-format/build/d3-time-format.js d3-time-format.v2.js && cp ../d3-time-format/build/d3-time-format.min.js d3-time-format.v2.min.js && git add d3-time-format.v2.js d3-time-format.v2.min.js && git commit -m \"d3-time-format ${npm_package_version}\" && git push && cd - && zip -j build/d3-time-format.zip -- LICENSE README.md build/d3-time-format.js build/d3-time-format.min.js"
+    "prepublishOnly": "rm -rf dist && yarn test",
+    "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../${npm_package_name}/dist/${npm_package_name}.js ${npm_package_name}.v${npm_package_version%%.*}.js && cp ../${npm_package_name}/dist/${npm_package_name}.min.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git add ${npm_package_name}.v${npm_package_version%%.*}.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git commit -m \"${npm_package_name} ${npm_package_version}\" && git push && cd - && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js"
   },
   "dependencies": {
     "d3-time": "1"
   },
   "devDependencies": {
     "d3-queue": "3",
-    "eslint": "4",
-    "package-preamble": "0.1",
-    "rollup": "0.50",
-    "tape": "4",
-    "uglify-js": "3"
+    "eslint": "5",
+    "rollup": "0.64",
+    "rollup-plugin-terser": "1",
+    "tape": "4"
   }
 }
