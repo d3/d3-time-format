@@ -33,6 +33,18 @@ function newYear(y) {
   return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
 }
 
+function weekNumberISO(d) {
+  var day = d.getDay();
+  d = (day >= 4 || day === 0) ? timeThursday(d) : timeThursday.ceil(d);
+  return timeThursday.count(timeYear(d), d) + (timeYear(d).getDay() === 4);
+}
+
+function utcWeekNumberISO(d) {
+  var day = d.getUTCDay();
+  d = (day >= 4 || day === 0) ? utcThursday(d) : utcThursday.ceil(d);
+  return utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4);
+}
+
 export default function formatLocale(locale) {
   var locale_dateTime = locale.dateTime,
       locale_date = locale.date,
@@ -63,6 +75,8 @@ export default function formatLocale(locale) {
     "d": formatDayOfMonth,
     "e": formatDayOfMonth,
     "f": formatMicroseconds,
+    "g": formatISOWeekYear,
+    "G": formatISOWeekFullYear,
     "H": formatHour24,
     "I": formatHour12,
     "j": formatDayOfYear,
@@ -95,6 +109,8 @@ export default function formatLocale(locale) {
     "d": formatUTCDayOfMonth,
     "e": formatUTCDayOfMonth,
     "f": formatUTCMicroseconds,
+    "g": formatUTCISOWeekYear,
+    "G": formatUTCISOWeekFullYear,
     "H": formatUTCHour24,
     "I": formatUTCHour12,
     "j": formatUTCDayOfYear,
@@ -528,9 +544,7 @@ function formatWeekNumberSunday(d, p) {
 }
 
 function formatWeekNumberISO(d, p) {
-  var day = d.getDay();
-  d = (day >= 4 || day === 0) ? timeThursday(d) : timeThursday.ceil(d);
-  return pad(timeThursday.count(timeYear(d), d) + (timeYear(d).getDay() === 4), p, 2);
+  return pad(weekNumberISO(d), p, 2);
 }
 
 function formatWeekdayNumberSunday(d) {
@@ -539,6 +553,22 @@ function formatWeekdayNumberSunday(d) {
 
 function formatWeekNumberMonday(d, p) {
   return pad(timeMonday.count(timeYear(d), d), p, 2);
+}
+
+function formatISOWeekYear(d, p) {
+  var isoWeek = weekNumberISO(d),
+      isoYear = d.getMonth() === 0 && isoWeek > 6
+        ? d.getFullYear() - 1 : d.getMonth() === 11 && isoWeek < 47
+          ? d.getFullYear() + 1 : d.getFullYear();
+  return pad(isoYear % 100, p, 2);
+}
+
+function formatISOWeekFullYear(d, p) {
+  var isoWeek = weekNumberISO(d),
+      isoYear = d.getMonth() === 0 && isoWeek > 6
+        ? d.getFullYear() - 1 : d.getMonth() === 11 && isoWeek < 47
+          ? d.getFullYear() + 1 : d.getFullYear();
+  return pad(isoYear % 10000, p, 4);
 }
 
 function formatYear(d, p) {
@@ -602,9 +632,7 @@ function formatUTCWeekNumberSunday(d, p) {
 }
 
 function formatUTCWeekNumberISO(d, p) {
-  var day = d.getUTCDay();
-  d = (day >= 4 || day === 0) ? utcThursday(d) : utcThursday.ceil(d);
-  return pad(utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4), p, 2);
+  return pad(utcWeekNumberISO(d), p, 2);
 }
 
 function formatUTCWeekdayNumberSunday(d) {
@@ -613,6 +641,22 @@ function formatUTCWeekdayNumberSunday(d) {
 
 function formatUTCWeekNumberMonday(d, p) {
   return pad(utcMonday.count(utcYear(d), d), p, 2);
+}
+
+function formatUTCISOWeekYear(d, p) {
+  var isoWeek = utcWeekNumberISO(d),
+      isoYear = d.getUTCMonth() === 0 && isoWeek > 6
+        ? d.getUTCFullYear() - 1 : d.getUTCMonth() === 11 && isoWeek < 47
+          ? d.getUTCFullYear() + 1 : d.getUTCFullYear();
+  return pad(isoYear % 100, p, 2);
+}
+
+function formatUTCISOWeekFullYear(d, p) {
+  var isoWeek = utcWeekNumberISO(d),
+      isoYear = d.getUTCMonth() === 0 && isoWeek > 6
+        ? d.getUTCFullYear() - 1 : d.getUTCMonth() === 11 && isoWeek < 47
+          ? d.getUTCFullYear() + 1 : d.getUTCFullYear();
+  return pad(isoYear % 10000, p, 4);
 }
 
 function formatUTCYear(d, p) {

@@ -110,6 +110,32 @@ tape("timeFormat(\"%e\")(date) formats space-padded dates", function(test) {
   test.end();
 });
 
+tape("timeFormat(\"%g\")(date) formats zero-padded two-digit years", function(test) {
+  var f = timeFormat.timeFormat("%g");
+  test.equal(f(date.local(1990, 0, 1)), "90");
+  test.equal(f(date.local(1990, 11, 31)), "91");
+  test.equal(f(date.local(1991, 0, 1)), "91");
+  test.equal(f(date.local(2015, 11, 31)), "15");
+  test.equal(f(date.local(2016, 0, 1)), "15");
+  test.equal(f(date.local(2016, 0, 2)), "15");
+  test.equal(f(date.local(2016, 0, 3)), "15");
+  test.equal(f(date.local(2016, 0, 4)), "16");
+  test.end();
+});
+
+tape("timeFormat(\"%G\")(date) formats zero-padded four-digit years", function(test) {
+  var f = timeFormat.timeFormat("%G");
+  test.equal(f(date.local(1990, 0, 1)), "1990");
+  test.equal(f(date.local(1990, 11, 31)), "1991");
+  test.equal(f(date.local(1991, 0, 1)), "1991");
+  test.equal(f(date.local(2015, 11, 31)), "2015");
+  test.equal(f(date.local(2016, 0, 1)), "2015");
+  test.equal(f(date.local(2016, 0, 2)), "2015");
+  test.equal(f(date.local(2016, 0, 3)), "2015");
+  test.equal(f(date.local(2016, 0, 4)), "2016");
+  test.end();
+});
+
 tape("timeFormat(\"%H\")(date) formats zero-padded hours (24)", function(test) {
   var f = timeFormat.timeFormat("%H");
   test.equal(f(date.local(1990, 0, 1,  0)), "00");
