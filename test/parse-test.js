@@ -72,13 +72,15 @@ tape("timeParse(\"%w %U %Y\")(date) parses numeric weekday (Sunday), week number
   test.end();
 });
 
-tape("timeParse(\"%w %V %Y\")(date) parses numeric weekday, week number (ISO) and year", function(test) {
-  var p = timeFormat.timeParse("%w %V %Y");
+tape("timeParse(\"%w %V %G\")(date) parses numeric weekday, week number (ISO) and corresponding year", function(test) {
+  var p = timeFormat.timeParse("%w %V %G");
   test.deepEqual(p("1 01 1990"), date.local(1990,  0,  1));
   test.deepEqual(p("0 05 1991"), date.local(1991,  1,  3));
   test.deepEqual(p("4 53 1992"), date.local(1992, 11, 31));
   test.deepEqual(p("0 52 1994"), date.local(1995,  0,  1));
   test.deepEqual(p("0 01 1995"), date.local(1995,  0,  8));
+  test.deepEqual(p("1 01 2018"), date.local(2018,  0,  1));
+  test.deepEqual(p("1 01 2019"), date.local(2018,  11,  31));
   test.end();
 });
 

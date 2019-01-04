@@ -98,6 +98,14 @@ tape("utcFormat(\"%e\")(date) formats space-padded dates", function(test) {
   test.end();
 });
 
+tape("utcFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", function (test) {
+  var f = timeFormat.utcFormat("%G");
+  test.equal(f(date.utc(2018, 11, 30, 0)), "2018"); // Sunday
+  test.equal(f(date.utc(2018, 11, 31, 0)), "2019"); // Monday
+  test.equal(f(date.utc(2019, 0, 1, 0)), "2019");
+  test.end();
+});
+
 tape("utcFormat(\"%H\")(date) formats zero-padded hours (24)", function(test) {
   var f = timeFormat.utcFormat("%H");
   test.equal(f(date.utc(1990, 0, 1,  0)), "00");
