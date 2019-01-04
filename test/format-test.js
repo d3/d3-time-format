@@ -110,6 +110,14 @@ tape("timeFormat(\"%e\")(date) formats space-padded dates", function(test) {
   test.end();
 });
 
+tape("timeFormat(\"%g\")(date) formats zero-padded two-digit ISO 8601 years", function (test) {
+  var f = timeFormat.timeFormat("%g");
+  test.equal(f(date.local(2018, 11, 30, 0)), "18"); // Sunday
+  test.equal(f(date.local(2018, 11, 31, 0)), "19"); // Monday
+  test.equal(f(date.local(2019, 0, 1, 0)), "19");
+  test.end();
+});
+
 tape("timeFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", function (test) {
   var f = timeFormat.timeFormat("%G");
   test.equal(f(date.local(2018, 11, 30, 0)), "2018"); // Sunday

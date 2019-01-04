@@ -176,6 +176,21 @@ tape("utcParse(\"%V %Y\")(date) week number (ISO) and year", function(test) {
   test.end();
 });
 
+tape("utcParse(\"%V %g\")(date) week number (ISO) and corresponding two-digits year", function(test) {
+  var p = timeFormat.utcParse("%V %g");
+  test.deepEqual(p("01 90"), date.utc(1990,  0,  1));
+  test.deepEqual(p("05 91"), date.utc(1991,  0, 28));
+  test.deepEqual(p("53 92"), date.utc(1992, 11, 28));
+  test.deepEqual(p("01 93"), date.utc(1993,  0,  4));
+  test.deepEqual(p("01 95"), date.utc(1995, 0, 2));
+  test.deepEqual(p("01 18"), date.utc(2018, 0, 1));
+  test.deepEqual(p("01 19"), date.utc(2018, 11, 31));
+  test.deepEqual(p("00 95"), null);
+  test.deepEqual(p("54 95"), null);
+  test.deepEqual(p("X 95"), null);
+  test.end();
+});
+
 tape("utcParse(\"%V %G\")(date) week number (ISO) and corresponding year", function(test) {
   var p = timeFormat.utcParse("%V %G");
   test.deepEqual(p("01 1990"), date.utc(1990,  0,  1));

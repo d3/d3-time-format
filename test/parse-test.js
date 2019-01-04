@@ -84,6 +84,18 @@ tape("timeParse(\"%w %V %G\")(date) parses numeric weekday, week number (ISO) an
   test.end();
 });
 
+tape("timeParse(\"%w %V %g\")(date) parses numeric weekday, week number (ISO) and corresponding two-digits year", function(test) {
+  var p = timeFormat.timeParse("%w %V %g");
+  test.deepEqual(p("1 01 90"), date.local(1990,  0,  1));
+  test.deepEqual(p("0 05 91"), date.local(1991,  1,  3));
+  test.deepEqual(p("4 53 92"), date.local(1992, 11, 31));
+  test.deepEqual(p("0 52 94"), date.local(1995,  0,  1));
+  test.deepEqual(p("0 01 95"), date.local(1995,  0,  8));
+  test.deepEqual(p("1 01 18"), date.local(2018,  0,  1));
+  test.deepEqual(p("1 01 19"), date.local(2018, 11, 31));
+  test.end();
+});
+
 tape("timeParse(\"%u %U %Y\")(date) parses numeric weekday (Monday), week number (Monday) and year", function(test) {
   var p = timeFormat.timeParse("%u %W %Y");
   test.deepEqual(p("1 00 1990"), date.local(1989, 11, 25));
