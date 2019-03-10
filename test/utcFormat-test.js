@@ -146,6 +146,15 @@ tape("utcFormat(\"%p\")(date) formats AM or PM", function(test) {
   test.end();
 });
 
+tape("utcFormat(\"%q\")(date) formats quarters", function(test) {
+  var f = timeFormat.utcFormat("%q");
+  test.equal(f(date.utc(1990, 0, 1)), "1");
+  test.equal(f(date.utc(1990, 3, 1)), "2");
+  test.equal(f(date.utc(1990, 6, 1)), "3");
+  test.equal(f(date.utc(1990, 9, 1)), "4");
+  test.end();
+});
+
 tape("utcFormat(\"%Q\")(date) formats UNIX timestamps", function(test) {
   var f = timeFormat.utcFormat("%Q");
   test.equal(f(date.utc(1970, 0, 1,  0,  0,  0)), "0");
