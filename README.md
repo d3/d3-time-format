@@ -118,6 +118,7 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%M` - minute as a decimal number [00,59].
 * `%L` - milliseconds as a decimal number [000, 999].
 * `%p` - either AM or PM.*
+* `%q` - quarter of the year as a decimal number [1,4].
 * `%Q` - milliseconds since UNIX epoch.
 * `%s` - seconds since UNIX epoch.
 * `%S` - second as a decimal number [00,61].

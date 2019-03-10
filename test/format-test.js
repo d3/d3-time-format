@@ -158,6 +158,15 @@ tape("timeFormat(\"%p\")(date) formats AM or PM", function(test) {
   test.end();
 });
 
+tape("timeFormat(\"%q\")(date) formats quarters", function(test) {
+  var f = timeFormat.timeFormat("%q");
+  test.equal(f(date.local(1990, 0, 1)), "1");
+  test.equal(f(date.local(1990, 3, 1)), "2");
+  test.equal(f(date.local(1990, 6, 1)), "3");
+  test.equal(f(date.local(1990, 9, 1)), "4");
+  test.end();
+});
+
 tape("timeFormat(\"%S\")(date) formats zero-padded seconds", function(test) {
   var f = timeFormat.timeFormat("%S");
   test.equal(f(date.local(1990, 0, 1, 0, 0,  0)), "00");
