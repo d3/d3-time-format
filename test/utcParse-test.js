@@ -164,3 +164,17 @@ tape("utcParse(\"\")(date) parses Unix timestamps in seconds", function(test) {
   test.deepEqual(p("631152000"), date.utc(1990, 0, 1));
   test.end();
 });
+
+tape("utcParse(\"\")(date) parses Unix timestamps in seconds.millis", function(test) {
+  var p = timeFormat.utcParse("%s.%L");
+  test.deepEqual(p("0.0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000.123"), date.utc(1990, 0, 1, 0, 0, 0, 123));
+  test.end();
+});
+
+tape("utcParse(\"\")(date) parses Unix timestamps in seconds.micro", function(test) {
+  var p = timeFormat.utcParse("%s.%f");
+  test.deepEqual(p("0.0"), date.utc(1970, 0, 1));
+  test.deepEqual(p("631152000.123456"), date.utc(1990, 0, 1, 0, 0, 0, 123.456));
+  test.end();
+});

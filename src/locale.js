@@ -194,7 +194,7 @@ export default function formatLocale(locale) {
       if ((!loose && i != string.length) || i < 0) return null;
 
       // If a UNIX timestamp is specified, return it.
-      if ("Q" in d) return new Date(d.Q);
+      if ("Q" in d) return new Date(d.Q + (d.L || 0));
 
       // The am-pm flag is 0 for AM, and 1 for PM.
       if ("p" in d) d.H = d.H % 12 + d.p * 12;
