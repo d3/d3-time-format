@@ -1,4 +1,4 @@
-import {utcFormat} from "./defaultLocale";
+import {utcFormat} from "./defaultLocale.js";
 
 export var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
 

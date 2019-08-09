@@ -1,5 +1,5 @@
-import {isoSpecifier} from "./isoFormat";
-import {utcParse} from "./defaultLocale";
+import {isoSpecifier} from "./isoFormat.js";
+import {utcParse} from "./defaultLocale.js";
 
 function parseIsoNative(string) {
   var date = new Date(string);
