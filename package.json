@@ -37,6 +37,7 @@
   "dependencies": {
     "d3-time": "1"
   },
+  "sideEffects": false,
   "devDependencies": {
     "d3-queue": "3",
     "eslint": "6",
