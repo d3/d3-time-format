@@ -53,10 +53,10 @@ var format = d3.timeFormat("%x");
 </script>
 ```
 
-Locale files are hosted on [unpkg](https://unpkg.com/) and can be loaded using [d3.json](https://github.com/d3/d3-request/blob/master/README.md#json). For example, to set Russian as the default locale:
+Locale files are published to npm and can be loaded using [d3.json](https://github.com/d3/d3-request/blob/master/README.md#json). For example, to set Russian as the default locale:
 
 ```js
-d3.json("https://unpkg.com/d3-time-format@2/locale/ru-RU.json", function(error, locale) {
+d3.json("https://cdn.jsdelivr.net/npm/d3-time-format@2/locale/ru-RU.json", function(error, locale) {
   if (error) throw error;
 
   d3.timeFormatDefaultLocale(locale);
@@ -66,8 +66,6 @@ d3.json("https://unpkg.com/d3-time-format@2/locale/ru-RU.json", function(error, 
   console.log(format(new Date)); // понедельник,  5 декабря 2016 г. 10:31:59
 });
 ```
-
-[Try d3-time-format in your browser.](https://tonicdev.com/npm/d3-time-format)
 
 ## API Reference
 
