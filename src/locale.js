@@ -547,7 +547,7 @@ function formatWeekdayNumberMonday(d) {
 }
 
 function formatWeekNumberSunday(d, p) {
-  return pad(timeSunday.count(timeYear(d), d), p, 2);
+  return pad(timeSunday.count(timeYear(d) - 1, d), p, 2);
 }
 
 function formatWeekNumberISO(d, p) {
@@ -561,7 +561,7 @@ function formatWeekdayNumberSunday(d) {
 }
 
 function formatWeekNumberMonday(d, p) {
-  return pad(timeMonday.count(timeYear(d), d), p, 2);
+  return pad(timeMonday.count(timeYear(d) - 1, d), p, 2);
 }
 
 function formatYear(d, p) {
