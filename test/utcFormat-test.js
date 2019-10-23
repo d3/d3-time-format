@@ -162,6 +162,20 @@ tape("utcFormat(\"%s\")(date) formats UNIX timetamps in seconds", function(test)
   test.end();
 });
 
+tape("utcFormat(\"%s.%L\")(date) formats UNIX timetamps in seconds and milliseconds", function(test) {
+  var f = timeFormat.utcFormat("%s.%L");
+  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0, 123)), "631152000.123");
+  test.equal(f(date.utc(1990, 0, 1, 12, 34, 56, 789)), "631197296.789");
+  test.end();
+});
+
+tape("utcFormat(\"%s.%f\")(date) formats UNIX timetamps in seconds and microseconds", function(test) {
+  var f = timeFormat.utcFormat("%s.%f");
+  test.equal(f(date.utc(1990, 0, 1,  0,  0,  0, 123)), "631152000.123000");
+  test.equal(f(date.utc(1990, 0, 1, 12, 34, 56, 789)), "631197296.789000");
+  test.end();
+});
+
 tape("utcFormat(\"%S\")(date) formats zero-padded seconds", function(test) {
   var f = timeFormat.utcFormat("%S");
   test.equal(f(date.utc(1990, 0, 1, 0, 0,  0)), "00");
