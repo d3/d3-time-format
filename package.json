@@ -26,7 +26,8 @@
   },
   "files": [
     "dist/**/*.js",
-    "src/**/*.js"
+    "src/**/*.js",
+    "locale/*.json"
   ],
   "scripts": {
     "pretest": "rollup -c",
