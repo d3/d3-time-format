@@ -237,6 +237,24 @@ tape("timeParse(\"%I %p\")(date) parses period in non-English locales", function
   test.end();
 });
 
+tape("timeParse(\"%Y %q\")(date) parses quarters", function(test) {
+  var p = timeFormat.timeParse("%Y %q");
+  test.deepEqual(p("1990 1"), date.local(1990, 0, 1));
+  test.deepEqual(p("1990 2"), date.local(1990, 3, 1));
+  test.deepEqual(p("1990 3"), date.local(1990, 6, 1));
+  test.deepEqual(p("1990 4"), date.local(1990, 9, 1));
+  test.end();
+});
+
+tape("timeParse(\"%Y %q %m\")(date) gives the month number priority", function(test) {
+  var p = timeFormat.timeParse("%Y %q %m");
+  test.deepEqual(p("1990 1 2"), date.local(1990, 1, 1));
+  test.deepEqual(p("1990 2 5"), date.local(1990, 4, 1));
+  test.deepEqual(p("1990 3 8"), date.local(1990, 7, 1));
+  test.deepEqual(p("1990 4 9"), date.local(1990, 8, 1));
+  test.end();
+});
+
 tape("timeParse(\"%% %m/%d/%Y\")(date) parses literal %", function(test) {
   var p = timeFormat.timeParse("%% %m/%d/%Y");
   test.deepEqual(p("% 01/01/1990"), date.local(1990, 0, 1));
