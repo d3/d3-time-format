@@ -129,7 +129,7 @@ Returns a new formatter for the given string *specifier*. The specifier string m
 * `%x` - the locale’s date, such as `%-m/%-d/%Y`.*
 * `%X` - the locale’s time, such as `%-I:%M:%S %p`.*
 * `%y` - year without century as a decimal number [00,99].
-* `%Y` - year with century as a decimal number [2000, 1999].
+* `%Y` - year with century as a decimal number, such as `1999`.
 * `%Z` - time zone offset, such as `-0700`, `-07:00`, `-07`, or `Z`.
 * `%%` - a literal percent sign (`%`).
 
