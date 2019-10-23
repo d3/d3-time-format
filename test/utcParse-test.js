@@ -2,6 +2,12 @@ var tape = require("tape"),
     timeFormat = require("../"),
     date = require("./date");
 
+tape("utcParse(specifier) coerces the specified specifier to a string", function(test) {
+  var p = timeFormat.utcParse({toString: function() { return "%c"; }});
+  test.deepEqual(p("1/1/1990, 12:00:00 AM"), date.utc(1990, 0, 1));
+  test.end();
+});
+
 tape("utcParse(\"\")(date) parses abbreviated weekday and numeric date", function(test) {
   var p = timeFormat.utcParse("%a %m/%d/%Y");
   test.deepEqual(p("Sun 01/01/1990"), date.utc(1990, 0, 1));
@@ -127,8 +133,14 @@ tape("utcParse(\"\")(date) parses timezone offset (in the form 'Z')", function(t
   test.end();
 });
 
+tape("utcParse(\"%Y %U %w\")(date) handles a year that starts on Sunday", function(test) {
+  var p = timeFormat.utcParse("%Y %U %w");
+  test.deepEqual(p("2012 01 0"), date.utc(2012,  0,  1));
+  test.end();
+});
+
 tape("utcParse(\"%w %V %Y\")(date) parses numeric weekday, week number (ISO) and year", function(test) {
-  var p = timeFormat.timeParse("%w %V %Y %Z");
+  var p = timeFormat.utcParse("%w %V %Y %Z");
   test.deepEqual(p("1 01 1990 Z"), date.utc(1990,  0,  1));
   test.deepEqual(p("0 05 1991 Z"), date.utc(1991,  1,  3));
   test.deepEqual(p("4 53 1992 Z"), date.utc(1992, 11, 31));
@@ -139,7 +151,7 @@ tape("utcParse(\"%w %V %Y\")(date) parses numeric weekday, week number (ISO) and
 });
 
 tape("utcParse(\"%V %Y\")(date) week number (ISO) and year", function(test) {
-  var p = timeFormat.timeParse("%V %Y %Z");
+  var p = timeFormat.utcParse("%V %Y %Z");
   test.deepEqual(p("01 1990 Z"), date.utc(1990,  0,  1));
   test.deepEqual(p("05 1991 Z"), date.utc(1991,  0, 28));
   test.deepEqual(p("53 1992 Z"), date.utc(1992, 11, 28));

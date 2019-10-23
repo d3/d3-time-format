@@ -15,6 +15,12 @@ tape("parse(string) coerces the specified string to a string", function(test) {
   test.end();
 });
 
+tape("timeParse(specifier) coerces the specified specifier to a string", function(test) {
+  var p = timeFormat.timeParse({toString: function() { return "%c"; }});
+  test.deepEqual(p("1/1/1990, 12:00:00 AM"), date.local(1990, 0, 1));
+  test.end();
+});
+
 tape("timeParse(\"%a %m/%d/%Y\")(date) parses abbreviated weekday and date", function(test) {
   var p = timeFormat.timeParse("%a %m/%d/%Y");
   test.deepEqual(p("Sun 01/01/1990"), date.local(1990, 0, 1));
