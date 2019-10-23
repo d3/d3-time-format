@@ -163,16 +163,30 @@ tape("utcParse(\"%V %Y\")(date) week number (ISO) and year", function(test) {
   test.end();
 });
 
-tape("utcParse(\"\")(date) parses Unix timestamps", function(test) {
+tape("utcParse(\"%Q\")(date) parses UNIX timestamps", function(test) {
   var p = timeFormat.utcParse("%Q");
   test.deepEqual(p("0"), date.utc(1970, 0, 1));
   test.deepEqual(p("631152000000"), date.utc(1990, 0, 1));
   test.end();
 });
 
-tape("utcParse(\"\")(date) parses Unix timestamps in seconds", function(test) {
+tape("utcParse(\"%s\")(date) parses UNIX timestamps in seconds", function(test) {
   var p = timeFormat.utcParse("%s");
   test.deepEqual(p("0"), date.utc(1970, 0, 1));
   test.deepEqual(p("631152000"), date.utc(1990, 0, 1));
+  test.end();
+});
+
+tape("utcParse(\"%s.%L\")(date) parses UNIX timetamps in seconds and milliseconds", function(test) {
+  var p = timeFormat.utcParse("%s.%L");
+  test.deepEqual(p("631152000.123"), date.utc(1990, 0, 1,  0,  0,  0, 123));
+  test.deepEqual(p("631197296.789"), date.utc(1990, 0, 1, 12, 34, 56, 789));
+  test.end();
+});
+
+tape("utcParse(\"%s.%f\")(date) parses UNIX timetamps in seconds and microseconds", function(test) {
+  var p = timeFormat.utcParse("%s.%f");
+  test.deepEqual(p("631152000.123000"), date.utc(1990, 0, 1,  0,  0,  0, 123));
+  test.deepEqual(p("631197296.789000"), date.utc(1990, 0, 1, 12, 34, 56, 789));
   test.end();
 });
