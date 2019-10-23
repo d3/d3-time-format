@@ -243,6 +243,16 @@ tape("utcFormat(\"%U\")(date) formats zero-padded week numbers", function(test) 
   test.equal(f(date.utc(2010, 10,  6, 23)), "44");
   test.equal(f(date.utc(2010, 10,  7,  0)), "45"); // DST ends
   test.equal(f(date.utc(2010, 10,  8,  0)), "45");
+  test.equal(f(date.utc(2012,  0,  1,  0)), "01"); // Sunday!
+  test.end();
+});
+
+tape("utcFormat(\"%W\")(date) formats zero-padded week numbers", function(test) {
+  var f = timeFormat.utcFormat("%W");
+  test.equal(f(date.utc(1990,  0,  1,  0)), "01"); // Monday!
+  test.equal(f(date.utc(1990,  5,  1,  0)), "22");
+  test.equal(f(date.utc(2010,  2, 15,  0)), "11");
+  test.equal(f(date.utc(2010, 10,  8,  0)), "45");
   test.end();
 });
 
