@@ -190,3 +190,10 @@ tape("utcParse(\"%s.%f\")(date) parses UNIX timetamps in seconds and microsecond
   test.deepEqual(p("631197296.789000"), date.utc(1990, 0, 1, 12, 34, 56, 789));
   test.end();
 });
+
+tape("utcParse throws error when given improper leap years", function(test) {
+	var p = timeFormat.utcParse("%d %m %y");
+	test.deepEqual(p("29 02 01"), null);
+	test.deepEqual(p("31 11 01"), null);
+	test.end();
+});

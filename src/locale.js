@@ -11,6 +11,18 @@ import {
   utcYear
 } from "d3-time";
 
+function getMaxDay(m, y) {
+  if (m == 3 || m == 5 || m == 8 || m == 10) { // April, June, September, November
+    return 30;
+  } else if (m == 0 || m == 2 || m == 4 || m == 6 || m == 7 || m == 9 || m == 11) { // January, March, May, July, August, October, December
+    return 31;
+  } else if (m == 1) { // February
+    return y % 4 == 0 ? 29 : 28; // Leap years are divisible by 4
+  } else {
+    return null;
+  }
+}
+
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
     var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
@@ -208,6 +220,11 @@ export default function formatLocale(locale) {
 
       // If the month was not specified, inherit from the quarter.
       if (d.m === undefined) d.m = "q" in d ? d.q : 0;
+
+			// Check for invalid days (leap days/short months)
+			if ((d.d > getMaxDay(d.m, d.y) || d.d < 1)){
+				return null;
+			}
 
       // Convert day-of-week and week-of-year to day-of-year.
       if ("V" in d) {
