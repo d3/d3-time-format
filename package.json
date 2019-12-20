@@ -38,7 +38,9 @@
   "dependencies": {
     "d3-time": "1"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/defaultLocale.js"
+  ],
   "devDependencies": {
     "d3-queue": "3",
     "eslint": "6",
