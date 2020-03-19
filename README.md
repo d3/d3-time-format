@@ -94,7 +94,7 @@ The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time formatter. 
 The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time parser. Where available, this method will use the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC parser function](#utcParse):
 
 ```js
-var strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
+var strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%L%Z");
 ```
 
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>) [<>](https://github.com/d3/d3-time-format/blob/master/src/locale.js#L293 "Source")
