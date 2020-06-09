@@ -1,5 +1,5 @@
 {
-  "dateTime": "%A, le %e %B %Y, %X",
+  "dateTime": "%A %e %B %Y à %X",
   "date": "%d/%m/%Y",
   "time": "%H:%M:%S",
   "periods": ["AM", "PM"],
