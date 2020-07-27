@@ -1,21 +1,16 @@
 var fs = require("fs"),
     path = require("path"),
     tape = require("tape"),
-    queue = require("d3-queue"),
     d3 = require("../");
 
-tape("locale data is valid", function(test) {
-  fs.readdir("locale", function(error, locales) {
+tape("locale data is valid", async function(test) {
+  fs.readdir("locale", async function(error, locales) {
     if (error) throw error;
-    var q = queue.queue(1);
-    locales.forEach(function(locale) {
+    await Promise.all(locales.map(function(locale) {
       if (!/\.json$/i.test(locale)) return;
-      q.defer(testLocale, path.join("locale", locale));
-    });
-    q.awaitAll(function(error) {
-      if (error) throw error;
-      test.end();
-    });
+      return new Promise((resolve, reject) => testLocale(path.join("locale", locale), resolve));
+    }));
+    test.end();
   });
 
   function testLocale(locale, callback) {
