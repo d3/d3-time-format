@@ -169,10 +169,10 @@ cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-"d3-time@1 - 2":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
-  integrity sha512-Xh0isrZ5rPYYdqhAVk8VLnMEidhz5aP7htAADH6MfzgmmicPkTo8LhkLxci61/lCB7n7UmE3bN0leRt+qvkLxA==
+d3-time@>=2.0.0-rc.1:
+  version "2.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-2.0.0-rc.1.tgz#167fdc57e4d060fc3ede7e674932c6d612fb4be5"
+  integrity sha512-V5s10ubtsbm68x+ljgyA0M9p+Em5cAJKkQ3jJhF7x9cEW30CDle9o3ZVLSByrdj3VfZIwbanrLe0hJyQ957UhQ==
 
 debug@^4.0.1:
   version "4.1.1"
