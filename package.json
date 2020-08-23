@@ -1,6 +1,6 @@
 {
   "name": "d3-time-format",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "A JavaScript time formatter and parser inspired by strftime and strptime.",
   "keywords": [
     "d3",
@@ -36,13 +36,12 @@
     "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../${npm_package_name}/dist/${npm_package_name}.js ${npm_package_name}.v${npm_package_version%%.*}.js && cp ../${npm_package_name}/dist/${npm_package_name}.min.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git add ${npm_package_name}.v${npm_package_version%%.*}.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git commit -m \"${npm_package_name} ${npm_package_version}\" && git push && cd - && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js"
   },
   "dependencies": {
-    "d3-time": "1"
+    "d3-time": ">=2.0.0-rc.1"
   },
   "sideEffects": [
     "./src/defaultLocale.js"
   ],
   "devDependencies": {
-    "d3-queue": "3",
     "eslint": "6",
     "rollup": "1",
     "rollup-plugin-terser": "5",
