@@ -1,9 +1,6 @@
 {
   "name": "d3-time-format",
-  "version": "3.0.0-rc.1",
-  "publishConfig": {
-    "tag": "next"
-  },
+  "version": "3.0.0",
   "description": "A JavaScript time formatter and parser inspired by strftime and strptime.",
   "keywords": [
     "d3",
