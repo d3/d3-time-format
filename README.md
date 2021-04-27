@@ -3,21 +3,21 @@
 This module provides a JavaScript implementation of the venerable [strptime](http://pubs.opengroup.org/onlinepubs/009695399/functions/strptime.html) and [strftime](http://pubs.opengroup.org/onlinepubs/007908799/xsh/strftime.html) functions from the C standard library, and can be used to parse or format [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) in a variety of locale-specific representations. To format a date, create a [formatter](#locale_format) from a specifier (a string with the desired format *directives*, indicated by `%`); then pass a date to the formatter, which returns a string. For example, to convert the current date to a human-readable string:
 
 ```js
-var formatTime = d3.timeFormat("%B %d, %Y");
+const formatTime = d3.timeFormat("%B %d, %Y");
 formatTime(new Date); // "June 30, 2015"
 ```
 
 Likewise, to convert a string back to a date, create a [parser](#locale_parse):
 
 ```js
-var parseTime = d3.timeParse("%B %d, %Y");
+const parseTime = d3.timeParse("%B %d, %Y");
 parseTime("June 30, 2015"); // Tue Jun 30 2015 00:00:00 GMT-0700 (PDT)
 ```
 
 You can implement more elaborate conditional time formats, too. For example, here’s a [multi-scale time format](https://bl.ocks.org/mbostock/4149176) using [time intervals](https://github.com/d3/d3-time):
 
 ```js
-var formatMillisecond = d3.timeFormat(".%L"),
+const formatMillisecond = d3.timeFormat(".%L"),
     formatSecond = d3.timeFormat(":%S"),
     formatMinute = d3.timeFormat("%I:%M"),
     formatHour = d3.timeFormat("%I %p"),
@@ -41,17 +41,26 @@ This module is used by D3 [time scales](https://github.com/d3/d3-scale/blob/mast
 
 ## Installing
 
-If you use NPM, `npm install d3-time-format`. Otherwise, download the [latest release](https://github.com/d3/d3-time-format/releases/latest). You can also load directly from [d3js.org](https://d3js.org), either as a [standalone library](https://d3js.org/d3-time-format.v2.min.js) or as part of [D3](https://github.com/d3/d3). AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3` global is exported:
+If you use npm, `npm install d3-time-format`. You can also download the [latest release on GitHub](https://github.com/d3/d3-time-format/releases/latest). For vanilla HTML in modern browsers, import d3-time-format from Skypack:
 
 ```html
-<script src="https://d3js.org/d3-time.v2.min.js"></script>
-<script src="https://d3js.org/d3-time-format.v3.min.js"></script>
-<script>
+<script type="module">
+import {timeFormat} from "https://cdn.skypack.dev/d3-time-format@4";
 
-var format = d3.timeFormat("%x");
-
+const format = timeFormat("%x");
 </script>
 ```
+
+For legacy environments, you can load d3-time-format’s UMD bundle from an npm-based CDN such as jsDelivr; a `d3` global is exported:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/d3-time@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-time-format@4"></script>
+<script>
+
+const format = d3.timeFormat("%x");
+
+</script>
 
 Locale files are published to npm and can be loaded using [d3.json](https://github.com/d3/d3-request/blob/master/README.md#json). For example, to set Russian as the default locale:
 
@@ -61,7 +70,7 @@ d3.json("https://cdn.jsdelivr.net/npm/d3-time-format@3/locale/ru-RU.json", funct
 
   d3.timeFormatDefaultLocale(locale);
 
-  var format = d3.timeFormat("%c");
+  const format = d3.timeFormat("%c");
 
   console.log(format(new Date)); // понедельник,  5 декабря 2016 г. 10:31:59
 });
@@ -94,7 +103,7 @@ The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time formatter. 
 The full [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) UTC time parser. Where available, this method will use the [Date constructor](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Date) to parse strings. If you depend on strict validation of the input format according to ISO 8601, you should construct a [UTC parser function](#utcParse):
 
 ```js
-var strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
+const strictIsoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 ```
 
 <a name="locale_format" href="#locale_format">#</a> <i>locale</i>.<b>format</b>(<i>specifier</i>) · [Source](https://github.com/d3/d3-time-format/blob/master/src/locale.js)
@@ -153,7 +162,7 @@ If no padding modifier is specified, the default is `0` for all directives excep
 The returned function formats a specified *[date](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date)*, returning the corresponding string.
 
 ```js
-var formatMonth = d3.timeFormat("%B"),
+const formatMonth = d3.timeFormat("%B"),
     formatDay = d3.timeFormat("%A"),
     date = new Date(2014, 4, 1); // Thu May 01 2014 00:00:00 GMT-0700 (PDT)
 
