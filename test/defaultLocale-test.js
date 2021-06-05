@@ -1,78 +1,71 @@
-var tape = require("tape"),
-    d3 = require("../"),
-    enUs = require("../locale/en-US"),
-    frFr = require("../locale/fr-FR");
+import assert from "assert";
+import {readFileSync} from "fs";
+import {timeFormat, timeFormatDefaultLocale, timeParse, utcFormat, utcParse} from "../src/index.js";
 
-tape("d3.timeFormat(specifier) defaults to en-US", function(test) {
-  test.equal(d3.timeFormat("%c")(new Date(2000, 0, 1)), "1/1/2000, 12:00:00 AM");
-  test.end();
+const enUs = JSON.parse(readFileSync("./locale/en-US.json"));
+const frFr = JSON.parse(readFileSync("./locale/fr-FR.json"));
+
+it("timeFormat(specifier) defaults to en-US", () => {
+  assert.strictEqual(timeFormat("%c")(new Date(2000, 0, 1)), "1/1/2000, 12:00:00 AM");
 });
 
-tape("d3.timeParse(specifier) defaults to en-US", function(test) {
-  test.equal(+d3.timeParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(2000, 0, 1));
-  test.end();
+it("timeParse(specifier) defaults to en-US", () => {
+  assert.strictEqual(+timeParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(2000, 0, 1));
 });
 
-tape("d3.utcFormat(specifier) defaults to en-US", function(test) {
-  test.equal(d3.utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "1/1/2000, 12:00:00 AM");
-  test.end();
+it("utcFormat(specifier) defaults to en-US", () => {
+  assert.strictEqual(utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "1/1/2000, 12:00:00 AM");
 });
 
-tape("d3.utcParse(specifier) defaults to en-US", function(test) {
-  test.equal(+d3.utcParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(Date.UTC(2000, 0, 1)));
-  test.end();
+it("utcParse(specifier) defaults to en-US", () => {
+  assert.strictEqual(+utcParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(Date.UTC(2000, 0, 1)));
 });
 
-tape("d3.timeFormatDefaultLocale(definition) returns the new default locale", function(test) {
-  var locale = d3.timeFormatDefaultLocale(frFr);
+it("timeFormatDefaultLocale(definition) returns the new default locale", () => {
+  const locale = timeFormatDefaultLocale(frFr);
   try {
-    test.equal(locale.format("%c")(new Date(2000, 0, 1)), "samedi  1 janvier 2000 à 00:00:00");
-    test.end();
-  } finally {
-    d3.timeFormatDefaultLocale(enUs);
+    assert.strictEqual(locale.format("%c")(new Date(2000, 0, 1)), "samedi  1 janvier 2000 à 00:00:00");
+} finally {
+    timeFormatDefaultLocale(enUs);
   }
 });
 
-tape("d3.timeFormatDefaultLocale(definition) affects d3.timeFormat", function(test) {
-  var locale = d3.timeFormatDefaultLocale(frFr);
+it("timeFormatDefaultLocale(definition) affects timeFormat", () => {
+  const locale = timeFormatDefaultLocale(frFr);
   try {
-    test.equal(d3.timeFormat, locale.format);
-    test.equal(d3.timeFormat("%c")(new Date(2000, 0, 1)), "samedi  1 janvier 2000 à 00:00:00");
-    test.end();
-  } finally {
-    d3.timeFormatDefaultLocale(enUs);
+    assert.strictEqual(timeFormat, locale.format);
+    assert.strictEqual(timeFormat("%c")(new Date(2000, 0, 1)), "samedi  1 janvier 2000 à 00:00:00");
+} finally {
+    timeFormatDefaultLocale(enUs);
   }
 });
 
-tape("d3.timeFormatDefaultLocale(definition) affects d3.timeParse", function(test) {
-  var locale = d3.timeFormatDefaultLocale(frFr);
+it("timeFormatDefaultLocale(definition) affects timeParse", () => {
+  const locale = timeFormatDefaultLocale(frFr);
   try {
-    test.equal(d3.timeParse, locale.parse);
-    test.equal(+d3.timeParse("%c")("samedi  1 janvier 2000 à 00:00:00"), +new Date(2000, 0, 1));
-    test.end();
-  } finally {
-    d3.timeFormatDefaultLocale(enUs);
+    assert.strictEqual(timeParse, locale.parse);
+    assert.strictEqual(+timeParse("%c")("samedi  1 janvier 2000 à 00:00:00"), +new Date(2000, 0, 1));
+} finally {
+    timeFormatDefaultLocale(enUs);
   }
 });
 
-tape("d3.timeFormatDefaultLocale(definition) affects d3.utcFormat", function(test) {
-  var locale = d3.timeFormatDefaultLocale(frFr);
+it("timeFormatDefaultLocale(definition) affects utcFormat", () => {
+  const locale = timeFormatDefaultLocale(frFr);
   try {
-    test.equal(d3.utcFormat, locale.utcFormat);
-    test.equal(d3.utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "samedi  1 janvier 2000 à 00:00:00");
-    test.end();
-  } finally {
-    d3.timeFormatDefaultLocale(enUs);
+    assert.strictEqual(utcFormat, locale.utcFormat);
+    assert.strictEqual(utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "samedi  1 janvier 2000 à 00:00:00");
+} finally {
+    timeFormatDefaultLocale(enUs);
   }
 });
 
-tape("d3.timeFormatDefaultLocale(definition) affects d3.utcParse", function(test) {
-  var locale = d3.timeFormatDefaultLocale(frFr);
+it("timeFormatDefaultLocale(definition) affects utcParse", () => {
+  const locale = timeFormatDefaultLocale(frFr);
   try {
-    test.equal(d3.utcParse, locale.utcParse);
-    test.equal(+d3.utcParse("%c")("samedi  1 janvier 2000 à 00:00:00"), +new Date(Date.UTC(2000, 0, 1)));
-    test.end();
-  } finally {
-    d3.timeFormatDefaultLocale(enUs);
+    assert.strictEqual(utcParse, locale.utcParse);
+    assert.strictEqual(+utcParse("%c")("samedi  1 janvier 2000 à 00:00:00"), +new Date(Date.UTC(2000, 0, 1)));
+} finally {
+    timeFormatDefaultLocale(enUs);
   }
 });
