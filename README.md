@@ -64,6 +64,7 @@ For legacy environments, you can load d3-time-format’s UMD bundle from an npm-
 const format = d3.timeFormat("%x");
 
 </script>
+```
 
 Locale files are published to npm and can be loaded using [d3.json](https://github.com/d3/d3-fetch/blob/main/README.md#json). For example, to set Russian as the default locale:
 
