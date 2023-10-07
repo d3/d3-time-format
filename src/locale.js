@@ -560,8 +560,8 @@ function dISO(d) {
 }
 
 function formatWeekNumberISO(d, p) {
-  d = dISO(d);
-  return pad(timeThursday.count(timeYear(d), d) + (timeYear(d).getDay() === 4), p, 2);
+  var dISO = dISO(d);
+  return pad(timeThursday.count(timeYear(d), dISO) + (timeYear(d).getDay() === 4), p, 2);
 }
 
 function formatWeekdayNumberSunday(d) {
@@ -649,8 +649,8 @@ function UTCdISO(d) {
 }
 
 function formatUTCWeekNumberISO(d, p) {
-  d = UTCdISO(d);
-  return pad(utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4), p, 2);
+  var dUTC = UTCdISO(d);
+  return pad(utcThursday.count(utcYear(d), dUTC) + (utcYear(d).getUTCDay() === 4), p, 2);
 }
 
 function formatUTCWeekdayNumberSunday(d) {
