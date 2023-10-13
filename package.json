@@ -35,7 +35,7 @@
       "umd": "./dist/d3-time-format.min.js",
       "default": "./src/index.js"
     },
-    "./locale/*": "./locale/*.json"
+    "./locale/*": "./locale/*"
   },
   "sideEffects": [
     "./src/defaultLocale.js"
