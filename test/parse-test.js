@@ -77,6 +77,17 @@ it("timeParse(\"%w %V %G\")(date) parses numeric weekday, week number (ISO) and 
   assert.deepStrictEqual(p("1 01 2019"), local(2018,  11,  31));
 });
 
+it("timeParse(\"%u %V %G\")(date) parses numeric weekday (ISO), week number (ISO) and corresponding year", () => {
+  const p = timeParse("%u %V %G");
+  assert.deepStrictEqual(p("1 01 1990"), local(1990,  0,  1));
+  assert.deepStrictEqual(p("7 01 1990"), local(1990,  0,  7));
+  assert.deepStrictEqual(p("4 53 1992"), local(1992, 11, 31));
+  assert.deepStrictEqual(p("5 53 1992"), local(1993,  0,  1));
+  assert.deepStrictEqual(p("1 01 2019"), local(2018, 11, 31));
+  assert.deepStrictEqual(p("2 01 2019"), local(2019,  0,  1));
+  assert.deepStrictEqual(p("7 01 2019"), local(2019,  0,  6));
+});
+
 it("timeParse(\"%w %V %g\")(date) parses numeric weekday, week number (ISO) and corresponding two-digits year", () => {
   const p = timeParse("%w %V %g");
   assert.deepStrictEqual(p("1 01 90"), local(1990,  0,  1));

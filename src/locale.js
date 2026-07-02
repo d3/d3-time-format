@@ -218,7 +218,7 @@ export default function formatLocale(locale) {
       // Convert day-of-week and week-of-year to day-of-year.
       if ("V" in d) {
         if (d.V < 1 || d.V > 53) return null;
-        if (!("w" in d)) d.w = 1;
+        if (!("w" in d)) d.w = "u" in d ? d.u % 7 : 1;
         if ("Z" in d) {
           week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
           week = day > 4 || day === 0 ? utcMonday.ceil(week) : utcMonday(week);
