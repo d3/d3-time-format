@@ -143,6 +143,18 @@ it("utcParse(\"%w %V %G\")(date) parses numeric weekday, week number (ISO) and c
   assert.strictEqual(p("X 03 2010"), null);
 });
 
+it("utcParse(\"%u %V %G\")(date) parses numeric weekday (ISO), week number (ISO) and corresponding year", () => {
+  const p = utcParse("%u %V %G");
+  assert.deepStrictEqual(p("1 01 1990"), utc(1990,  0,  1));
+  assert.deepStrictEqual(p("7 01 1990"), utc(1990,  0,  7));
+  assert.deepStrictEqual(p("4 53 1992"), utc(1992, 11, 31));
+  assert.deepStrictEqual(p("5 53 1992"), utc(1993,  0,  1));
+  assert.deepStrictEqual(p("1 01 2019"), utc(2018, 11, 31));
+  assert.deepStrictEqual(p("2 01 2019"), utc(2019,  0,  1));
+  assert.deepStrictEqual(p("7 01 2019"), utc(2019,  0,  6));
+  assert.strictEqual(p("X 03 2010"), null);
+});
+
 it("utcParse(\"%V %Y\")(date) week number (ISO) and year", () => {
   const p = utcParse("%V %Y");
   assert.deepStrictEqual(p("01 1990"), utc(1990,  0,  1));
