@@ -402,7 +402,10 @@ function requote(s) {
 }
 
 function formatRe(names) {
-  return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+  // Sort by descending length so that when one name is a prefix of another in
+  // the same field (e.g. Czech "červen" is a prefix of "červenec"), the
+  // longer name is matched first.
+  return new RegExp("^(?:" + names.slice().sort((a, b) => b.length - a.length).map(requote).join("|") + ")", "i");
 }
 
 function formatLookup(names) {

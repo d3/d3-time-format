@@ -11,3 +11,16 @@ it("locale data is valid", () => {
     timeFormatLocale(locale);
   }
 });
+
+it("parse resolves a name that is a prefix of a longer name in the same field", () => {
+  // Czech "červen" (June) is a prefix of "červenec" (July); Turkish "Pazar"
+  // (Sun) is a prefix of "Pazartesi" (Mon).
+  for (const [file, spec, date] of [
+    ["cs-CZ.json", "%d %B %Y", new Date(2020, 6, 15)], // July
+    ["tr-TR.json", "%A %d %B %Y", new Date(2020, 6, 13)], // Monday
+  ]) {
+    const locale = timeFormatLocale(JSON.parse(readFileSync(join("locale", file), "utf8")));
+    const string = locale.format(spec)(date);
+    assert.deepStrictEqual(locale.parse(spec)(string), date);
+  }
+});
