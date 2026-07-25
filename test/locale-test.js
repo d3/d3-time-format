@@ -14,8 +14,7 @@ it("locale data is valid", () => {
 
 it("parse resolves a name that is a prefix of a longer name in the same field", () => {
   // Czech "červen" (June) is a prefix of "červenec" (July); Turkish "Pazar"
-  // (Sun) is a prefix of "Pazartesi" (Mon). Ordered alternation matched the
-  // shorter name first, so these formatted dates failed to round-trip.
+  // (Sun) is a prefix of "Pazartesi" (Mon).
   for (const [file, spec, date] of [
     ["cs-CZ.json", "%d %B %Y", new Date(2020, 6, 15)], // July
     ["tr-TR.json", "%A %d %B %Y", new Date(2020, 6, 13)], // Monday

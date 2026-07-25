@@ -404,8 +404,7 @@ function requote(s) {
 function formatRe(names) {
   // Sort by descending length so that when one name is a prefix of another in
   // the same field (e.g. Czech "červen" is a prefix of "červenec"), the
-  // longer name is matched first; ordered alternation is first-match, not
-  // longest-match. formatLookup is keyed by text, so order is irrelevant to it.
+  // longer name is matched first.
   return new RegExp("^(?:" + names.slice().sort((a, b) => b.length - a.length).map(requote).join("|") + ")", "i");
 }
 
