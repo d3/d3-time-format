@@ -189,10 +189,21 @@ it("utcParse(\"%Q\")(date) parses UNIX timestamps", () => {
   assert.deepStrictEqual(p("631152000000"), utc(1990, 0, 1));
 });
 
+it("utcParse(\"%Q\")(date) parses negative UNIX timestamps", () => {
+  const p = utcParse("%Q");
+  assert.deepStrictEqual(p("-1"), new Date(-1));
+  assert.deepStrictEqual(p("-631152000000"), utc(1950, 0, 1));
+});
+
 it("utcParse(\"%s\")(date) parses UNIX timestamps in seconds", () => {
   const p = utcParse("%s");
   assert.deepStrictEqual(p("0"), utc(1970, 0, 1));
   assert.deepStrictEqual(p("631152000"), utc(1990, 0, 1));
+});
+
+it("utcParse(\"%s\")(date) parses negative UNIX timestamps in seconds", () => {
+  const p = utcParse("%s");
+  assert.deepStrictEqual(p("-631152000"), utc(1950, 0, 1));
 });
 
 it("utcParse(\"%s.%L\")(date) parses UNIX timetamps in seconds and milliseconds", () => {

@@ -387,6 +387,7 @@ export default function formatLocale(locale) {
 
 var pads = {"-": "", "_": " ", "0": "0"},
     numberRe = /^\s*\d+/, // note: ignores next directive
+    signedNumberRe = /^\s*-?\d+/, // for UNIX timestamps, which may be negative
     percentRe = /^%/,
     requoteRe = /[\\^$*+?|[\]().{}]/g;
 
@@ -500,12 +501,12 @@ function parseLiteralPercent(d, string, i) {
 }
 
 function parseUnixTimestamp(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = signedNumberRe.exec(string.slice(i));
   return n ? (d.Q = +n[0], i + n[0].length) : -1;
 }
 
 function parseUnixTimestampSeconds(d, string, i) {
-  var n = numberRe.exec(string.slice(i));
+  var n = signedNumberRe.exec(string.slice(i));
   return n ? (d.s = +n[0], i + n[0].length) : -1;
 }
 
