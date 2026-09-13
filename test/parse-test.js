@@ -23,16 +23,18 @@ it("timeParse(specifier) coerces the specified specifier to a string", () => {
 
 it("timeParse(\"%a %m/%d/%Y\")(date) parses abbreviated weekday and date", () => {
   const p = timeParse("%a %m/%d/%Y");
-  assert.deepStrictEqual(p("Sun 01/01/1990"), local(1990, 0, 1));
-  assert.deepStrictEqual(p("Wed 02/03/1991"), local(1991, 1, 3));
+  assert.deepStrictEqual(p("Mon 01/01/1990"), local(1990, 0, 1));
+  assert.deepStrictEqual(p("Sun 02/03/1991"), local(1991, 1, 3));
   assert.strictEqual(p("XXX 03/10/2010"), null);
+  assert.strictEqual(p("Tue 01/01/1990"), null);
 });
 
 it("timeParse(\"%A %m/%d/%Y\")(date) parses weekday and date", () => {
   const p = timeParse("%A %m/%d/%Y");
-  assert.deepStrictEqual(p("Sunday 01/01/1990"), local(1990, 0, 1));
-  assert.deepStrictEqual(p("Wednesday 02/03/1991"), local(1991, 1, 3));
+  assert.deepStrictEqual(p("Monday 01/01/1990"), local(1990, 0, 1));
+  assert.deepStrictEqual(p("Sunday 02/03/1991"), local(1991, 1, 3));
   assert.strictEqual(p("Caturday 03/10/2010"), null);
+  assert.strictEqual(p("Tuesday 01/01/1990"), null);
 });
 
 it("timeParse(\"%U %Y\")(date) parses week number (Sunday) and year", () => {

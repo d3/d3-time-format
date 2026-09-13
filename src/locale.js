@@ -239,6 +239,9 @@ export default function formatLocale(locale) {
         day = "Z" in d ? utcDate(newDate(d.y, 0, 1)).getUTCDay() : localDate(newDate(d.y, 0, 1)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
+      } else if ("w" in d || "u" in d) {
+        day = "Z" in d ? utcDate(newDate(d.y, d.m, d.d)).getUTCDay() : localDate(newDate(d.y, d.m, d.d)).getDay();
+        if ("w" in d && d.w !== day || "u" in d && d.u % 7 !== day) return null;
       }
 
       // If a time zone is specified, all fields are interpreted as UTC and then
