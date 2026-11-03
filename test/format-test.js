@@ -1,5 +1,5 @@
+import assert from "node:assert";
 import {it} from "vitest";
-import assert from "assert";
 import {timeSecond, timeMinute, timeHour, timeDay, timeMonth, timeWeek, timeYear} from "d3-time";
 import {timeFormat} from "../src/index.js";
 import {local} from "./date.js";

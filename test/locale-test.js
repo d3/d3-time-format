@@ -1,7 +1,7 @@
+import assert from "node:assert";
+import {readdirSync, readFileSync} from "node:fs";
+import {join} from "node:path";
 import {it} from "vitest";
-import assert from "assert";
-import {readdirSync, readFileSync} from "fs";
-import {join} from "path";
 import {timeFormatLocale} from "../src/index.js";
 
 it("locale data is valid", () => {
