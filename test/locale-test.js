@@ -1,9 +1,10 @@
+import {test} from "vitest";
 import assert from "assert";
 import {readdirSync, readFileSync} from "fs";
 import {join} from "path";
 import {timeFormatLocale} from "../src/index.js";
 
-it("locale data is valid", () => {
+test("locale data is valid", () => {
   for (const localePath of readdirSync("locale")) {
     if (!/\.json$/i.test(localePath)) continue;
     const locale = JSON.parse(readFileSync(join("locale", localePath), "utf8"));

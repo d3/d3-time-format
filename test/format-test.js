@@ -1,3 +1,4 @@
+import {test} from "vitest";
 import assert from "assert";
 import {timeSecond, timeMinute, timeHour, timeDay, timeMonth, timeWeek, timeYear} from "d3-time";
 import {timeFormat} from "../src/index.js";
@@ -22,7 +23,7 @@ function multi(d) {
       : formatYear)(d);
 }
 
-it("timeFormat(date) coerces the specified date to a Date", () => {
+test("timeFormat(date) coerces the specified date to a Date", () => {
   const f = timeFormat("%c");
   assert.strictEqual(f(+local(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
   assert.strictEqual(f(+local(1990, 0, 2)), "1/2/1990, 12:00:00 AM");
@@ -33,7 +34,7 @@ it("timeFormat(date) coerces the specified date to a Date", () => {
   assert.strictEqual(f(+local(1990, 0, 7)), "1/7/1990, 12:00:00 AM");
 });
 
-it("timeFormat(\"%a\")(date) formats abbreviated weekdays", () => {
+test("timeFormat(\"%a\")(date) formats abbreviated weekdays", () => {
   const f = timeFormat("%a");
   assert.strictEqual(f(local(1990, 0, 1)), "Mon");
   assert.strictEqual(f(local(1990, 0, 2)), "Tue");
@@ -44,7 +45,7 @@ it("timeFormat(\"%a\")(date) formats abbreviated weekdays", () => {
   assert.strictEqual(f(local(1990, 0, 7)), "Sun");
 });
 
-it("timeFormat(\"%A\")(date) formats weekdays", () => {
+test("timeFormat(\"%A\")(date) formats weekdays", () => {
   const f = timeFormat("%A");
   assert.strictEqual(f(local(1990, 0, 1)), "Monday");
   assert.strictEqual(f(local(1990, 0, 2)), "Tuesday");
@@ -55,7 +56,7 @@ it("timeFormat(\"%A\")(date) formats weekdays", () => {
   assert.strictEqual(f(local(1990, 0, 7)), "Sunday");
 });
 
-it("timeFormat(\"%b\")(date) formats abbreviated months", () => {
+test("timeFormat(\"%b\")(date) formats abbreviated months", () => {
   const f = timeFormat("%b");
   assert.strictEqual(f(local(1990,  0, 1)), "Jan");
   assert.strictEqual(f(local(1990,  1, 1)), "Feb");
@@ -71,7 +72,7 @@ it("timeFormat(\"%b\")(date) formats abbreviated months", () => {
   assert.strictEqual(f(local(1990, 11, 1)), "Dec");
 });
 
-it("timeFormat(\"%B\")(date) formats months", () => {
+test("timeFormat(\"%B\")(date) formats months", () => {
   const f = timeFormat("%B");
   assert.strictEqual(f(local(1990,  0, 1)), "January");
   assert.strictEqual(f(local(1990,  1, 1)), "February");
@@ -87,48 +88,48 @@ it("timeFormat(\"%B\")(date) formats months", () => {
   assert.strictEqual(f(local(1990, 11, 1)), "December");
 });
 
-it("timeFormat(\"%c\")(date) formats localized dates and times", () => {
+test("timeFormat(\"%c\")(date) formats localized dates and times", () => {
   const f = timeFormat("%c");
   assert.strictEqual(f(local(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
 });
 
-it("timeFormat(\"%d\")(date) formats zero-padded dates", () => {
+test("timeFormat(\"%d\")(date) formats zero-padded dates", () => {
   const f = timeFormat("%d");
   assert.strictEqual(f(local(1990, 0, 1)), "01");
 });
 
-it("timeFormat(\"%e\")(date) formats space-padded dates", () => {
+test("timeFormat(\"%e\")(date) formats space-padded dates", () => {
   const f = timeFormat("%e");
   assert.strictEqual(f(local(1990, 0, 1)), " 1");
 });
 
-it("timeFormat(\"%g\")(date) formats zero-padded two-digit ISO 8601 years", () => {
+test("timeFormat(\"%g\")(date) formats zero-padded two-digit ISO 8601 years", () => {
   const f = timeFormat("%g");
   assert.strictEqual(f(local(2018, 11, 30, 0)), "18"); // Sunday
   assert.strictEqual(f(local(2018, 11, 31, 0)), "19"); // Monday
   assert.strictEqual(f(local(2019, 0, 1, 0)), "19");
 });
 
-it("timeFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", () => {
+test("timeFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", () => {
   const f = timeFormat("%G");
   assert.strictEqual(f(local(2018, 11, 30, 0)), "2018"); // Sunday
   assert.strictEqual(f(local(2018, 11, 31, 0)), "2019"); // Monday
   assert.strictEqual(f(local(2019, 0, 1, 0)), "2019");
 });
 
-it("timeFormat(\"%H\")(date) formats zero-padded hours (24)", () => {
+test("timeFormat(\"%H\")(date) formats zero-padded hours (24)", () => {
   const f = timeFormat("%H");
   assert.strictEqual(f(local(1990, 0, 1,  0)), "00");
   assert.strictEqual(f(local(1990, 0, 1, 13)), "13");
 });
 
-it("timeFormat(\"%I\")(date) formats zero-padded hours (12)", () => {
+test("timeFormat(\"%I\")(date) formats zero-padded hours (12)", () => {
   const f = timeFormat("%I");
   assert.strictEqual(f(local(1990, 0, 1,  0)), "12");
   assert.strictEqual(f(local(1990, 0, 1, 13)), "01");
 });
 
-it("timeFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
+test("timeFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
   const f = timeFormat("%j");
   assert.strictEqual(f(local(1990,  0,  1)), "001");
   assert.strictEqual(f(local(1990,  5,  1)), "152");
@@ -140,25 +141,25 @@ it("timeFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
   assert.strictEqual(f(local(2010, 10,  8)), "312");
 });
 
-it("timeFormat(\"%m\")(date) formats zero-padded months", () => {
+test("timeFormat(\"%m\")(date) formats zero-padded months", () => {
   const f = timeFormat("%m");
   assert.strictEqual(f(local(1990, 0, 1)), "01");
   assert.strictEqual(f(local(1990, 9, 1)), "10");
 });
 
-it("timeFormat(\"%M\")(date) formats zero-padded minutes", () => {
+test("timeFormat(\"%M\")(date) formats zero-padded minutes", () => {
   const f = timeFormat("%M");
   assert.strictEqual(f(local(1990, 0, 1, 0,  0)), "00");
   assert.strictEqual(f(local(1990, 0, 1, 0, 32)), "32");
 });
 
-it("timeFormat(\"%p\")(date) formats AM or PM", () => {
+test("timeFormat(\"%p\")(date) formats AM or PM", () => {
   const f = timeFormat("%p");
   assert.strictEqual(f(local(1990, 0, 1,  0)), "AM");
   assert.strictEqual(f(local(1990, 0, 1, 13)), "PM");
 });
 
-it("timeFormat(\"%q\")(date) formats quarters", () => {
+test("timeFormat(\"%q\")(date) formats quarters", () => {
   const f = timeFormat("%q");
   assert.strictEqual(f(local(1990, 0, 1)), "1");
   assert.strictEqual(f(local(1990, 3, 1)), "2");
@@ -166,7 +167,7 @@ it("timeFormat(\"%q\")(date) formats quarters", () => {
   assert.strictEqual(f(local(1990, 9, 1)), "4");
 });
 
-it("timeFormat(\"%S\")(date) formats zero-padded seconds", () => {
+test("timeFormat(\"%S\")(date) formats zero-padded seconds", () => {
   const f = timeFormat("%S");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0,  0)), "00");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 32)), "32");
@@ -175,40 +176,40 @@ it("timeFormat(\"%S\")(date) formats zero-padded seconds", () => {
   assert.strictEqual(f2(local(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-it("timeFormat(\"%_S\")(date) formats space-padded seconds", () => {
+test("timeFormat(\"%_S\")(date) formats space-padded seconds", () => {
   const f = timeFormat("%_S");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0,  0)), " 0");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0,  3)), " 3");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-it("timeFormat(\"-S\")(date) formats no-padded seconds", () => {
+test("timeFormat(\"-S\")(date) formats no-padded seconds", () => {
   const f = timeFormat("%-S");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0,  0)), "0");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0,  3)), "3");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-it("timeFormat(\"%L\")(date) formats zero-padded milliseconds", () => {
+test("timeFormat(\"%L\")(date) formats zero-padded milliseconds", () => {
   const f = timeFormat("%L");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 0,   0)), "000");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 0, 432)), "432");
 });
 
-it("timeFormat(\"%u\")(date) formats week day numbers", () => {
+test("timeFormat(\"%u\")(date) formats week day numbers", () => {
   const f = timeFormat("%u");
   assert.strictEqual(f(local(1990,  0,  1,  0)), "1");
   assert.strictEqual(f(local(1990,  0,  7,  0)), "7");
   assert.strictEqual(f(local(2010,  2, 13, 23)), "6");
 });
 
-it("timeFormat(\"%f\")(date) formats zero-padded microseconds", () => {
+test("timeFormat(\"%f\")(date) formats zero-padded microseconds", () => {
   const f = timeFormat("%f");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 0,   0)), "000000");
   assert.strictEqual(f(local(1990, 0, 1, 0, 0, 0, 432)), "432000");
 });
 
-it("timeFormat(\"%U\")(date) formats zero-padded week numbers", () => {
+test("timeFormat(\"%U\")(date) formats zero-padded week numbers", () => {
   const f = timeFormat("%U");
   assert.strictEqual(f(local(1990,  0,  1,  0)), "00");
   assert.strictEqual(f(local(1990,  5,  1,  0)), "21");
@@ -221,7 +222,7 @@ it("timeFormat(\"%U\")(date) formats zero-padded week numbers", () => {
   assert.strictEqual(f(local(2012,  0,  1,  0)), "01"); // Sunday!
 });
 
-it("timeFormat(\"%W\")(date) formats zero-padded week numbers", () => {
+test("timeFormat(\"%W\")(date) formats zero-padded week numbers", () => {
   const f = timeFormat("%W");
   assert.strictEqual(f(local(1990,  0,  1,  0)), "01"); // Monday!
   assert.strictEqual(f(local(1990,  5,  1,  0)), "22");
@@ -229,7 +230,7 @@ it("timeFormat(\"%W\")(date) formats zero-padded week numbers", () => {
   assert.strictEqual(f(local(2010, 10,  8,  0)), "45");
 });
 
-it("timeFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => {
+test("timeFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => {
   const f = timeFormat("%V");
   assert.strictEqual(f(local(1990,  0,  1,  0)), "01");
   assert.strictEqual(f(local(1990,  5,  1,  0)), "22");
@@ -243,26 +244,26 @@ it("timeFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => {
   assert.strictEqual(f(local(2016,  0,  1,  0)), "53");
 });
 
-it("timeFormat(\"%x\")(date) formats localized dates", () => {
+test("timeFormat(\"%x\")(date) formats localized dates", () => {
   const f = timeFormat("%x");
   assert.strictEqual(f(local(1990, 0, 1)), "1/1/1990");
   assert.strictEqual(f(local(2010, 5, 1)), "6/1/2010");
 });
 
-it("timeFormat(\"%X\")(date) formats localized times", () => {
+test("timeFormat(\"%X\")(date) formats localized times", () => {
   const f = timeFormat("%X");
   assert.strictEqual(f(local(1990, 0, 1,  0,  0,  0)), "12:00:00 AM");
   assert.strictEqual(f(local(1990, 0, 1, 13, 34, 59)), "1:34:59 PM");
 });
 
-it("timeFormat(\"%y\")(date) formats zero-padded two-digit years", () => {
+test("timeFormat(\"%y\")(date) formats zero-padded two-digit years", () => {
   const f = timeFormat("%y");
   assert.strictEqual(f(local(+1990, 0, 1)), "90");
   assert.strictEqual(f(local(+2002, 0, 1)), "02");
   assert.strictEqual(f(local(-2, 0, 1)), "-02");
 });
 
-it("timeFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
+test("timeFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
   const f = timeFormat("%Y");
   assert.strictEqual(f(local(  123, 0, 1)), "0123");
   assert.strictEqual(f(local( 1990, 0, 1)), "1990");
@@ -271,17 +272,17 @@ it("timeFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
   assert.strictEqual(f(local(   -2, 0, 1)), "-0002");
 });
 
-it("timeFormat(\"%Z\")(date) formats time zones", () => {
+test("timeFormat(\"%Z\")(date) formats time zones", () => {
   const f = timeFormat("%Z");
   assert.strictEqual(f(local(1990, 0, 1)), "-0800");
 });
 
-it("timeFormat(\"%%\")(date) formats literal percent signs", () => {
+test("timeFormat(\"%%\")(date) formats literal percent signs", () => {
   const f = timeFormat("%%");
   assert.strictEqual(f(local(1990, 0, 1)), "%");
 });
 
-it("timeFormat(…) can be used to create a conditional multi-format", () => {
+test("timeFormat(…) can be used to create a conditional multi-format", () => {
   assert.strictEqual(multi(local(1990, 0, 1, 0, 0, 0, 12)), ".012");
   assert.strictEqual(multi(local(1990, 0, 1, 0, 0, 1,  0)), ":01");
   assert.strictEqual(multi(local(1990, 0, 1, 0, 1, 0,  0)), "12:01");
