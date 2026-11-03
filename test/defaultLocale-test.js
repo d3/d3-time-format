@@ -1,4 +1,4 @@
-import {test} from "vitest";
+import {it} from "vitest";
 import assert from "assert";
 import {readFileSync} from "fs";
 import {timeFormat, timeFormatDefaultLocale, timeParse, utcFormat, utcParse} from "../src/index.js";
@@ -6,23 +6,23 @@ import {timeFormat, timeFormatDefaultLocale, timeParse, utcFormat, utcParse} fro
 const enUs = JSON.parse(readFileSync("./locale/en-US.json"));
 const frFr = JSON.parse(readFileSync("./locale/fr-FR.json"));
 
-test("timeFormat(specifier) defaults to en-US", () => {
+it("timeFormat(specifier) defaults to en-US", () => {
   assert.strictEqual(timeFormat("%c")(new Date(2000, 0, 1)), "1/1/2000, 12:00:00 AM");
 });
 
-test("timeParse(specifier) defaults to en-US", () => {
+it("timeParse(specifier) defaults to en-US", () => {
   assert.strictEqual(+timeParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(2000, 0, 1));
 });
 
-test("utcFormat(specifier) defaults to en-US", () => {
+it("utcFormat(specifier) defaults to en-US", () => {
   assert.strictEqual(utcFormat("%c")(new Date(Date.UTC(2000, 0, 1))), "1/1/2000, 12:00:00 AM");
 });
 
-test("utcParse(specifier) defaults to en-US", () => {
+it("utcParse(specifier) defaults to en-US", () => {
   assert.strictEqual(+utcParse("%c")("1/1/2000, 12:00:00 AM"), +new Date(Date.UTC(2000, 0, 1)));
 });
 
-test("timeFormatDefaultLocale(definition) returns the new default locale", () => {
+it("timeFormatDefaultLocale(definition) returns the new default locale", () => {
   const locale = timeFormatDefaultLocale(frFr);
   try {
     assert.strictEqual(locale.format("%c")(new Date(2000, 0, 1)), "samedi  1 janvier 2000 à 00:00:00");
@@ -31,7 +31,7 @@ test("timeFormatDefaultLocale(definition) returns the new default locale", () =>
   }
 });
 
-test("timeFormatDefaultLocale(definition) affects timeFormat", () => {
+it("timeFormatDefaultLocale(definition) affects timeFormat", () => {
   const locale = timeFormatDefaultLocale(frFr);
   try {
     assert.strictEqual(timeFormat, locale.format);
@@ -41,7 +41,7 @@ test("timeFormatDefaultLocale(definition) affects timeFormat", () => {
   }
 });
 
-test("timeFormatDefaultLocale(definition) affects timeParse", () => {
+it("timeFormatDefaultLocale(definition) affects timeParse", () => {
   const locale = timeFormatDefaultLocale(frFr);
   try {
     assert.strictEqual(timeParse, locale.parse);
@@ -51,7 +51,7 @@ test("timeFormatDefaultLocale(definition) affects timeParse", () => {
   }
 });
 
-test("timeFormatDefaultLocale(definition) affects utcFormat", () => {
+it("timeFormatDefaultLocale(definition) affects utcFormat", () => {
   const locale = timeFormatDefaultLocale(frFr);
   try {
     assert.strictEqual(utcFormat, locale.utcFormat);
@@ -61,7 +61,7 @@ test("timeFormatDefaultLocale(definition) affects utcFormat", () => {
   }
 });
 
-test("timeFormatDefaultLocale(definition) affects utcParse", () => {
+it("timeFormatDefaultLocale(definition) affects utcParse", () => {
   const locale = timeFormatDefaultLocale(frFr);
   try {
     assert.strictEqual(utcParse, locale.utcParse);

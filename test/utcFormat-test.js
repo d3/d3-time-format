@@ -1,4 +1,4 @@
-import {test} from "vitest";
+import {it} from "vitest";
 import assert from "assert";
 import {utcSecond, utcMinute, utcHour, utcDay, utcMonth, utcWeek, utcYear} from "d3-time";
 import {utcFormat} from "../src/index.js";
@@ -23,7 +23,7 @@ function multi(d) {
       : formatYear)(d);
 }
 
-test("utcFormat(\"%a\")(date) formats abbreviated weekdays", () => {
+it("utcFormat(\"%a\")(date) formats abbreviated weekdays", () => {
   const f = utcFormat("%a");
   assert.strictEqual(f(utc(1990, 0, 1)), "Mon");
   assert.strictEqual(f(utc(1990, 0, 2)), "Tue");
@@ -34,7 +34,7 @@ test("utcFormat(\"%a\")(date) formats abbreviated weekdays", () => {
   assert.strictEqual(f(utc(1990, 0, 7)), "Sun");
 });
 
-test("utcFormat(\"%A\")(date) formats weekdays", () => {
+it("utcFormat(\"%A\")(date) formats weekdays", () => {
   const f = utcFormat("%A");
   assert.strictEqual(f(utc(1990, 0, 1)), "Monday");
   assert.strictEqual(f(utc(1990, 0, 2)), "Tuesday");
@@ -45,7 +45,7 @@ test("utcFormat(\"%A\")(date) formats weekdays", () => {
   assert.strictEqual(f(utc(1990, 0, 7)), "Sunday");
 });
 
-test("utcFormat(\"%b\")(date) formats abbreviated months", () => {
+it("utcFormat(\"%b\")(date) formats abbreviated months", () => {
   const f = utcFormat("%b");
   assert.strictEqual(f(utc(1990,  0, 1)), "Jan");
   assert.strictEqual(f(utc(1990,  1, 1)), "Feb");
@@ -61,7 +61,7 @@ test("utcFormat(\"%b\")(date) formats abbreviated months", () => {
   assert.strictEqual(f(utc(1990, 11, 1)), "Dec");
 });
 
-test("utcFormat(\"%B\")(date) formats months", () => {
+it("utcFormat(\"%B\")(date) formats months", () => {
   const f = utcFormat("%B");
   assert.strictEqual(f(utc(1990,  0, 1)), "January");
   assert.strictEqual(f(utc(1990,  1, 1)), "February");
@@ -77,48 +77,48 @@ test("utcFormat(\"%B\")(date) formats months", () => {
   assert.strictEqual(f(utc(1990, 11, 1)), "December");
 });
 
-test("utcFormat(\"%c\")(date) formats localized dates and times", () => {
+it("utcFormat(\"%c\")(date) formats localized dates and times", () => {
   const f = utcFormat("%c");
   assert.strictEqual(f(utc(1990, 0, 1)), "1/1/1990, 12:00:00 AM");
 });
 
-test("utcFormat(\"%d\")(date) formats zero-padded dates", () => {
+it("utcFormat(\"%d\")(date) formats zero-padded dates", () => {
   const f = utcFormat("%d");
   assert.strictEqual(f(utc(1990, 0, 1)), "01");
 });
 
-test("utcFormat(\"%e\")(date) formats space-padded dates", () => {
+it("utcFormat(\"%e\")(date) formats space-padded dates", () => {
   const f = utcFormat("%e");
   assert.strictEqual(f(utc(1990, 0, 1)), " 1");
 });
 
-test("timeFormat(\"%g\")(date) formats zero-padded two-digit ISO 8601 years", () => {
+it("timeFormat(\"%g\")(date) formats zero-padded two-digit ISO 8601 years", () => {
   const f = utcFormat("%g");
   assert.strictEqual(f(utc(2018, 11, 30, 0)), "18"); // Sunday
   assert.strictEqual(f(utc(2018, 11, 31, 0)), "19"); // Monday
   assert.strictEqual(f(utc(2019, 0, 1, 0)), "19");
 });
 
-test("utcFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", () => {
+it("utcFormat(\"%G\")(date) formats zero-padded four-digit ISO 8601 years", () => {
   const f = utcFormat("%G");
   assert.strictEqual(f(utc(2018, 11, 30, 0)), "2018"); // Sunday
   assert.strictEqual(f(utc(2018, 11, 31, 0)), "2019"); // Monday
   assert.strictEqual(f(utc(2019, 0, 1, 0)), "2019");
 });
 
-test("utcFormat(\"%H\")(date) formats zero-padded hours (24)", () => {
+it("utcFormat(\"%H\")(date) formats zero-padded hours (24)", () => {
   const f = utcFormat("%H");
   assert.strictEqual(f(utc(1990, 0, 1,  0)), "00");
   assert.strictEqual(f(utc(1990, 0, 1, 13)), "13");
 });
 
-test("utcFormat(\"%I\")(date) formats zero-padded hours (12)", () => {
+it("utcFormat(\"%I\")(date) formats zero-padded hours (12)", () => {
   const f = utcFormat("%I");
   assert.strictEqual(f(utc(1990, 0, 1,  0)), "12");
   assert.strictEqual(f(utc(1990, 0, 1, 13)), "01");
 });
 
-test("utcFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
+it("utcFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
   const f = utcFormat("%j");
   assert.strictEqual(f(utc(1990,  0,  1)), "001");
   assert.strictEqual(f(utc(1990,  5,  1)), "152");
@@ -130,25 +130,25 @@ test("utcFormat(\"%j\")(date) formats zero-padded day of year numbers", () => {
   assert.strictEqual(f(utc(2010, 10,  8)), "312");
 });
 
-test("utcFormat(\"%m\")(date) formats zero-padded months", () => {
+it("utcFormat(\"%m\")(date) formats zero-padded months", () => {
   const f = utcFormat("%m");
   assert.strictEqual(f(utc(1990, 0, 1)), "01");
   assert.strictEqual(f(utc(1990, 9, 1)), "10");
 });
 
-test("utcFormat(\"%M\")(date) formats zero-padded minutes", () => {
+it("utcFormat(\"%M\")(date) formats zero-padded minutes", () => {
   const f = utcFormat("%M");
   assert.strictEqual(f(utc(1990, 0, 1, 0,  0)), "00");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 32)), "32");
 });
 
-test("utcFormat(\"%p\")(date) formats AM or PM", () => {
+it("utcFormat(\"%p\")(date) formats AM or PM", () => {
   const f = utcFormat("%p");
   assert.strictEqual(f(utc(1990, 0, 1,  0)), "AM");
   assert.strictEqual(f(utc(1990, 0, 1, 13)), "PM");
 });
 
-test("utcFormat(\"%q\")(date) formats quarters", () => {
+it("utcFormat(\"%q\")(date) formats quarters", () => {
   const f = utcFormat("%q");
   assert.strictEqual(f(utc(1990, 0, 1)), "1");
   assert.strictEqual(f(utc(1990, 3, 1)), "2");
@@ -156,33 +156,33 @@ test("utcFormat(\"%q\")(date) formats quarters", () => {
   assert.strictEqual(f(utc(1990, 9, 1)), "4");
 });
 
-test("utcFormat(\"%Q\")(date) formats UNIX timestamps", () => {
+it("utcFormat(\"%Q\")(date) formats UNIX timestamps", () => {
   const f = utcFormat("%Q");
   assert.strictEqual(f(utc(1970, 0, 1,  0,  0,  0)), "0");
   assert.strictEqual(f(utc(1990, 0, 1,  0,  0,  0)), "631152000000");
   assert.strictEqual(f(utc(1990, 0, 1, 12, 34, 56)), "631197296000");
 });
 
-test("utcFormat(\"%s\")(date) formats UNIX timetamps in seconds", () => {
+it("utcFormat(\"%s\")(date) formats UNIX timetamps in seconds", () => {
   const f = utcFormat("%s");
   assert.strictEqual(f(utc(1970, 0, 1,  0,  0,  0)), "0");
   assert.strictEqual(f(utc(1990, 0, 1,  0,  0,  0)), "631152000");
   assert.strictEqual(f(utc(1990, 0, 1, 12, 34, 56)), "631197296");
 });
 
-test("utcFormat(\"%s.%L\")(date) formats UNIX timetamps in seconds and milliseconds", () => {
+it("utcFormat(\"%s.%L\")(date) formats UNIX timetamps in seconds and milliseconds", () => {
   const f = utcFormat("%s.%L");
   assert.strictEqual(f(utc(1990, 0, 1,  0,  0,  0, 123)), "631152000.123");
   assert.strictEqual(f(utc(1990, 0, 1, 12, 34, 56, 789)), "631197296.789");
 });
 
-test("utcFormat(\"%s.%f\")(date) formats UNIX timetamps in seconds and microseconds", () => {
+it("utcFormat(\"%s.%f\")(date) formats UNIX timetamps in seconds and microseconds", () => {
   const f = utcFormat("%s.%f");
   assert.strictEqual(f(utc(1990, 0, 1,  0,  0,  0, 123)), "631152000.123000");
   assert.strictEqual(f(utc(1990, 0, 1, 12, 34, 56, 789)), "631197296.789000");
 });
 
-test("utcFormat(\"%S\")(date) formats zero-padded seconds", () => {
+it("utcFormat(\"%S\")(date) formats zero-padded seconds", () => {
   const f = utcFormat("%S");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0,  0)), "00");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 32)), "32");
@@ -191,40 +191,40 @@ test("utcFormat(\"%S\")(date) formats zero-padded seconds", () => {
   assert.strictEqual(f2(utc(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-test("utcFormat(\"%_S\")(date) formats space-padded seconds", () => {
+it("utcFormat(\"%_S\")(date) formats space-padded seconds", () => {
   const f = utcFormat("%_S");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0,  0)), " 0");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0,  3)), " 3");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-test("utcFormat(\"-S\")(date) formats no-padded seconds", () => {
+it("utcFormat(\"-S\")(date) formats no-padded seconds", () => {
   const f = utcFormat("%-S");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0,  0)), "0");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0,  3)), "3");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 32)), "32");
 });
 
-test("utcFormat(\"%L\")(date) formats zero-padded milliseconds", () => {
+it("utcFormat(\"%L\")(date) formats zero-padded milliseconds", () => {
   const f = utcFormat("%L");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 0,   0)), "000");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 0, 432)), "432");
 });
 
-test("utcFormat(\"%u\")(date) formats week day numbers", () => {
+it("utcFormat(\"%u\")(date) formats week day numbers", () => {
   const f = utcFormat("%u");
   assert.strictEqual(f(utc(1990,  0,  1,  0)), "1");
   assert.strictEqual(f(utc(1990,  0,  7,  0)), "7");
   assert.strictEqual(f(utc(2010,  2, 13, 23)), "6");
 });
 
-test("utcFormat(\"%f\")(date) formats zero-padded microseconds", () => {
+it("utcFormat(\"%f\")(date) formats zero-padded microseconds", () => {
   const f = utcFormat("%f");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 0,   0)), "000000");
   assert.strictEqual(f(utc(1990, 0, 1, 0, 0, 0, 432)), "432000");
 });
 
-test("utcFormat(\"%U\")(date) formats zero-padded week numbers", () => {
+it("utcFormat(\"%U\")(date) formats zero-padded week numbers", () => {
   const f = utcFormat("%U");
   assert.strictEqual(f(utc(1990,  0,  1,  0)), "00");
   assert.strictEqual(f(utc(1990,  5,  1,  0)), "21");
@@ -237,7 +237,7 @@ test("utcFormat(\"%U\")(date) formats zero-padded week numbers", () => {
   assert.strictEqual(f(utc(2012,  0,  1,  0)), "01"); // Sunday!
 });
 
-test("utcFormat(\"%W\")(date) formats zero-padded week numbers", () => {
+it("utcFormat(\"%W\")(date) formats zero-padded week numbers", () => {
   const f = utcFormat("%W");
   assert.strictEqual(f(utc(1990,  0,  1,  0)), "01"); // Monday!
   assert.strictEqual(f(utc(1990,  5,  1,  0)), "22");
@@ -245,7 +245,7 @@ test("utcFormat(\"%W\")(date) formats zero-padded week numbers", () => {
   assert.strictEqual(f(utc(2010, 10,  8,  0)), "45");
 });
 
-test("utcFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => {
+it("utcFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => {
   const f = utcFormat("%V");
   assert.strictEqual(f(utc(1990,  0,  1,  0)), "01");
   assert.strictEqual(f(utc(1990,  5,  1,  0)), "22");
@@ -259,26 +259,26 @@ test("utcFormat(\"%V\")(date) formats zero-padded ISO 8601 week numbers", () => 
   assert.strictEqual(f(utc(2016,  0,  1,  0)), "53");
 });
 
-test("utcFormat(\"%x\")(date) formats localized dates", () => {
+it("utcFormat(\"%x\")(date) formats localized dates", () => {
   const f = utcFormat("%x");
   assert.strictEqual(f(utc(1990, 0, 1)), "1/1/1990");
   assert.strictEqual(f(utc(2010, 5, 1)), "6/1/2010");
 });
 
-test("utcFormat(\"%X\")(date) formats localized times", () => {
+it("utcFormat(\"%X\")(date) formats localized times", () => {
   const f = utcFormat("%X");
   assert.strictEqual(f(utc(1990, 0, 1,  0,  0,  0)), "12:00:00 AM");
   assert.strictEqual(f(utc(1990, 0, 1, 13, 34, 59)), "1:34:59 PM");
 });
 
-test("utcFormat(\"%y\")(date) formats zero-padded two-digit years", () => {
+it("utcFormat(\"%y\")(date) formats zero-padded two-digit years", () => {
   const f = utcFormat("%y");
   assert.strictEqual(f(utc(+1990, 0, 1)), "90");
   assert.strictEqual(f(utc(+2002, 0, 1)), "02");
   assert.strictEqual(f(utc(-2, 0, 1)), "-02");
 });
 
-test("utcFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
+it("utcFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
   const f = utcFormat("%Y");
   assert.strictEqual(f(utc(  123, 0, 1)), "0123");
   assert.strictEqual(f(utc( 1990, 0, 1)), "1990");
@@ -287,17 +287,17 @@ test("utcFormat(\"%Y\")(date) formats zero-padded four-digit years", () => {
   assert.strictEqual(f(utc(   -2, 0, 1)), "-0002");
 });
 
-test("utcFormat(\"%Z\")(date) formats time zones", () => {
+it("utcFormat(\"%Z\")(date) formats time zones", () => {
   const f = utcFormat("%Z");
   assert.strictEqual(f(utc(1990, 0, 1)), "+0000");
 });
 
-test("utcFormat(\"%%\")(date) formats literal percent signs", () => {
+it("utcFormat(\"%%\")(date) formats literal percent signs", () => {
   const f = utcFormat("%%");
   assert.strictEqual(f(utc(1990, 0, 1)), "%");
 });
 
-test("utcFormat(…) can be used to create a conditional multi-format", () => {
+it("utcFormat(…) can be used to create a conditional multi-format", () => {
   assert.strictEqual(multi(utc(1990, 0, 1, 0, 0, 0, 12)), ".012");
   assert.strictEqual(multi(utc(1990, 0, 1, 0, 0, 1,  0)), ":01");
   assert.strictEqual(multi(utc(1990, 0, 1, 0, 1, 0,  0)), "12:01");
