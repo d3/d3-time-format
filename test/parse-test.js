@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import {readFileSync} from "node:fs";
 import {it} from "vitest";
-import {timeFormatLocale, timeParse} from "../src/index.js";
+import {timeFormatLocale, timeParse} from "d3-time-format";
 import {local} from "./date.js";
 
 const fiFi = JSON.parse(readFileSync("./locale/fi-FI.json"));

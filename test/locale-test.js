@@ -2,7 +2,7 @@ import assert from "node:assert";
 import {readdirSync, readFileSync} from "node:fs";
 import {join} from "node:path";
 import {it} from "vitest";
-import {timeFormatLocale} from "../src/index.js";
+import {timeFormatLocale} from "d3-time-format";
 
 it("locale data is valid", () => {
   for (const localePath of readdirSync("locale")) {

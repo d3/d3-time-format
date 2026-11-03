@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {isoParse} from "../src/index.js";
+import {isoParse} from "d3-time-format";
 import {utc} from "./date.js";
 
 it("isoParse as ISO 8601", () => {

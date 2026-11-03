@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import {it} from "vitest";
-import {utcParse} from "../src/index.js";
+import {utcParse} from "d3-time-format";
 import {local, utc} from "./date.js";
 
 it("utcParse(specifier) coerces the specified specifier to a string", () => {
