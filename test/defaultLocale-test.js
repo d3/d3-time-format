@@ -1,6 +1,7 @@
-import assert from "assert";
-import {readFileSync} from "fs";
-import {timeFormat, timeFormatDefaultLocale, timeParse, utcFormat, utcParse} from "../src/index.js";
+import assert from "node:assert";
+import {readFileSync} from "node:fs";
+import {it} from "vitest";
+import {timeFormat, timeFormatDefaultLocale, timeParse, utcFormat, utcParse} from "d3-time-format";
 
 const enUs = JSON.parse(readFileSync("./locale/en-US.json"));
 const frFr = JSON.parse(readFileSync("./locale/fr-FR.json"));

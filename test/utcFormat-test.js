@@ -1,6 +1,7 @@
-import assert from "assert";
+import assert from "node:assert";
+import {it} from "vitest";
 import {utcSecond, utcMinute, utcHour, utcDay, utcMonth, utcWeek, utcYear} from "d3-time";
-import {utcFormat} from "../src/index.js";
+import {utcFormat} from "d3-time-format";
 import {utc} from "./date.js";
 
 const formatMillisecond = utcFormat(".%L"),
