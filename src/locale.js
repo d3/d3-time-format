@@ -13,8 +13,9 @@ import {
 
 function localDate(d) {
   if (0 <= d.y && d.y < 100) {
-    var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
-    date.setFullYear(d.y);
+    var date = new Date(-1, 0, 1);
+    date.setFullYear(d.y, d.m, d.d);
+    date.setHours(d.H, d.M, d.S, d.L);
     return date;
   }
   return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
@@ -22,8 +23,9 @@ function localDate(d) {
 
 function utcDate(d) {
   if (0 <= d.y && d.y < 100) {
-    var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
-    date.setUTCFullYear(d.y);
+    var date = new Date(Date.UTC(-1, 0, 1));
+    date.setUTCFullYear(d.y, d.m, d.d);
+    date.setUTCHours(d.H, d.M, d.S, d.L);
     return date;
   }
   return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
