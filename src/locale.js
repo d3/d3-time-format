@@ -133,8 +133,8 @@ export default function formatLocale(locale) {
     "d": parseDayOfMonth,
     "e": parseDayOfMonth,
     "f": parseMicroseconds,
-    "g": parseYear,
-    "G": parseFullYear,
+    "g": parseYearISO,
+    "G": parseFullYearISO,
     "H": parseHour24,
     "I": parseHour24,
     "j": parseDayOfYear,
@@ -197,7 +197,7 @@ export default function formatLocale(locale) {
 
   function newParse(specifier, Z) {
     return function(string) {
-      var d = newDate(1900, undefined, 1),
+      var d = newDate(undefined, undefined, 1),
           i = parseSpecifier(d, specifier, string += "", 0),
           week, day;
       if (i != string.length) return null;
@@ -205,6 +205,9 @@ export default function formatLocale(locale) {
       // If a UNIX timestamp is specified, return it.
       if ("Q" in d) return new Date(d.Q);
       if ("s" in d) return new Date(d.s * 1000 + ("L" in d ? d.L : 0));
+
+      // Use the ISO year as a fallback when no calendar year was specified.
+      if (d.y === undefined) d.y = "G" in d ? d.G : 1900;
 
       // If this is utcParse, never use the local timezone.
       if (Z && !("Z" in d)) d.Z = 0;
@@ -218,6 +221,7 @@ export default function formatLocale(locale) {
       // Convert day-of-week and week-of-year to day-of-year.
       if ("V" in d) {
         if (d.V < 1 || d.V > 53) return null;
+        if ("G" in d) d.y = d.G;
         if (!("w" in d)) d.w = 1;
         if ("Z" in d) {
           week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
@@ -442,6 +446,16 @@ function parseFullYear(d, string, i) {
 function parseYear(d, string, i) {
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+}
+
+function parseFullYearISO(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 4));
+  return n ? (d.G = +n[0], i + n[0].length) : -1;
+}
+
+function parseYearISO(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 2));
+  return n ? (d.G = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
 }
 
 function parseZone(d, string, i) {
